@@ -19,3 +19,21 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
 {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 } // if
+
+/**
+ * Activate the plugin.
+ */
+function rm_activate_plugin()
+{
+	Inc\RMActivator::activate();
+} // RM ACTIVATE PLUGIN
+register_activation_hook( __FILE__, 'rm_activate_plugin' );
+
+/**
+ * Deactivate the plugin.
+ */
+function rm_deactivate_plugin()
+{
+	Inc\RMDeactivator::deactivate();
+} // RM DEACTIVATE PLUGIN
+register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );

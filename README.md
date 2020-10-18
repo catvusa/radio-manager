@@ -1,10 +1,10 @@
 # Radio Manager
 (2020) A Wordpress plugin for managing your own custom web radios.
 
-1. Install all dependencies
+At first, install all dependencies:
 
 ```
 composer install
 ```
 
-2. Insert the plugin into the website.
+At second, insert the plugin into the website.
