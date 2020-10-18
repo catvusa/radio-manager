@@ -13,3 +13,9 @@
 
 # Prevent a public user from direct access
 defined( 'ABSPATH' ) or die( 'Forbidden' );
+
+# Load the composer autoloader
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
+{
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+} // if
