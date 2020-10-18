@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) or die( 'Forbidden' );
 # Load the composer autoloader
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
 {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 } // if
 
 /**
@@ -25,7 +25,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
  */
 function rm_activate_plugin()
 {
-	Inc\RMActivator::activate();
+    Inc\RMActivator::activate();
 } // RM ACTIVATE PLUGIN
 register_activation_hook( __FILE__, 'rm_activate_plugin' );
 
@@ -34,6 +34,6 @@ register_activation_hook( __FILE__, 'rm_activate_plugin' );
  */
 function rm_deactivate_plugin()
 {
-	Inc\RMDeactivator::deactivate();
+    Inc\RMDeactivator::deactivate();
 } // RM DEACTIVATE PLUGIN
 register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );

@@ -7,9 +7,9 @@ namespace Inc;
  */
 class RMActivator
 {
-	public static function activate()
-	{
-		# Refresh all permalinks
-		flush_rewrite_rules();
-	} // ACTIVATE
+    public static function activate()
+    {
+        # Refresh all permalinks
+        flush_rewrite_rules();
+    } // ACTIVATE
 } // RMACTIVATOR

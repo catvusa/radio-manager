@@ -7,9 +7,9 @@ namespace Inc;
  */
 class RMDeactivator
 {
-	public static function deactivate()
-	{
-		# Refresh all permalinks
-		flush_rewrite_rules();
-	} // DEACTIVATE
+    public static function deactivate()
+    {
+        # Refresh all permalinks
+        flush_rewrite_rules();
+    } // DEACTIVATE
 } // RMDEACTIVATOR
