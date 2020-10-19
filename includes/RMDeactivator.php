@@ -12,4 +12,4 @@ class RMDeactivator
         # Refresh all permalinks
         flush_rewrite_rules();
     } // DEACTIVATE
-} // RMDEACTIVATOR
+} // RM DEACTIVATOR

@@ -25,7 +25,10 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
  */
 function rm_activate_plugin()
 {
-    Inc\RMActivator::activate();
+    if ( class_exists( 'Inc\\RMActivator' ) )
+    {
+        Inc\RMActivator::activate();
+    } // if
 } // RM ACTIVATE PLUGIN
 register_activation_hook( __FILE__, 'rm_activate_plugin' );
 
@@ -34,6 +37,15 @@ register_activation_hook( __FILE__, 'rm_activate_plugin' );
  */
 function rm_deactivate_plugin()
 {
-    Inc\RMDeactivator::deactivate();
+    if ( class_exists( 'Inc\\RMDeactivator' ) )
+    {
+        Inc\RMDeactivator::deactivate();
+    } // if
 } // RM DEACTIVATE PLUGIN
 register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );
+
+# Install all components of the plugin
+if ( class_exists( 'Inc\\RMManager' ) )
+{
+	( new Inc\RMManager() )->install();
+} // if
