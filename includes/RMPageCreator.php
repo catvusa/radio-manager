@@ -3,7 +3,7 @@
 namespace Inc;
 
 /**
- * This class is used for creating all menu and submenu pages.
+ * This class is used for creating all menu and submenu pages including links.
  */
 class RMPageCreator
 {
@@ -93,17 +93,17 @@ class RMPageCreator
     {
         foreach ( $this->links as $link )
         {
-			# Put the link before or after the default 'Deactivate' link
-			if ($link['order'] == 'before')
-			{
-				array_unshift($links, $link['link']);
-			} // if
-			else if ($link['order'] == 'after')
-			{
-				array_push($links, $link['link']);
-			} // else if
+            # Put the link before or after the default 'Deactivate' link
+            if ($link['order'] == 'before')
+            {
+                array_unshift($links, $link['link']);
+            } // if
+            else if ($link['order'] == 'after')
+            {
+                array_push($links, $link['link']);
+            } // else if
         } // foreach
-		
-		return $links;
+        
+        return $links;
     } // CREATE LINKS
 } // RM PAGE CREATOR

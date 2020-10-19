@@ -27,13 +27,13 @@ class RMManager
      */	
     public function install()
     {
-        $this->installPages();
+        $this->installPagesAndLinks();
     } // INSTALL
     
     /**
      * Install all menu and submenu pages.
      */
-    public function installPages()
+    public function installPagesAndLinks()
     {
         $page_creator = new RMPageCreator();
         $main_page_title = 'Dashboard';
@@ -117,5 +117,5 @@ class RMManager
             ]
         );
         $page_creator->install( $this->plugin_file );
-    } // INSTALL PAGES
+    } // INSTALL PAGES AND LINKS
 } // RM MANAGER
