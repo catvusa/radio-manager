@@ -3,12 +3,13 @@
 namespace Inc;
 
 /**
- * This class is used for creating all menu or submenu pages.
+ * This class is used for creating all menu and submenu pages.
  */
 class RMPageCreator
 {
     private $menu_pages;
     private $submenu_pages;
+    private $links;
     
     /**
      * Initialize all attributes.
@@ -17,8 +18,9 @@ class RMPageCreator
     {
         $menu_pages = [];
         $submenu_pages = [];
+        $links = [];
     } // CONSTRUCTOR
-	
+    
     /**
      * Add menu pages to create.
      */
@@ -36,15 +38,24 @@ class RMPageCreator
     } // ADD SUBMENU PAGES
     
     /**
-     * Bind the creation of pages with the specific hook.
-     */
-    public function install()
+     * Add links to create.
+     */	
+    public function addLinks( array $links )
     {
-        add_action( 'admin_menu', [ $this, 'createPages' ] );
-    } // REGISTER
+        $this->links = $links;
+    } // ADD LINKS
     
     /**
-     * Create all menu or submenu pages.
+     * Bind the creation of pages and links with hooks.
+     */
+    public function install( string $plugin_file )
+    {
+        add_action( 'admin_menu', [ $this, 'createPages' ] );
+        add_filter( "plugin_action_links_{$plugin_file}", [ $this, 'createLinks' ] );
+    } // INSTALL
+    
+    /**
+     * Create all menu or submenu pages (visible in the left panel).
      */
     public function createPages()
     {
@@ -74,4 +85,25 @@ class RMPageCreator
             );
         } // foreach
     } // CREATE PAGES
+    
+    /**
+     * Create all links (visible in the "Installed Plugins" nearby this plugin).
+     */
+    public function createLinks( $links )
+    {
+        foreach ( $this->links as $link )
+        {
+			# Put the link before or after the default 'Deactivate' link
+			if ($link['order'] == 'before')
+			{
+				array_unshift($links, $link['link']);
+			} // if
+			else if ($link['order'] == 'after')
+			{
+				array_push($links, $link['link']);
+			} // else if
+        } // foreach
+		
+		return $links;
+    } // CREATE LINKS
 } // RM PAGE CREATOR

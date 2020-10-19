@@ -15,7 +15,7 @@
 defined( 'ABSPATH' ) or die( 'Forbidden' );
 
 # Load the composer autoloader
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') )
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) )
 {
     require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 } // if
@@ -47,5 +47,5 @@ register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );
 # Install all components of the plugin
 if ( class_exists( 'Inc\\RMManager' ) )
 {
-	( new Inc\RMManager() )->install();
+    ( new Inc\RMManager( plugin_basename( __FILE__ ) ) )->install();
 } // if
