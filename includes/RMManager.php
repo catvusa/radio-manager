@@ -16,8 +16,9 @@ class RMManager
      */ 
     public function install()
     {
-        RMMenuAndLinksCreator::installMenuAndLinks();
+        RMMenuAndLinkCreator::installMenuAndLinks();
         RMPostTypeCreator::installPostTypes();
         RMTaxonomyCreator::installTaxonomies();
+        RMRepeaterFieldCreator::installRepeaterFields();
     } // INSTALL
 } // RM MANAGER

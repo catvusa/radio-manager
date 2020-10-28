@@ -50,7 +50,7 @@ if ( class_exists( 'Inc\\RMManager' ) )
     ( new Inc\RMManager() )->install();
 } // if
 
-# Contants
+# Constants
 define( 'RM_PLUGIN_NAME', 'Radio Manager' );
 
 define( 'RM_MAIN_PAGE_TITLE', 'Dashboard' );

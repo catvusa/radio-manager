@@ -5,7 +5,7 @@ namespace Inc;
 /**
  * This class is used for creating all menu and submenu pages including links.
  */
-class RMMenuAndLinksCreator
+class RMMenuAndLinkCreator
 {
     /**
      * Bind the creation of menu and links with hooks.
@@ -77,4 +77,4 @@ class RMMenuAndLinksCreator
         
         return $links;
     } // CREATE LINKS
-} // RM PAGE CREATOR
+} // RM MENU AND LINKS CREATOR
