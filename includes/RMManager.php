@@ -2,10 +2,6 @@
 
 namespace Inc;
 
-use Inc\RMPageCreator;
-use Inc\RMPostTypeCreator;
-use Inc\RMTaxonomyCreator;
-
 /**
  * This class is used for building the plugin.
  */
@@ -20,5 +16,7 @@ class RMManager
         RMPostTypeCreator::installPostTypes();
         RMTaxonomyCreator::installTaxonomies();
         RMRepeaterFieldCreator::installRepeaterFields();
+        RMMetaBoxCreator::installMetaBoxes();
+        RMShortcodeCreator::installShortcodes();
     } // INSTALL
 } // RM MANAGER

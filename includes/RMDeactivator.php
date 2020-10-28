@@ -2,8 +2,6 @@
 
 namespace Inc;
 
-use Inc\RMPostTypeCreator;
-
 /**
  * This class is used for a deactivation of the plugin.
  */
