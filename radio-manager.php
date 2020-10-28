@@ -47,5 +47,19 @@ register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );
 # Install all components of the plugin
 if ( class_exists( 'Inc\\RMManager' ) )
 {
-    ( new Inc\RMManager( plugin_basename( __FILE__ ) ) )->install();
+    ( new Inc\RMManager() )->install();
 } // if
+
+# Contants
+define( 'RM_PLUGIN_NAME', 'Radio Manager' );
+
+define( 'RM_MAIN_PAGE_TITLE', 'Dashboard' );
+define( 'RM_MAIN_PAGE_SLUG', 'rm_menu_dashboard' );
+
+define( 'RM_GENRES_PAGE_TITLE', 'Genres' );
+define( 'RM_GENRES_PAGE_SLUG', 'edit-tags.php?taxonomy=genre' );
+
+define( 'RM_HELP_PAGE_TITLE', 'Help' );
+define( 'RM_HELP_PAGE_SLUG', 'rm_menu_help' );
+
+define( 'RM_CAPABILITY', 'manage_options' );
