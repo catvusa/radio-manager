@@ -10,7 +10,7 @@ class RMPostTypeCreator
     /**
      * Bind the creation of custom post types with the specific hook.
      */
-    public static function installPostTypes()
+    public static function install()
     {
         add_action( 'init', [ __CLASS__, 'createPostTypes' ] );
     } // INSTALL POST TYPES

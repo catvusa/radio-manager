@@ -10,7 +10,7 @@ class RMTaxonomyCreator
     /**
      * Bind the creation of taxonomies with the specific hook.
      */
-    public static function installTaxonomies()
+    public static function install()
     {
         add_action( 'init', [ __CLASS__, 'createTaxonomies' ] );
         add_action( 'parent_file', [ __CLASS__, 'highlightMenu' ] );

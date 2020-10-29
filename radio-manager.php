@@ -44,13 +44,9 @@ function rm_deactivate_plugin()
 } // RM DEACTIVATE PLUGIN
 register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );
 
-# Install all components of the plugin
-if ( class_exists( 'Inc\\RMManager' ) )
-{
-    ( new Inc\RMManager() )->install();
-} // if
-
-# Constants
+/**
+ * Constants.
+ */
 define( 'RM_PLUGIN_NAME', 'Radio Manager' );
 
 define( 'RM_MAIN_PAGE_TITLE', 'Dashboard' );
@@ -63,3 +59,11 @@ define( 'RM_HELP_PAGE_TITLE', 'Help' );
 define( 'RM_HELP_PAGE_SLUG', 'rm_menu_help' );
 
 define( 'RM_CAPABILITY', 'manage_options' );
+
+/**
+ * Install all components of the plugin.
+ */
+if ( class_exists( 'Inc\\RMManager' ) )
+{
+    ( new Inc\RMManager() )->install();
+} // if

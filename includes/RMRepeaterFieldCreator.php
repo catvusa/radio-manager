@@ -8,10 +8,32 @@ namespace Inc;
 class RMRepeaterFieldCreator
 {
     /**
+     * Bind the creation of taxonomies with the specific hook.
+     */
+    public static function install()
+    {
+        self::createRepeaterFields();
+        add_filter('acf/load_field/name=rm_radio_post_type', [ __CLASS__, 'loadPostTypesIntoSelectBox'] );
+    } // INSTALL TAXONOMIES
+    
+    /**
+     * Load post types into the select boxes.
+     */
+    public static function loadPostTypesIntoSelectBox( $field )
+    {
+        foreach ( get_post_types() as $post_type )
+        {
+           $field['choices'][$post_type] = $post_type;
+        } // foreach
+        
+        return $field;
+    } // LOAD POST TYPES INTO SELECT BOX
+    
+    /**
      * Install all repeater fields.
      * The ADVANCED CUSTOM FIELDS plugin including the REPEATER FIELD add-on must be installed.
      */
-    public static function installRepeaterFields()
+    public static function createRepeaterFields()
     {
         if ( function_exists( 'acf_add_local_field_group' ) )
         {

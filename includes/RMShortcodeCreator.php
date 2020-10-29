@@ -10,7 +10,7 @@ class RMShortcodeCreator
     /**
      * Create all shortcodes.
      */
-    public static function installShortcodes()
+    public static function install()
     {
         /**
          * Shortcode: Radio Station.

@@ -10,7 +10,7 @@ class RMMenuAndLinkCreator
     /**
      * Bind the creation of menu and links with hooks.
      */
-    public static function installMenuAndLinks()
+    public static function install()
     {
         $plugin_file = plugin_basename( dirname( __FILE__, 2 ) ) . '/radio-manager.php';
         

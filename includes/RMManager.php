@@ -12,11 +12,11 @@ class RMManager
      */ 
     public function install()
     {
-        RMMenuAndLinkCreator::installMenuAndLinks();
-        RMPostTypeCreator::installPostTypes();
-        RMTaxonomyCreator::installTaxonomies();
-        RMRepeaterFieldCreator::installRepeaterFields();
-        RMMetaBoxCreator::installMetaBoxes();
-        RMShortcodeCreator::installShortcodes();
+        RMMenuAndLinkCreator::install();
+        RMPostTypeCreator::install();
+        RMTaxonomyCreator::install();
+        RMRepeaterFieldCreator::install();
+        RMMetaBoxCreator::install();
+        RMShortcodeCreator::install();
     } // INSTALL
 } // RM MANAGER

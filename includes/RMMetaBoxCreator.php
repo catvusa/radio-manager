@@ -10,7 +10,7 @@ class RMMetaBoxCreator
     /**
      * Bind the creation of meta boxes with the specific hook.
      */
-    public static function installMetaBoxes()
+    public static function install()
     {
         add_action( 'add_meta_boxes', [ __CLASS__, 'createMetaBoxes' ] );
     } // INSTALL META BOXES
