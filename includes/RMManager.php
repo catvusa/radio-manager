@@ -7,6 +7,7 @@ namespace Inc;
  */
 class RMManager
 {
+	/** @var string */
     /**
      * Install all components of the plugin.
      */ 

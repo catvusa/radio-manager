@@ -1,0 +1,30 @@
+/* The border for all the parts of the audio player. */
+.rm-brd {
+  border: 1px solid #3A3B3C;
+  border-bottom: none; }
+  .rm-brd:last-child {
+    border: 1px solid #3A3B3C; }
+
+/* The background for all the main parts of the audio player. */
+.rm-bg-primary {
+  background-color: #0090FF; }
+
+/* The background for the information about a musician. */
+.rm-bg-secondary {
+  background-color: #F8F8F8; }
+
+#rm-radio-station {
+  margin-top: 10px; }
+
+#rm-radio-station-name-field span {
+  color: #F8F8F8;
+  font-weight: bold;
+  font-size: 25px; }
+
+#rm-musician-image-field {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  #rm-musician-image-field img {
+    display: block;
+    max-width: 100%; }

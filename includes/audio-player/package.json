@@ -1,0 +1,26 @@
+{
+  "name": "audio-player",
+  "version": "1.0.0",
+  "description": "This is the audio player.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karel Vrabec",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "plyr": "^3.6.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-if": "^3.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-useref": "^5.0.0"
+  }
+}

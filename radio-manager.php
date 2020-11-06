@@ -15,9 +15,9 @@
 defined( 'ABSPATH' ) or die( 'Forbidden' );
 
 # Load the composer autoloader
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) )
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) )
 {
-    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 } // if
 
 /**
