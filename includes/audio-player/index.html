@@ -4,32 +4,38 @@
 <head>
  <link rel="stylesheet" href="node_modules/plyr/dist/plyr.css">
  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
- <script src="node_modules/plyr/dist/plyr.js"></script>
- 
- <!-- build:css style.min.css -->
- <link rel="stylesheet" href="src/css/style.css">
- <!-- endbuild -->
-
- <!-- build:js audio-player.min.js -->
- <!-- <script type="module" src="src/js/init.js"></script> -->
- <!-- endbuild -->
 </head>
 
 <body>
-    <div class="container">
-        <div id="rm-radio-station">
-            <div id="rm-radio-station-name-field" class="rm-brd rm-bg-primary p-2">
-				<span id="rm-radio-station-name"></span>
+	<div class="container">
+		<div id="rm-radio-station">
+		
+			<div id="rm-radio-station-name-field" class="rm-brd rm-bg-primary p-2">
+				<span id="rm-radio-station-name" class="rm-title-level1"></span>
 			</div>
-            <div id="rm-musician-image-field" class="rm-brd rm-bg-secondary"></div>
-            <div id="rm-radio-station-player-field" class="rm-brd rm-bg-primary p-2">
-				<div id="rm-radio-station-player"></div>
-				<span id="rm-musician-name"></span>
-				<span id="rm-musician-record-name"></span>
+			
+			<div id="rm-musician-image-field" class="rm-brd rm-bg-secondary">
+				<img id="rm-musician-image" src="" alt="">
 			</div>
-            <div id="rm-musician-description-field" class="rm-brd rm-bg-secondary p-2"></div>
-        </div>
-    </div>
+			
+			<div id="rm-radio-station-player-field" class="rm-flex rm-brd rm-bg-primary">
+				<div id="rm-radio-station-player" style="background: green; flex-grow: 1;"></div>
+				<div id="rm-musician-information" style="flex-grow: 2;">
+					<div id="rm-musician-name" class="rm-title-level2"></div>
+					<div id="rm-musician-record-name" class="rm-title-level3"></div>
+				</div>
+				<div style="background: green; flex-grow: 1;">sbalit/rozbalit</div>
+			</div>
+			
+			<div id="rm-musician-description-field" class="rm-brd rm-bg-secondary p-2">
+				<span id="rm-musician-description"></span>
+			</div>
+			
+		</div>
+	</div>
 </body>
+
+<script src="dist/rm-scripts.min.js"></script>
+<link rel="stylesheet" href="dist/rm-styles.min.css">
 
 </html>

@@ -10,17 +10,32 @@
   "author": "Karel Vrabec",
   "license": "ISC",
   "dependencies": {
+    "array-unsort": "^1.1.6",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "plyr": "^3.6.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babelify": "^10.0.0",
     "browser-sync": "^2.26.13",
+    "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-cssnano": "^2.1.3",
-    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
-    "gulp-uglify": "^3.0.2",
-    "gulp-useref": "^5.0.0"
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-terser": "^1.4.1",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

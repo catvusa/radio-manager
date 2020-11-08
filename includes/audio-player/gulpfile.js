@@ -1,23 +1,67 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
+const babelify = require('babelify');
+const browserify = require('browserify');
 const browserSync = require('browser-sync').create();
-const useref = require('gulp-useref');
-const uglify = require('gulp-uglify');
-const gulpIf = require('gulp-if');
-const cssnano = require('gulp-cssnano');
+const buffer = require('vinyl-buffer');
+const gulp = require('gulp');
+const minimizeCSS = require('gulp-cssnano');
+const minimizeIMG = require('gulp-imagemin');
+const minimizeJS = require('gulp-terser');
+const rename = require('gulp-rename');
+const sass = require('gulp-sass');
+const source = require('vinyl-source-stream');
+const sourcemaps = require('gulp-sourcemaps');
 
 // ========================================
 
-// Compile SCSS into CSS
-function style()
+// Compile, build and minimize all SCSS files into a single CSS file
+function styles()
 {
-	// Use Sass
-    return gulp.src('src/**/*.scss')
+    return gulp.src('./src/scss/*.scss')
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('src/css'))
-		.pipe(browserSync.stream());
-} // STYLE
-exports.style = style;
+		.pipe(sourcemaps.init({
+			loadMaps: true
+		}))
+		.pipe(minimizeCSS())
+		.pipe(rename('rm-styles.min.css'))
+		.pipe(sourcemaps.write('./'))
+		.pipe(gulp.dest('./dist'));
+} // STYLES
+exports.styles = styles;
+
+// ========================================
+
+// Compile, build and minimize all JS files into a single JS file
+function scripts()
+{
+	return browserify({
+		entries: ['./src/js/init.js']
+	}) // handle the modules, import them to the main script, bundle them all together
+	.transform( babelify, {
+		presets: ['@babel/env']
+	}) // convert ES6 to plain JS readable by every browser
+	.bundle() // bundle into the one single file
+	.pipe(source('./src/js/init.js'))
+	.pipe(rename('rm-scripts.min.js'))
+	.pipe(buffer())
+	.pipe(sourcemaps.init({
+		loadMaps: true
+	}))
+	.pipe(minimizeJS())
+	.pipe(sourcemaps.write('./'))
+	.pipe(gulp.dest('./dist'));
+} // SCRIPTS
+exports.scripts = scripts;
+
+// ========================================
+
+// Minimize all images
+function images()
+{
+	return gulp.src('./src/img/*')
+		.pipe(minimizeIMG())
+		.pipe(gulp.dest('./dist'))
+} // IMAGES
+exports.images = images;
 
 // ========================================
 
@@ -28,28 +72,13 @@ function watch()
     browserSync.init({
         server: {
            baseDir: './',
-           index: '/index.html'
+           index: './index.html'
         }
     });
 	
-	style();
-	
 	// Watch these files
-    gulp.watch('./src/**/*.scss', style)
+    gulp.watch('./src/scss/*.scss').on('change', gulp.series(styles, browserSync.reload));
     gulp.watch('./*.html').on('change', browserSync.reload);
-    gulp.watch('./src/js/**/*.js').on('change', browserSync.reload);
+    gulp.watch('./src/js/*.js').on('change', gulp.series(scripts, browserSync.reload));
 } // WATCH
-exports.watch = watch;
-
-// ========================================
-
-// Minimize all CSS or JS files into a single file
-function minimize()
-{
-	return gulp.src('./*.html')
-		.pipe(useref())
-		.pipe(gulpIf('*.js', uglify()))
-		.pipe(gulpIf('*.css', cssnano()))
-		.pipe(gulp.dest('dist'))
-} // MINIMIZE
-exports.minimize = minimize;
+exports.watch = gulp.series(styles, scripts, images, watch);

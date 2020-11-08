@@ -25,19 +25,36 @@
 	@include rm-bg-mix($rm_light_color);
 }
 
-#rm-radio-station
+.rm-title-level1
 {
-	margin-top: 10px;
+	color: $rm_light_color;
+	font-weight: bold;
+	font-size: 25px;
 }
 
-#rm-radio-station-name-field
+.rm-title-level2
 {
-	span
-	{
-		color: $rm_light_color;
-		font-weight: bold;
-		font-size: 25px;
-	}
+	@extend .rm-title-level1;
+	font-size: 20px;
+}
+
+.rm-title-level3
+{
+	@extend .rm-title-level2;
+	font-weight: normal;
+	font-size: 15px;
+}
+
+.rm-flex
+{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+#rm-radio-station
+{
+	margin: 10px;
 }
 
 #rm-musician-image-field
@@ -45,7 +62,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
+	
 	img
 	{
 		display: block;
@@ -53,7 +70,11 @@
 	}
 }
 
-
+#rm-musician-information
+{
+	margin: 10px 0;
+	text-align: center
+}
 
 
 
