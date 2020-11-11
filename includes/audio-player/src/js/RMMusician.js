@@ -1,7 +1,7 @@
 import RMImage from "./RMImage.js";
 import RMRecord from "./RMRecord.js";
 import RMIntroduction from "./RMIntroduction.js";
-import RMHelper from "./RMHelper.js";
+import { unsort } from "array-unsort";
 
 // ========================================
 
@@ -12,57 +12,68 @@ export default class RMMusician
 		this._name = name;
 		this._description = description;
 
-
 		// Set the images
-		this._images =
-		{
-			"data": [],
-			"index": 0
-		};
-		
+		this._images = [];		
 		images.forEach((image) =>
 		{
-			this._images["data"].push(new RMImage(
+			this._images.push(new RMImage(
 				image["url"]
 			));
 		});
 		
 		
 		// Set records
-		this._records =
-		{
-			"data": [],
-			"index": 0
-		};
+		this._records = [];
 		records.forEach((record) =>
 		{
-			this._records["data"].push(new RMRecord(
+			this._records.push(new RMRecord(
 				record["title"],
 				record["url"]
 			));
 		});
 
-
 		// Set introductions
-		this._introductions =
-		{
-			"data": [],
-			"index": 0
-		};
+		this._introductions = [];
 		introductions.forEach((introduction) =>
 		{
-			this._introductions["data"].push(new RMIntroduction(
+			this._introductions.push(new RMIntroduction(
 				introduction["url"]
 			));
 		});
 		
-		// Shuffle the data
-		RMHelper.shuffle(this._images, this._records, this._introductions);
+		
+		
+		
+		this._imagesLoop = this.createLoop( this._images );
+		this._recordsLoop = this.createLoop( this._records );
+		this._introductionsLoop = this.createLoop( this._introductions );
 	} // CONSTRUCTOR
 
-
-
-
+	// ========================================
+	
+	/**
+	 * Create a loop over an array using a generator.
+	 */
+	createLoop( array )
+	{
+		// Set the generator for looping through the array
+		function* loop( array )
+		{
+			while( true )
+			{
+				// Shuffle the array with Fisher-Yates algorithm
+				array = unsort( array );
+				
+				// Loop through the array
+				for ( let element of array )
+				{
+					yield element;
+				} // for
+			} // while
+		} // LOOP
+		
+		return loop( array );
+	} // CREATE LOOP
 
 
 	
@@ -70,34 +81,34 @@ export default class RMMusician
 	
 	get randomImage()
 	{
-		return RMHelper.getElement(this._images);
+		return this._imagesLoop.next().value;
 	} // GET RANDOM IMAGE
 	
 	get randomRecord()
 	{
-		return RMHelper.getElement(this._records);
+		//return RMHelper.getElementFrom(this._records);
 	} // GET RANDOM RECORD
 	
 	get randomIntroduction()
 	{
-		return RMHelper.getElement(this._introductions);
+		//return RMHelper.getElementFrom(this._introductions);
 	} // GET RANDOM INTRODUCTION
 	
 	// ========================================
 	
 	hasImages()
 	{
-		return (this._images["data"].length ? true : false);
+		return (this._images.length ? true : false);
 	} // HAS IMAGES
 	
 	hasRecords()
 	{
-		return (this._records["data"].length ? true : false);
+		return (this._records.length ? true : false);
 	} // HAS RECORDS
 	
 	hasIntroductions()
 	{
-		return (this._introductions["data"].length ? true : false);
+		return (this._introductions.length ? true : false);
 	} // HAS INTRODUCTIONS
 	
 	// ========================================

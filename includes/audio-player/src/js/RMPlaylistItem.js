@@ -1,35 +1,22 @@
 import RMMusician from "./RMMusician.js";
-import RMHelper from "./RMHelper.js";
+import { unsort } from "array-unsort";
 
 // ========================================
 
 export default class RMPlaylistItem
 {
-	constructor(genre, numOfMusicians, numOfSongsPerMusician)
+	constructor(genres, genre, numOfMusicians, numOfSongsPerMusician)
 	{
-		// Set musicians
-		this._genreData =
-		{
-			"data": [],
-			"index": 0
-		};
-		genre.forEach((musician) =>
-		{
-			this._genreData["data"].push(new RMMusician(
-				musician["name"],
-				musician["description"],
-				musician["images"],
-				musician["records"],
-				musician["introductions"]
-			));
-		})
-		
+		this._genres = genres;
+		this._genre = genre;
 		this._numOfMusicians = numOfMusicians;
 		this._numOfSongsPerMusician = numOfSongsPerMusician;
 		
-		// Shuffle the data
-		RMHelper.shuffle(this._genreData);
+		//this._musiciansLoop = this.createLoop( this._musicians );
 	} // CONSTRUCTOR
+	
+	
+	
 	
 	
 	
@@ -39,8 +26,27 @@ export default class RMPlaylistItem
 	
 	get randomMusician()
 	{
-		return RMHelper.getElement(this._genreData);
+		//return this._genreData;
 	} // GET RANDOM MUSICIAN
+	
+	// ========================================
+	
+	hasMusicians()
+	{
+		return (this._genreData["data"].length ? true : false);
+	} // HAS MUSICIANS
+	
+	// ========================================
+
+	get genre()
+	{
+		return this._genre;
+	} // GET GENRE
+	
+	set genre(genre)
+	{
+		this._genre = genre;
+	} // SET GENRE
 	
 	// ========================================
 

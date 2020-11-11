@@ -2,14 +2,15 @@
   "name": "audio-player",
   "version": "1.0.0",
   "description": "This is the audio player.",
-  "main": "main.js",
+  "main": "src/js/init.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node src/js/init.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Karel Vrabec",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "array-unsort": "^1.1.6",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",

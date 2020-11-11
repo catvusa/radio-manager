@@ -1,12 +1,13 @@
 import * as html from "./constants.js";
 import RMPlaylistItem from "./RMPlaylistItem.js";
+import RMMusician from "./RMMusician.js";
 import Plyr from "plyr";
 
 // ========================================
 
 export default class RMRadioStation
 {
-	constructor(name, logo, imgDuration, postType, player, playlist, warnings)
+	constructor(name, logo, imgDuration, postType, player, genres, playlistItems, warnings)
 	{
 		this._name = name;
 		this._logo = logo;
@@ -15,122 +16,209 @@ export default class RMRadioStation
 		
 		// ========================================
 		
-		const el = document.createElement("audio");
-		el.setAttribute("muted", "muted");
-		document.getElementById(player).appendChild(el);
-		
-		this._player = new Plyr(el, {
-			controls: ['play', 'progress'],
-			autoplay: true
-		});
+		this._player = new Plyr(
+			document.getElementById(player),
+			{
+				controls: ['play', 'progress'],
+				autoplay: true
+			}
+		);
 		this._player.on("ended", () => {
 			this.play();
 		});
 		
 		// ========================================
 		
-		this._playlist = [];
-		playlist.forEach((playlistItem) =>
+		this._genres = {};
+		genres.forEach((genre) =>
 		{
-			this._playlist.push(new RMPlaylistItem(
+			this._genres[genre["term"]] = [];
+			genre["musicians"].forEach((musician) =>
+			{
+				this._genres[genre["term"]].push(new RMMusician(
+					musician["name"],
+					musician["description"],
+					musician["images"],
+					musician["records"],
+					musician["introductions"]
+				));
+			});
+		});
+		
+		// ========================================
+		
+		this._playlistItems = [];
+		playlistItems.forEach((playlistItem) =>
+		{
+			this._playlistItems.push(new RMPlaylistItem(
+				this._genres,
 				playlistItem["genre"],
 				playlistItem["numOfMusicians"],
 				playlistItem["numOfSongsPerMusician"]
 			));
-		})
-		this._currentPlaylistItem = 0;
+		});
 		
 		// ========================================
 		
 		this._warnings = warnings;
+		
+		// ========================================
+		
+		html.RADIO_STATION_NAME.innerHTML = this._name;
+		html.MUSICIAN_IMAGE.src = this._logo;
 	} // CONSTRUCTOR
 	
 	// ========================================
 	
-	setValuesToHTML()
+	/**
+	 * Set the playlist using a generator.
+	 */
+	createPlaylistLoop()
 	{
-		html.RADIO_STATION_NAME.innerHTML = this._name;
-		html.MUSICIAN_IMAGE.src = this._logo;
-	} // SET VALUES
+		// Set the generator for looping through the playlist items
+		function* playlistLoop( _this )
+		{
+			// Loop the playlist again and again
+			while( true )
+			{
+				// Loop through the playlist items (each of them is set to a specific genre)
+				for ( let playlistItem of _this._playlistItems )
+				{
+					// There is at least one musician in this genre
+					if ( playlistItem.hasMusicians )
+					{
+						// Loop through the musicians of the genre
+						for ( let i = 0; i < playlistItem.numOfMusicians; i++ )
+						{
+							// Set a musician
+							let musician = playlistItem.randomMusician;
+							
+							// Set the musician introduction to the player
+							if ( _this.setIntroduction( musician ) )
+							{
+								yield;
+							} // if
+							
+							// Set the musician information to HTML
+							_this.setInformation( musician );
+							
+							// Set the musician image to HTML
+							_this.setImage( musician );
+							
+							// Loop through the records of the musician
+							for ( let j = 0; j < playlistItem.numOfSongsPerMusician; j++ )
+							{
+								// Set the musician record to the player
+								if ( _this.setRecord( musician ) )
+								{
+									yield;
+								} // if
+							} // for
+						} // for
+					} // if
+				} // for
+			} // while
+		} // PLAYLIST
+		
+		// Assign the generator to a variable
+		this._playlist = playlistLoop(this);
+	} // SET PLAYLIST
 	
 	// ========================================
 	
 	play()
-	{	
-		// Get the musician
-		let musician = this._playlist[this._currentPlaylistItem].randomMusician;
+	{
+		let musician = this._playlistItems[1].randomMusician[6];
 		
-		// Set the musician
-		this.set(musician);
 		
-		// Set index of the current image to the next image
-		this._currentPlaylistItem++;
+		//this.setImage(musician);
 		
-		// Index of the current image points out of the array
-		if (this._currentPlaylistItem == this._playlist.length)
+		let loop = setInterval(() =>
 		{
-			// Set index of the current image to the first image
-			this._currentPlaylistItem = 0;
-		} // if
+			this.setImage(musician);
+		}, this._imgDuration * 1000);
+		
+		
+		//this._playlist.next();
 	} // PLAY
 	
 	// ========================================
 	
-	set(musician)
+	setInformation(musician)
 	{
-		let image = musician.randomImage;
-		let record = musician.randomRecord;
-		let introduction = musician.randomIntroduction;
+		// Set the musician name to HTML
+		html.MUSICIAN_NAME.innerHTML = musician.name;
 		
-		// ========================================
-		
+		// Set the musician description to HTML
+		html.MUSICIAN_DESCRIPTION.innerHTML = musician.description;
+	} // SET INFORMATION
+	
+	// ========================================
+	
+	setImage(musician)
+	{
+		// There is at least one image by this musician
 		if (musician.hasImages())
 		{
-			// Set image of the musician
-			html.MUSICIAN_IMAGE.src = image.url;
+			// Set the musician image to HTML
+			html.MUSICIAN_IMAGE.src = musician.randomImage.url;
 		} // if
 		else
 		{
-			// Set logo of the radio station
+			// Set the radio station logo to HTML
 			html.MUSICIAN_IMAGE.src = this._logo;
-		}; // else
-		
-		// ========================================
-	
-		if (musician.hasIntroductions())
+		} // else
+	} // SET IMAGE
+
+	// ========================================
+
+	setRecord(musician)
+	{
+		// There is at least one record by this musician
+		if (musician.hasRecords())
 		{
-			// Set introduction of the musician to be played
+			// Choose one record randomly
+			let record = musician.randomRecord;
+			
+			// Set the record to be played
 			this._player.source = {
-				type: 'audio',
-				sources: [
-					{
-						src: introduction.url,
-					},
-				],
-			};
-		} // if
-		else
-		{
-			// Set record of the musician to be played
-			this._player.source = {
-				type: 'audio',
+				type: "audio",
 				sources: [
 					{
 						src: record.url,
 					},
 				],
 			};
-		}; // else
-
-		// ========================================
-
-		// Set name of the musician
-		html.MUSICIAN_NAME.innerHTML = musician.name;
+			
+			// Set the record name to HTML
+			html.MUSICIAN_RECORD_NAME.innerHTML = record.title;
+			
+			return true;
+		} // if
 		
-		// Set name of the record
-		html.MUSICIAN_RECORD_NAME.innerHTML = record.title;
+		return false;
+	} // SET RECORD
+	
+	// ========================================
+	
+	setIntroduction(musician)
+	{
+		// There is at least one introduction by this musician
+		if (musician.hasIntroductions())
+		{
+			// Set the introduction to be played
+			this._player.source = {
+				type: "audio",
+				sources: [
+					{
+						src: musician.randomIntroduction.url,
+					},
+				],
+			};
+			
+			return true;
+		} // if
 		
-		// Set description of the musician
-		html.MUSICIAN_DESCRIPTION.innerHTML = musician.description;
-	} // PLAY
+		return false;
+	} // SET INTRODUCTION
 } // RM RADIO STATION
