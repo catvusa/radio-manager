@@ -1,7 +1,8 @@
-import * as html from "./constants.js";
 import RMPlaylistItem from "./RMPlaylistItem.js";
+import RMGenre from "./RMGenre.js";
 import RMMusician from "./RMMusician.js";
 import Plyr from "plyr";
+import { unsort } from "array-unsort";
 
 // ========================================
 
@@ -16,43 +17,49 @@ export default class RMRadioStation
 		
 		// ========================================
 		
+		// Set the player
 		this._player = new Plyr(
 			document.getElementById(player),
 			{
-				controls: ['play', 'progress'],
+				controls: ["play", "progress"],
 				autoplay: true
 			}
 		);
 		this._player.on("ended", () => {
-			this.play();
+			this._playlist.next();
 		});
 		
 		// ========================================
 		
+		// Set all the genres (including musicians)
 		this._genres = {};
 		genres.forEach((genre) =>
 		{
-			this._genres[genre["term"]] = [];
+			// Create musicians of the particular genre
+			let musicians = [];
 			genre["musicians"].forEach((musician) =>
 			{
-				this._genres[genre["term"]].push(new RMMusician(
+				musicians.push(new RMMusician(
 					musician["name"],
 					musician["description"],
 					musician["images"],
-					musician["records"],
-					musician["introductions"]
+					musician["introductions"],
+					musician["records"]
 				));
 			});
+			
+			// Create an instance of the genre based on its musicians
+			this._genres[genre["slug"]] = new RMGenre(musicians);
 		});
 		
 		// ========================================
 		
+		// Set all the playlist items
 		this._playlistItems = [];
 		playlistItems.forEach((playlistItem) =>
 		{
 			this._playlistItems.push(new RMPlaylistItem(
-				this._genres,
-				playlistItem["genre"],
+				this._genres[playlistItem["genre"]],
 				playlistItem["numOfMusicians"],
 				playlistItem["numOfSongsPerMusician"]
 			));
@@ -60,12 +67,8 @@ export default class RMRadioStation
 		
 		// ========================================
 		
+		// Set all the warnings
 		this._warnings = warnings;
-		
-		// ========================================
-		
-		html.RADIO_STATION_NAME.innerHTML = this._name;
-		html.MUSICIAN_IMAGE.src = this._logo;
 	} // CONSTRUCTOR
 	
 	// ========================================
@@ -94,26 +97,33 @@ export default class RMRadioStation
 							let musician = playlistItem.randomMusician;
 							
 							// Set the musician introduction to the player
-							if ( _this.setIntroduction( musician ) )
+							if ( _this.setMusicianIntroduction( musician ) )
 							{
 								yield;
 							} // if
 							
 							// Set the musician information to HTML
-							_this.setInformation( musician );
+							_this.setMusicianName( musician.name );
+							_this.setMusicianDescription( musician.description );
 							
-							// Set the musician image to HTML
-							_this.setImage( musician );
+							// Start a slideshow of the musician images
+							let slideshow = _this.setSlideshow( musician );
 							
 							// Loop through the records of the musician
 							for ( let j = 0; j < playlistItem.numOfSongsPerMusician; j++ )
 							{
 								// Set the musician record to the player
-								if ( _this.setRecord( musician ) )
+								if ( _this.setMusicianRecord( musician ) )
 								{
 									yield;
 								} // if
 							} // for
+							
+							// Stop the slideshow of the musician images
+							if ( slideshow )
+							{
+								clearInterval( _this._slideshow );
+							} // if
 						} // for
 					} // if
 				} // for
@@ -123,59 +133,92 @@ export default class RMRadioStation
 		// Assign the generator to a variable
 		this._playlist = playlistLoop(this);
 	} // SET PLAYLIST
-	
+
 	// ========================================
 	
 	play()
 	{
-		let musician = this._playlistItems[1].randomMusician[6];
-		
-		
-		//this.setImage(musician);
-		
-		let loop = setInterval(() =>
-		{
-			this.setImage(musician);
-		}, this._imgDuration * 1000);
-		
-		
-		//this._playlist.next();
+		this._playlist.next();
 	} // PLAY
 	
+	
+
+
+
+
 	// ========================================
-	
-	setInformation(musician)
+
+	/**
+	 * Set the radio name to HTML
+	 */
+	setRadioName( radioName )
 	{
-		// Set the musician name to HTML
-		html.MUSICIAN_NAME.innerHTML = musician.name;
-		
-		// Set the musician description to HTML
-		html.MUSICIAN_DESCRIPTION.innerHTML = musician.description;
-	} // SET INFORMATION
-	
-	// ========================================
-	
-	setImage(musician)
+		document.getElementById( "rm-radio-name" ).innerHTML = radioName;
+	} // SET RADIO NAME
+
+	/**
+	 * Set the slideshow of the musician images
+	 */
+	setSlideshow( musician )
 	{
-		// There is at least one image by this musician
-		if (musician.hasImages())
+		if ( musician.hasImages() > 1 )
 		{
-			// Set the musician image to HTML
-			html.MUSICIAN_IMAGE.src = musician.randomImage.url;
+			// Set the first musician image to slideshow
+			this.setMusicianImage( musician.randomImage.url );
+			
+			// Start the slideshow of the musician images
+			this._slideshow = setInterval(() =>
+			{
+				// Set the musician image
+				this.setMusicianImage( musician.randomImage.url );
+			}, this._imgDuration * 1000);
+			
+			return true;
 		} // if
+		else if ( musician.hasImages() == 1 )
+		{
+			// Set the only one musician image
+			this.setMusicianImage( musician.randomImage.url );
+			
+			return false;
+		} // else if
 		else
 		{
-			// Set the radio station logo to HTML
-			html.MUSICIAN_IMAGE.src = this._logo;
+			// Set the radio station logo
+			this.setMusicianImage( this._logo );
+			
+			return false;
 		} // else
-	} // SET IMAGE
+	} // SET SLIDESHOW
 
-	// ========================================
+	/**
+	 * Set the musician image to HTML
+	 */
+	setMusicianImage( musicianImage )
+	{
+		document.getElementById( "rm-musician-image" ).src = musicianImage;
+	} // SET MUSICIAN IMAGE
 
-	setRecord(musician)
+	/**
+	 * Set the musician name to HTML
+	 */
+	setMusicianName( musicianName )
+	{
+		document.getElementById( "rm-musician-name" ).innerHTML = musicianName;
+	} // SET MUSICIAN NAME
+	
+	
+	
+	
+	
+	// not ok
+	/**
+	 * Set the musician record to player
+	 */
+	setMusicianRecord( musician )
 	{
 		// There is at least one record by this musician
-		if (musician.hasRecords())
+		if ( musician.hasRecords() )
 		{
 			// Choose one record randomly
 			let record = musician.randomRecord;
@@ -186,12 +229,12 @@ export default class RMRadioStation
 				sources: [
 					{
 						src: record.url,
-					},
-				],
+					}
+				]
 			};
 			
 			// Set the record name to HTML
-			html.MUSICIAN_RECORD_NAME.innerHTML = record.title;
+			this.setRecordName( record.title );
 			
 			return true;
 		} // if
@@ -199,9 +242,10 @@ export default class RMRadioStation
 		return false;
 	} // SET RECORD
 	
-	// ========================================
-	
-	setIntroduction(musician)
+	/**
+	 * Set the musician introduction to player
+	 */
+	setMusicianIntroduction(musician)
 	{
 		// There is at least one introduction by this musician
 		if (musician.hasIntroductions())
@@ -212,13 +256,40 @@ export default class RMRadioStation
 				sources: [
 					{
 						src: musician.randomIntroduction.url,
-					},
-				],
+					}
+				]
 			};
+			
+			// Clear all the data
+			this.setMusicianImage( this._logo );
+			this.setMusicianName( "" );
+			this.setRecordName( "" );
+			this.setMusicianDescription( "" );
 			
 			return true;
 		} // if
 		
 		return false;
-	} // SET INTRODUCTION
+	} // SET INTRODUCTION	
+	// not ok
+	
+	
+	
+	
+	
+	/**
+	 * Set the record name to HTML
+	 */
+	setRecordName( recordName )
+	{
+		document.getElementById( "rm-record-name" ).innerHTML = recordName;
+	} // SET RECORD NAME
+
+	/**
+	 * Set the musician description to HTML
+	 */
+	setMusicianDescription( musicianDescription )
+	{
+		document.getElementById( "rm-musician-description" ).innerHTML = musicianDescription;
+	} // SET MUSICIAN DESCRIPTION
 } // RM RADIO STATION

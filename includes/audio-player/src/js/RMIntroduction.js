@@ -1,6 +1,6 @@
 export default class RMIntroduction
 {
-	constructor(url)
+	constructor( url )
 	{
 		this._url = url;
 	} // CONSTRUCTOR
@@ -12,7 +12,7 @@ export default class RMIntroduction
 		return this._url;
 	} // GET URL
 	
-	set url(url)
+	set url( url )
 	{
 		this._url = url;
 	} // SET URL

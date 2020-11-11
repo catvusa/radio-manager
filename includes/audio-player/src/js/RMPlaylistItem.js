@@ -1,39 +1,28 @@
 import RMMusician from "./RMMusician.js";
-import { unsort } from "array-unsort";
 
 // ========================================
 
 export default class RMPlaylistItem
 {
-	constructor(genres, genre, numOfMusicians, numOfSongsPerMusician)
+	constructor( genre, numOfMusicians, numOfSongsPerMusician )
 	{
-		this._genres = genres;
 		this._genre = genre;
 		this._numOfMusicians = numOfMusicians;
 		this._numOfSongsPerMusician = numOfSongsPerMusician;
-		
-		//this._musiciansLoop = this.createLoop( this._musicians );
 	} // CONSTRUCTOR
-	
-	
-	
-	
-	
-	
-	
 	
 	// ========================================
 	
 	get randomMusician()
 	{
-		//return this._genreData;
+		return this._genre.musiciansLoop.next().value;
 	} // GET RANDOM MUSICIAN
 	
 	// ========================================
 	
 	hasMusicians()
 	{
-		return (this._genreData["data"].length ? true : false);
+		return this._genre.musicians.length;
 	} // HAS MUSICIANS
 	
 	// ========================================
@@ -43,7 +32,7 @@ export default class RMPlaylistItem
 		return this._genre;
 	} // GET GENRE
 	
-	set genre(genre)
+	set genre( genre )
 	{
 		this._genre = genre;
 	} // SET GENRE
@@ -55,7 +44,7 @@ export default class RMPlaylistItem
 		return this._numOfMusicians;
 	} // GET NUM OF MUSICIANS
 	
-	set numOfMusicians(numOfMusicians)
+	set numOfMusicians( numOfMusicians )
 	{
 		this._numOfMusicians = numOfMusicians;
 	} // SET NUM OF MUSICIANS
@@ -67,7 +56,7 @@ export default class RMPlaylistItem
 		return this._numOfSongsPerMusician;
 	} // GET NUM OF SONGS PER MUSICIAN
 	
-	set numOfSongsPerMusician(numOfSongsPerMusician)
+	set numOfSongsPerMusician( numOfSongsPerMusician )
 	{
 		this._numOfSongsPerMusician = numOfSongsPerMusician;
 	} // SET NUM OF SONGS PER MUSICIAN

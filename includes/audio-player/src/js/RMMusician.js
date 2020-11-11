@@ -1,82 +1,55 @@
+import RMHelper from "./RMHelper.js";
 import RMImage from "./RMImage.js";
-import RMRecord from "./RMRecord.js";
 import RMIntroduction from "./RMIntroduction.js";
-import { unsort } from "array-unsort";
+import RMRecord from "./RMRecord.js";
 
 // ========================================
 
 export default class RMMusician
 {
-	constructor(name, description, images, records, introductions)
+	constructor( name, description, images, introductions, records )
 	{
 		this._name = name;
 		this._description = description;
 
-		// Set the images
+		// ========================================
+
+		// Set all the images (including a loop)
 		this._images = [];		
-		images.forEach((image) =>
+		images.forEach( ( image ) =>
 		{
-			this._images.push(new RMImage(
+			this._images.push( new RMImage(
 				image["url"]
-			));
-		});
-		
-		
-		// Set records
-		this._records = [];
-		records.forEach((record) =>
+			) );
+		} );
+		this._imagesLoop = RMHelper.createLoop( this._images );
+
+		// ========================================
+
+		// Set all the introductions (including a loop)
+		this._introductions = [];
+		introductions.forEach( ( introduction ) =>
 		{
-			this._records.push(new RMRecord(
+			this._introductions.push( new RMIntroduction(
+				introduction["url"]
+			) );
+		} );
+		this._introductionsLoop = RMHelper.createLoop( this._introductions );
+		
+		// ========================================
+		
+		// Set all the records (including a loop)
+		this._records = [];
+		records.forEach( ( record ) =>
+		{
+			this._records.push( new RMRecord(
 				record["title"],
 				record["url"]
-			));
-		});
-
-		// Set introductions
-		this._introductions = [];
-		introductions.forEach((introduction) =>
-		{
-			this._introductions.push(new RMIntroduction(
-				introduction["url"]
-			));
-		});
-		
-		
-		
-		
-		this._imagesLoop = this.createLoop( this._images );
-		this._recordsLoop = this.createLoop( this._records );
-		this._introductionsLoop = this.createLoop( this._introductions );
+			) );
+		} );
+		this._recordsLoop = RMHelper.createLoop( this._records );
 	} // CONSTRUCTOR
 
-	// ========================================
-	
-	/**
-	 * Create a loop over an array using a generator.
-	 */
-	createLoop( array )
-	{
-		// Set the generator for looping through the array
-		function* loop( array )
-		{
-			while( true )
-			{
-				// Shuffle the array with Fisher-Yates algorithm
-				array = unsort( array );
-				
-				// Loop through the array
-				for ( let element of array )
-				{
-					yield element;
-				} // for
-			} // while
-		} // LOOP
-		
-		return loop( array );
-	} // CREATE LOOP
-
-
-	
 	// ========================================
 	
 	get randomImage()
@@ -84,32 +57,32 @@ export default class RMMusician
 		return this._imagesLoop.next().value;
 	} // GET RANDOM IMAGE
 	
-	get randomRecord()
-	{
-		//return RMHelper.getElementFrom(this._records);
-	} // GET RANDOM RECORD
-	
 	get randomIntroduction()
 	{
-		//return RMHelper.getElementFrom(this._introductions);
+		return this._introductionsLoop.next().value;
 	} // GET RANDOM INTRODUCTION
+	
+	get randomRecord()
+	{
+		return this._recordsLoop.next().value;
+	} // GET RANDOM RECORD
 	
 	// ========================================
 	
 	hasImages()
 	{
-		return (this._images.length ? true : false);
+		return this._images.length;
 	} // HAS IMAGES
-	
-	hasRecords()
-	{
-		return (this._records.length ? true : false);
-	} // HAS RECORDS
 	
 	hasIntroductions()
 	{
-		return (this._introductions.length ? true : false);
+		return this._introductions.length;
 	} // HAS INTRODUCTIONS
+	
+	hasRecords()
+	{
+		return this._records.length;
+	} // HAS RECORDS
 	
 	// ========================================
 
@@ -118,7 +91,7 @@ export default class RMMusician
 		return this._name;
 	} // GET NAME
 	
-	set name(name)
+	set name( name )
 	{
 		this._name = name;
 	} // SET NAME
@@ -130,7 +103,7 @@ export default class RMMusician
 		return this._description;
 	} // GET DESCRIPTION
 	
-	set description(description)
+	set description( description )
 	{
 		this._description = description;
 	} // SET DESCRIPTION

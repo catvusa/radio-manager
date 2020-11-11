@@ -1,6 +1,6 @@
 export default class RMRecord
 {
-	constructor(title, url)
+	constructor( title, url )
 	{
 		this._title = title;
 		this._url = url;
@@ -13,7 +13,7 @@ export default class RMRecord
 		return this._title;
 	} // GET TITLE
 	
-	set title(title)
+	set title( title )
 	{
 		this._title = title;
 	} // SET TITLE
@@ -25,7 +25,7 @@ export default class RMRecord
 		return this._url;
 	} // GET URL
 	
-	set url(url)
+	set url( url )
 	{
 		this._url = url;
 	} // SET URL

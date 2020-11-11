@@ -18,8 +18,10 @@ document.addEventListener("DOMContentLoaded", () =>
 		data["warnings"]
 	);
 	
-	//radio_station.createPlaylistLoop();
-	//radioStation.play();
+	radioStation.setRadioName( data["name"] );
+	radioStation.setMusicianImage( data["logo"] );
+	radioStation.createPlaylistLoop();
+	radioStation.play();
 })
 
 // ========================================
@@ -29,15 +31,10 @@ function getData()
 	return {
 		"name": "Radio Classic",
 		"logo": "test/radio-classic.jpg",
-		"imgDuration": 5,
+		"imgDuration": 3,
 		"postType": "",
-		"player": "rm-player",
+		"player": "rm-radio-player",
 		"playlistItems": [
-			{
-				"genre": "classical",
-				"numOfMusicians": 5,
-				"numOfSongsPerMusician": 1
-			},
 			{
 				"genre": "classical_jingles",
 				"numOfMusicians": 1,
@@ -45,14 +42,14 @@ function getData()
 			},
 			{
 				"genre": "classical",
-				"numOfMusicians": 5,
+				"numOfMusicians": 3,
 				"numOfSongsPerMusician": 1
-			},
+			}
 		],
 		"warnings": [],
 		"genres": [
 			{
-				"term": "classical_jingles",
+				"slug": "classical_jingles",
 				"musicians": [
 					{
 						name: "CATV",
@@ -87,7 +84,7 @@ function getData()
 				]
 			},
 			{
-				"term": "classical",
+				"slug": "classical",
 				"musicians": [
 					{
 						name: "Adam Vaclav Michna z Otradovic",
