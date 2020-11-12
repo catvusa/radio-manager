@@ -104,7 +104,7 @@ function getData()
                 "musicians": [
                     {
                         name: "Adam Vaclav Michna z Otradovic",
-                        description: "Poucny text o Adamovi.",
+                        description: "Adam Vaclav Michna z Otradovic – literally Adam Vaclav Michna of Otradovice – (c. 1600 –  1676). Jindrichuv Hradec was a Czech Catholic poet, composer, hymn writer, organist and choir leader of the early Baroque era. He is also known in simplified form as Adam Michna and during his life as Adamus Wenceslaus Michna de Ottradowicz. He was the most important Czech composer and poet of the early Baroque who initiated the development of Czech art in that era and became a significant inspiration for Czech artists of future generations.",
                         images: [
                             {
                                 "url": "test/adam-vaclav-michna-z-otradovic.jpg",
@@ -121,7 +121,7 @@ function getData()
                     },
                     {
                         name: "Antonin Dvorak",
-                        description: "Poucny text o Antoninovi D.",
+                        description: "Antonin Leopold Dvorak (September 8, 1841 – May 1, 1904) was one of the first Czech composers to achieve widespread international acclaim. He was born in Nelahozeves, near Prague, in what was then the Austrian Empire. He was the first of eleven children born to Frantisek and Anna Dvorak, and he was baptized as a Roman Catholic in his village's church of St. Andrew. His Catholic upbringing and love of Nelahozeves and his Bohemian heritage were to strongly influence his musical career.",
                         images: [
                             {
                                 "url": "test/antonin-dvorak.jpg",
@@ -150,7 +150,7 @@ function getData()
                     },
                     {
                         name: "Antonin Rejcha",
-                        description: "Poucny text o Antoninovi R.",
+                        description: "Antonin Rejcha (February 26, 1770 – May 28, 1836), known as Anton or Antoine Reicha, was a Czech-born French composer and music theorist. Due to his unwillingness to have his music published, he fell into obscurity soon after his death and his life and work have yet to be intensively studied. He is now best remembered for his substantial early contributions to the wind quintet literature and his role as the teacher of such pupils as Hector Berlioz and Franz Liszt.",
                         images: [
                             {
                                 "url": "test/antonin-rejcha.jpg",
@@ -173,7 +173,7 @@ function getData()
                     },
                     {
                         name: "Bedrich Smetana",
-                        description: "Poucny text o Bedrichovi.",
+                        description: "Friedrich Smetana (March 2, 1824 – May 12, 1884), later known as Bedrich Smetana, was born in Litomysl near the traditional border between Bohemia and Moravia, which were then provinces of the Habsburg Empire. He was the third child and first son of Frantisek Smetana, a moderately wealthy brewer who played violin in a string quartet, and his third wife, Barbora Lynkova, a dancer. Frantisek had fathered eight children in two earlier marriages, five of whom (all daughters) survived infancy. He and Barbora had ten more children, seven of whom reached adulthood. German was the official language of Bohemia in the nineteenth century, as the region was then under Habsburg rule. Frantisek knew Czech, but for business and social reasons, he rarely used it, and his children were ignorant of correct Czech until much later in their lives.",
                         images: [
                             {
                                 "url": "test/bedrich-smetana.jpg",
@@ -202,7 +202,7 @@ function getData()
                     },
                     {
                         name: "Bohuslav Martinu",
-                        description: "Poucny text o Bohuslavovi M.",
+                        description: "Bohuslav Martinu (December 8, 1890 – August 28, 1959) was born in the tower of the St. Jakub Church in Policka, a town in Bohemia near the Moravian border. His father Ferdinand, a shoemaker, worked as the church sexton and the town’s fire watchman, positions that allowed the family to live in the tower apartment. Bohuslav was a sickly and shy child: his father and older sister frequently had to carry him up the tower’s 193 steps, and he refrained from participating in school activities like plays or pageants.",
                         images: [
                             {
                                 "url": "test/bohuslav-martinu.jpg",
@@ -219,7 +219,7 @@ function getData()
                     },
                     {
                         name: "Bohuslav Matej Cernohorsky",
-                        description: "Poucny text o Bohuslavovi MC.",
+                        description: "Bohuslav Matej Cernohorsky  (1684, Nymburk, Bohemia – 1742, Graz, Austria) was a Czech composer, organist and teacher of the baroque era. He wrote among other works motets, other choral works (a fugue Laudetur Jesus Christus is cited by the Baroque Music Library as an excellent example of its kind) and organ solo works.",
                         images: [
                             {
                                 "url": "test/bohuslav-matej-cernohorsky.jpg",
@@ -236,7 +236,7 @@ function getData()
                     },
                     {
                         name: "Frantisek Xaver Brixi",
-                        description: "Poucny text o Frantiskovi.",
+                        description: "Frantisek Xaver Brixi (1732 – 1771) was a Czech classical composer of the 18th century. His first name is sometimes given by reference works in its Germanic form, Franz.",
                         images: [
                             {
                                 "url": "test/frantisek-xaver-brixi-1.jpg",
@@ -265,7 +265,7 @@ function getData()
                     },
                     {
                         name: "Jan Vaclav Vorisek",
-                        description: "Poucny text o Janovi.",
+                        description: "Jan Vaclav Hugo Vorisek; also know as Johann Hugo Worzischek,  (1791, in Vamberk, Bohemia – 1825, in Vienna, Austria) was a Czech composer, pianist and organist.",
                         images: [
                             {
                                 "url": "test/jan-vaclav-vorisek.jpg",
@@ -282,7 +282,7 @@ function getData()
                     },
                     {
                         name: "Josef Suk",
-                        description: "Poucny text o Josefovi.",
+                        description: "Josef Suk (1874 – 1935) was a Bohemian composer and violinist. He studied under Antonin Dvorak, whose daughter he married.",
                         images: [
                             {
                                 "url": "test/josef-suk.jpg",
@@ -303,7 +303,7 @@ function getData()
                     },
                     {
                         name: "Leos Janacek",
-                        description: "Poucny text o Leosovi.",
+                        description: "Leos Janacek, baptised Leo Eugen Janacek; (1854 –  1928) was a Czech composer, musical theorist, folklorist, publicist and teacher. He was inspired by Moravian and other Slavic folk music to create an original, modern musical style.",
                         images: [
                             {
                                 "url": "test/leos-janacek.jpg",
@@ -324,7 +324,7 @@ function getData()
                     },
                     {
                         name: "Pavel Josef Vejvanovsky",
-                        description: "Poucny text o Pavlovi.",
+                        description: "Pavel Josef Vejvanovsky (c. 1633 or 1639 – 1693) was a Czech-Moravian composer and trumpeter of the Baroque period.",
                         images: [
                             {
                                 "url": "test/pavel-josef-vejvanovsky.jpg",
@@ -345,7 +345,7 @@ function getData()
                     },
                     {
                         name: "Vitezslav Novak",
-                        description: "Poucny text o Vitezslavovi.",
+                        description: "Vitezslav Augustin Rudolf Novak ( 1870 – 1949) was a Czech composer and pedagogue. Stylistically, he was part of the neo-romantic tradition, and his music has been occasionally considered an early example of Czech modernism.",
                         images: [
                             {
                                 "url": "test/vitezslav-novak.jpg",
@@ -362,7 +362,7 @@ function getData()
                     },
                     {
                         name: "Zdenek Fibich",
-                        description: "Poucny text o Zdenkovi.",
+                        description: "Zdenek Fibich  (1850 – 1900) was a Czech composer of classical music. Among his compositions are chamber works (including two string quartets, a piano trio, piano quartet and a quintet for piano, strings and winds), symphonic poems, three symphonies, at least seven operas (the most famous probably Sarka and The Bride of Messina), melodramas including the substantial trilogy Hippodamia, liturgical music including a mass – a missa brevis; and a large cycle (almost 400 pieces, from the 1890s) of piano works called Moods, Impressions, and Reminiscences. The piano cycle served as a diary of sorts of his love for a piano pupil. He was born in Vseborice (Seborice) near Caslav.",
                         images: [
                             {
                                 "url": "test/zdenek-fibich.jpg",

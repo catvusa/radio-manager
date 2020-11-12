@@ -20,7 +20,10 @@ export default class RMRadioStation
         
         // Set the player
         this._player = new Plyr(
-            document.getElementById( player )
+            document.getElementById( player ),
+            {
+                controls: [],
+            },
         );
         this._player.on( "ended", () => {
             this.play();
@@ -150,6 +153,9 @@ export default class RMRadioStation
         let rightIcon = document.getElementById( "rm-right-icon" );
         let rightField = document.getElementById( "rm-right-field" );
         
+        let descriptionField = document.getElementById( "rm-musician-description-field" );
+        let descriptionGradient = document.getElementById( "rm-musician-description-gradient" );
+        
         rightIcon.src = constants.ICON_DOWN;
         rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
         
@@ -157,6 +163,9 @@ export default class RMRadioStation
         {
             if ( rightIcon.getAttribute( "data-src" ) == constants.ICON_UP )
             {
+                descriptionField.style.height = "";
+                descriptionGradient.style.display = "block";
+
                 rightIcon.src = constants.ICON_DOWN;
                 rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
                 
@@ -164,6 +173,9 @@ export default class RMRadioStation
             } // if
             else
             {
+                descriptionField.style.height = "auto";
+                descriptionGradient.style.display = "none";
+                
                 rightIcon.src = constants.ICON_UP;
                 rightIcon.setAttribute( "data-src", constants.ICON_UP );
                 
@@ -397,6 +409,39 @@ export default class RMRadioStation
      */
     setMusicianDescription( musicianDescription )
     {
+        let descriptionField = document.getElementById( "rm-musician-description-field" );
+        let descriptionGradient = document.getElementById( "rm-musician-description-gradient" );
+        
+        let rightIcon = document.getElementById( "rm-right-icon" );
+        let rightField = document.getElementById( "rm-right-field" );
+        
+        // Reset the right icon
+        rightIcon.src = constants.ICON_DOWN;
+        rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+        rightField.style.backgroundColor = "";
+        
+        // Check the length of the text
+        if ( musicianDescription.length == 0 )
+        {
+            descriptionField.style.display = "none";
+            rightField.style.visibility = "hidden";
+        } // if
+        else if ( musicianDescription.length > 200 )
+        {
+            descriptionField.style.display = "block";
+            descriptionField.style.height = "";
+            descriptionGradient.style.display = "block";
+            rightField.style.visibility = "visible";
+        } // else if
+        else
+        {
+            descriptionField.style.display = "block";
+            descriptionField.style.height = "auto";
+            descriptionGradient.style.display = "none";
+            rightField.style.visibility = "hidden";
+        } // else
+        
+        // Insert the text into the musician description
         document.getElementById( "rm-musician-description" ).innerHTML = musicianDescription;
     } // SET MUSICIAN DESCRIPTION
 } // RM RADIO STATION
