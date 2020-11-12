@@ -4,68 +4,68 @@
 /* The border for all the parts of the audio player. */
 .rm-brd
 {
-	@include rm-brd-mix($rm_dark_color);
-	border-bottom: none;
-	
-	&:last-child
-	{
-		@include rm-brd-mix($rm_dark_color);
-	}
+    @include rm-brd-mix($rm_dark_color);
+    border-bottom: none;
+    
+    &:last-child
+    {
+        @include rm-brd-mix($rm_dark_color);
+    }
 }
 
 /* The background for all the main parts of the audio player. */
 .rm-bg-primary
 {
-	@include rm-bg-mix($rm_blue_color);
+    @include rm-bg-mix($rm_blue_color);
 }
 
 /* The background for the information about a musician. */
 .rm-bg-secondary
 {
-	@include rm-bg-mix($rm_light_color);
+    @include rm-bg-mix($rm_light_color);
 }
 
 .rm-title-level1
 {
-	color: $rm_light_color;
-	font-weight: bold;
-	font-size: 25px;
+    color: $rm_light_color;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 .rm-title-level2
 {
-	@extend .rm-title-level1;
-	font-size: 20px;
+    @extend .rm-title-level1;
+    font-size: 20px;
 }
 
 .rm-title-level3
 {
-	@extend .rm-title-level2;
-	font-weight: normal;
-	font-size: 15px;
+    @extend .rm-title-level2;
+    font-weight: normal;
+    font-size: 15px;
 }
 
 .rm-flex
 {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 #rm-musician-image-field
 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
-	img
-	{
-		display: block;
-		max-width: 100%;
-	}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    img
+    {
+        display: block;
+        max-width: 100%;
+    }
 }
 
 #rm-middle-field
 {
-	margin: 10px 0;
-	text-align: center
+    margin: 10px 0;
+    text-align: center
 }
