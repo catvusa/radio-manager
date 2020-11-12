@@ -1,25 +1,26 @@
-import "@babel/polyfill"; // due to the generators
+import "@babel/polyfill";
 import RMRadioStation from "./RMRadioStation.js";
 
 // ========================================
 
-document.addEventListener("DOMContentLoaded", () =>
+document.addEventListener( "DOMContentLoaded", () =>
 {
     let data = getData();
     
     let radioStation = new RMRadioStation(
-        data["name"],
-        data["logo"],
-        data["imgDuration"],
-        data["player"],
-        data["genres"],
-        data["playlistItems"],
-        data["posts"],
-        data["warnings"]
+        data[ "name" ],
+        data[ "logo" ],
+        data[ "imgDuration" ],
+        data[ "player" ],
+        data[ "genres" ],
+        data[ "playlistItems" ],
+        data[ "posts" ],
+        data[ "warnings" ]
     );
     
-    radioStation.setRadioName( data["name"] );
-    radioStation.setMusicianImage( data["logo"] );
+    radioStation.setRadioName( data[ "name" ] );
+    radioStation.setMusicianImage( data[ "logo" ] );
+    radioStation.addEventListeners();
     radioStation.createPlaylistLoop();
     radioStation.play();
 })
@@ -42,7 +43,7 @@ function getData()
                 "content": "Have you ever heard about St. Mikulas? If not, you should at least know the name Nicholas. The story surrounding St. Mikulas is actually quite intriguing and inspirational. First of all, the name Mikulas is the Czech equivalent of the Greek name Nikolaos, meaning 'the victory of people' or 'winner among the people,' which may provide some foreshadowing of the story. Mikulas was very a generous and helpful bishop who lived in the 4th century in Greece. During his lifetime, he developed a reputation for being helpful to those in need and putting coins in their shoes. For a great number of miracles, which occurred during his time, he was also called 'Nicholas the Thaumaturge.'",
             },
             {
-                "image": "", //test/tradition-3.jpg
+                "image": "test/tradition-3.jpg",
                 "content": "One of the strongest Czech traditions, even embodied by national law, is Jmeniny (Name's Day). There is more to this tradition than just simply celebrating your name day on the calendar. Here's a peek behind the curtain. First of all, it's almost exclusively a European holiday. The tradition can find its roots, as with many European traditions, in religion. Specifically, in Christianity. It has been, without a doubt, the dominant religion throughout time across the ever-changing European borders. The Christian tradition of celebrating the patron saints gave the church an opportunity to enhance the official calendar and enable the parishioners and the faithful to worship their saints, day by day, all year round. As expected, the first names in the calendar were of various patron saints. On any given day, not only were the life and deeds of the saint celebrated, but also all the holders of the same name were allowed to celebrate the day as their own. In some Christian communities, one's Name Day may hold even bigger importance than one´s birthday. Many saints held the same name, thus Christian worshipers of the same name may have celebrated their Name Days on different days in the year, depending on which saint they had chosen as their patron saint. The saint’s day is based on the date of their passing. Many Christian calendars may differ from the official John Paul IV´s. Some Christians were also given various names during the act of confirmation or entry to the Order, so they celebrate more Name Days according to the names they bear.",
             },
         ],
@@ -67,7 +68,7 @@ function getData()
                 "slug": "classical_jingles",
                 "musicians": [
                     {
-                        name: "CATV",
+                        name: "Czech-American TV",
                         description: "",
                         images: [
                         ],
@@ -91,12 +92,12 @@ function getData()
                             {
                                 "title": "",
                                 "url": "test/radio-classic-jingle-5.mp3",
-                            }
+                            },
                         ],
                         introductions: [
-                        ]
-                    }
-                ]
+                        ],
+                    },
+                ],
             },
             {
                 "slug": "classical",
@@ -116,7 +117,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Antonin Dvorak",
@@ -145,7 +146,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Antonin Rejcha",
@@ -168,7 +169,7 @@ function getData()
                             {
                                 "url": "test/galanecka-introduction.mp3",
                             },
-                        ]
+                        ],
                     },
                     {
                         name: "Bedrich Smetana",
@@ -197,7 +198,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Bohuslav Martinu",
@@ -214,7 +215,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Bohuslav Matej Cernohorsky",
@@ -231,7 +232,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Frantisek Xaver Brixi",
@@ -260,7 +261,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Jan Vaclav Vorisek",
@@ -277,7 +278,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Josef Suk",
@@ -298,7 +299,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Leos Janacek",
@@ -319,7 +320,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Pavel Josef Vejvanovsky",
@@ -340,7 +341,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Vitezslav Novak",
@@ -357,7 +358,7 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
+                        ],
                     },
                     {
                         name: "Zdenek Fibich",
@@ -374,10 +375,10 @@ function getData()
                             },
                         ],
                         introductions: [
-                        ]
-                    }
-                ]
-            }
-        ]
+                        ],
+                    },
+                ],
+            },
+        ],
     };
 } // GET DATA

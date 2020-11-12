@@ -3,6 +3,7 @@ import RMPlaylistItem from "./RMPlaylistItem.js";
 import RMGenre from "./RMGenre.js";
 import RMMusician from "./RMMusician.js";
 import RMPost from "./RMPost.js";
+import * as constants from "./constants.js";
 import Plyr from "plyr";
 
 // ========================================
@@ -95,6 +96,82 @@ export default class RMRadioStation
         return this._posts.length;
     } // HAS POSTS
 
+    // ========================================
+    
+    /**
+     * Add listeners for all important parts of the radio station (e.g. play/pause button)
+     */
+    addEventListeners()
+    {
+        // Create a callback for the play/pause button and the musician image
+        let playbackCallback = () =>
+        {
+            if ( leftIcon.getAttribute( "data-src" ) == constants.ICON_PLAY )
+            {
+                this._player.play();
+                
+                leftIcon.src = constants.ICON_PAUSE;
+                leftIcon.setAttribute( "data-src", constants.ICON_PAUSE );
+                
+                leftField.style.backgroundColor = "";
+            } // if
+            else
+            {
+                this._player.pause();
+                
+                leftIcon.src = constants.ICON_PLAY;
+                leftIcon.setAttribute( "data-src", constants.ICON_PLAY );
+                
+                leftField.style.backgroundColor = "#C01302";
+            } // else
+        };
+        
+        // ========================================
+        
+        // Set the play/pause button
+        let leftIcon = document.getElementById( "rm-left-icon" );
+        let leftField = document.getElementById( "rm-left-field" );
+        
+        leftIcon.src = constants.ICON_PAUSE;
+        leftIcon.setAttribute( "data-src", constants.ICON_PAUSE );
+        
+        leftIcon.addEventListener( "click", playbackCallback );
+        
+        // ========================================
+        
+        // Set the musician image
+        let musicianImage = document.getElementById( "rm-musician-image" );
+        
+        musicianImage.addEventListener( "click", playbackCallback );
+        
+        // ========================================
+        
+        // Set the expand/collapse button
+        let rightIcon = document.getElementById( "rm-right-icon" );
+        let rightField = document.getElementById( "rm-right-field" );
+        
+        rightIcon.src = constants.ICON_DOWN;
+        rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+        
+        rightIcon.addEventListener( "click", () =>
+        {
+            if ( rightIcon.getAttribute( "data-src" ) == constants.ICON_UP )
+            {
+                rightIcon.src = constants.ICON_DOWN;
+                rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+                
+                rightField.style.backgroundColor = "";
+            } // if
+            else
+            {
+                rightIcon.src = constants.ICON_UP;
+                rightIcon.setAttribute( "data-src", constants.ICON_UP );
+                
+                rightField.style.backgroundColor = "#C01302";
+            } // else
+        } );
+    } // ADD EVENT LISTENERS
+    
     // ========================================
     
     /**

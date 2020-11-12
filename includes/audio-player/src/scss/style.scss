@@ -1,33 +1,35 @@
 @import './variables';
 @import './mixins';
 
-/* The border for all the parts of the audio player. */
+/* The border for all the parts of the radio station. */
 .rm-brd
 {
-    @include rm-brd-mix($rm_dark_color);
+    border: 1px solid $rm_dark_color;
     border-bottom: none;
     
     &:last-child
     {
-        @include rm-brd-mix($rm_dark_color);
+        border: 1px solid $rm_dark_color;
     }
 }
 
-/* The background for all the main parts of the audio player. */
+/* The background for all the main parts of the radio station. */
 .rm-bg-primary
 {
-    @include rm-bg-mix($rm_blue_color);
+    background-color: $rm_blue_color;
 }
 
-/* The background for the information about a musician. */
+/* The background for the musician description. */
 .rm-bg-secondary
 {
-    @include rm-bg-mix($rm_light_color);
+    background-color: #F8F8F8;
 }
 
 .rm-title-level1
 {
-    color: $rm_light_color;
+    color: #FFF;
+    
+    cursor: default;
     font-weight: bold;
     font-size: 25px;
 }
@@ -51,11 +53,17 @@
     justify-content: space-between;
 }
 
+.rm-icons
+{
+    display: block;
+    width: 60px;
+}
+
 #rm-musician-image-field
 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include rm-flex;
+    
+    background: $rm_dark_color;
     
     img
     {
@@ -64,8 +72,33 @@
     }
 }
 
+#rm-musician-image
+{
+    cursor: pointer;
+}
+
 #rm-middle-field
 {
-    margin: 10px 0;
-    text-align: center
+    @include rm-flex;
+    
+    flex-direction: column;
+    margin: 10px;
+}
+
+#rm-left-field,
+#rm-right-field,
+{
+    @include rm-flex;
+    
+    cursor: pointer;
+    
+    &:hover
+    {
+        background: $rm_red_color;
+    }
+}
+
+#rm-musician-description
+{
+    cursor: default;
 }

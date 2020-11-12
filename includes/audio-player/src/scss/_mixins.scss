@@ -1,9 +1,6 @@
-@mixin rm-brd-mix($color)
+@mixin rm-flex()
 {
-    border: 1px solid $color;
-}
-
-@mixin rm-bg-mix($color)
-{
-    background-color: $color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
