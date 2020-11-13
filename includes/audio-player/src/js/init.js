@@ -1,4 +1,7 @@
 import "@babel/polyfill";
+//import $ from "jquery";
+//window.jQuery = window.$ = require("jquery");
+//require("jquery-ui");
 import RMRadioStation from "./RMRadioStation.js";
 
 // ========================================
@@ -32,7 +35,42 @@ function getData()
     return {
         "name": "Radio Classic",
         "logo": "test/radio-classic.jpg",
-        "imgDuration": 3,
+        "imgDuration": 6,
+        "player": "rm-radio-player",
+        "playlistItems": [
+            {
+                "genre": "classical_jingles",
+                "numOfMusicians": 1,
+                "numOfSongsPerMusician": 1,
+                "showPosts": false,
+            },
+            {
+                "genre": "classical",
+                "numOfMusicians": 3,
+                "numOfSongsPerMusician": 1,
+                "showPosts": false,
+            }
+        ],
+        "warnings": [
+            {
+                "isActive": true,
+                "first": 4,
+                "step": 4,
+                "title": "Membership Warning",
+                "message": "Do you want to listen without the interruption? Click the OK button and register!",
+                "buttonText": "OK",
+                "buttonLink": "http://www.testcatv.site/membership-signup/",
+            },
+            {
+                "isActive": true,
+                "first": 8,
+                "step": 8,
+                "title": "Streaming Warning",
+                "message": "Are you still listening? Click the OK button and continue!",
+                "buttonText": "OK",
+                "buttonLink": "",
+            },
+        ],
         "posts": [
             {
                 "image": "test/tradition-1.jpg",
@@ -47,22 +85,6 @@ function getData()
                 "content": "One of the strongest Czech traditions, even embodied by national law, is Jmeniny (Name's Day). There is more to this tradition than just simply celebrating your name day on the calendar. Here's a peek behind the curtain. First of all, it's almost exclusively a European holiday. The tradition can find its roots, as with many European traditions, in religion. Specifically, in Christianity. It has been, without a doubt, the dominant religion throughout time across the ever-changing European borders. The Christian tradition of celebrating the patron saints gave the church an opportunity to enhance the official calendar and enable the parishioners and the faithful to worship their saints, day by day, all year round. As expected, the first names in the calendar were of various patron saints. On any given day, not only were the life and deeds of the saint celebrated, but also all the holders of the same name were allowed to celebrate the day as their own. In some Christian communities, one's Name Day may hold even bigger importance than one´s birthday. Many saints held the same name, thus Christian worshipers of the same name may have celebrated their Name Days on different days in the year, depending on which saint they had chosen as their patron saint. The saint’s day is based on the date of their passing. Many Christian calendars may differ from the official John Paul IV´s. Some Christians were also given various names during the act of confirmation or entry to the Order, so they celebrate more Name Days according to the names they bear.",
             },
         ],
-        "player": "rm-radio-player",
-        "playlistItems": [
-            {
-                "genre": "classical_jingles",
-                "numOfMusicians": 1,
-                "numOfSongsPerMusician": 1,
-                "showPosts": 0,
-            },
-            {
-                "genre": "classical",
-                "numOfMusicians": 3,
-                "numOfSongsPerMusician": 1,
-                "showPosts": 0,
-            }
-        ],
-        "warnings": [],
         "genres": [
             {
                 "slug": "classical_jingles",

@@ -1,4 +1,5 @@
 import RMHelper from "./RMHelper.js";
+import RMWarning from "./RMWarning.js";
 import RMPlaylistItem from "./RMPlaylistItem.js";
 import RMGenre from "./RMGenre.js";
 import RMMusician from "./RMMusician.js";
@@ -22,7 +23,7 @@ export default class RMRadioStation
         this._player = new Plyr(
             document.getElementById( player ),
             {
-                controls: [],
+                controls: [ "progress" ],
             },
         );
         this._player.on( "ended", () => {
@@ -82,7 +83,20 @@ export default class RMRadioStation
         // ========================================
         
         // Set all the warnings
-        this._warnings = warnings;
+        this._warnings = [];
+        warnings.forEach( ( warning ) =>
+        {
+            this._warnings.push( new RMWarning(
+                warning[ "isActive" ],
+                warning[ "first" ],
+                warning[ "step" ],
+                warning[ "title" ],
+                warning[ "message" ],
+                warning[ "buttonText" ],
+                warning[ "buttonLink" ]
+            ) );
+        } );
+        this._numOfPlayedMusicians = 0;
     } // CONSTRUCTOR
     
     // ========================================
@@ -209,6 +223,12 @@ export default class RMRadioStation
                     // Loop through the musicians of the genre
                     for ( let i = 0; i < playlistItem.numOfMusicians; i++ )
                     {
+                        // Show all the warnings if set
+                        for ( let warning of _this._warnings )
+                        {
+                            _this.setWarning( warning );
+                        } // for
+                        
                         // Set a musician
                         let musician = playlistItem.randomMusician;
                         
@@ -255,6 +275,8 @@ export default class RMRadioStation
                         {
                             clearInterval( _this._slideshow );
                         } // if
+                        
+                        _this._numOfPlayedMusicians++;
                     } // for
                 } // for
             } // while
@@ -276,6 +298,25 @@ export default class RMRadioStation
     } // PLAY
     
     // ========================================
+
+    /**
+     * Set the warning to HTML.
+     */
+    setWarning( warning )
+    {
+        // Check whether the warning is active
+        if ( warning.isActive && ( this._numOfPlayedMusicians >= warning.first ) )
+        {
+            // Check whether it is time to show the warning
+            if ( ( this._numOfPlayedMusicians - warning.first ) % warning.step == 0 )
+            {
+                if ( confirm( warning.message ) && warning.buttonLink )
+                {
+                    window.open( warning.buttonLink, "_blank" );
+                } // if
+            } // if
+        } // if
+    } // SET WARNING
 
     /**
      * Set the radio name to HTML.
