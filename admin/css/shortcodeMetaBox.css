@@ -1,0 +1,11 @@
+#rm-shortcode
+{
+    margin: 0;
+}
+
+.rm-flex
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

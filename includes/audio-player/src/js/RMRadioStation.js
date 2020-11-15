@@ -21,10 +21,7 @@ export default class RMRadioStation
         
         // Set the player
         this._player = new Plyr(
-            document.getElementById( player ),
-            {
-                controls: [ "progress" ],
-            },
+            document.getElementById( player )
         );
         this._player.on( "ended", () => {
             this.play();

@@ -40,9 +40,14 @@ class RMMetaBoxCreator
     public static function createShortcodeMetaBoxHTML( $post )
     {
         ?>
+
         Copy and paste the following shortcode into a post or page to embed this radio station:
         <br /><br />
-        [radio-station id="<?= $post->ID ?>"]
+		<div class="rm-flex">
+			<pre id="rm-shortcode">[radio-station id="<?= $post->ID ?>"]</pre>
+			<input type="button" value="Copy" onClick="rmCopy( 'rm-shortcode' );">
+		</div>
+
         <?php
     } // CREATE SHORTCODE META BOX HTML
 } // RM META BOX CREATOR

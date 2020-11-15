@@ -1,5 +1,6 @@
-@import './variables';
-@import './mixins';
+@import "variables";
+@import "mixins";
+@import "reset";
 
 /* The border for all the radio station parts. */
 .rm-brd
@@ -11,6 +12,16 @@
     {
         border: 1px solid $rm_dark_color;
     }
+}
+
+.rm-padding
+{
+	padding: 0.5rem;
+}
+
+.rm-center
+{
+	text-align: center;
 }
 
 /* The background for all the radio station main parts. */
@@ -28,7 +39,6 @@
 .rm-title-level1
 {
     color: #FFF;
-    
     cursor: default;
     font-weight: bold;
     font-size: 25px;
@@ -70,12 +80,8 @@
     {
         display: block;
         max-width: 100%;
+		cursor: pointer;
     }
-}
-
-#rm-musician-image
-{
-    cursor: pointer;
 }
 
 #rm-middle-field
@@ -84,7 +90,6 @@
     
     flex-direction: column;
     margin: 10px;
-    text-align: center;
 }
 
 #rm-left-field,

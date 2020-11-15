@@ -20,6 +20,8 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) )
     require_once __DIR__ . '/vendor/autoload.php';
 } // if
 
+// ========================================
+
 /**
  * Activate the plugin.
  */
@@ -43,6 +45,33 @@ function rm_deactivate_plugin()
     } // if
 } // RM DEACTIVATE PLUGIN
 register_deactivation_hook( __FILE__, 'rm_deactivate_plugin' );
+
+// ========================================
+
+/**
+ * Register all frontend styles and scripts.
+ */
+function rm_register_frontend_styles_and_scripts()
+{
+	wp_register_style( "rm-main-frontend-styles", plugins_url( "/includes/audio-player/dist/rm-styles.min.css", __FILE__ ), [], rand(1, 9999) );
+	wp_register_script( "rm-main-frontend-scripts", plugins_url( "/includes/audio-player/dist/rm-scripts.min.js", __FILE__ ), [], rand(1, 9999) );
+} // RM REGISTER FRONTEND STYLES AND SCRIPTS
+add_action( "wp_enqueue_scripts", "rm_register_frontend_styles_and_scripts" );
+
+/**
+ * Register all backend styles and scripts.
+ */
+function rm_register_backend_styles_and_scripts()
+{
+	wp_register_style( "rm-main-backend-styles", plugins_url( "/admin/css/shortcodeMetaBox.css", __FILE__ ), [], rand(1, 9999) );
+	wp_register_script( "rm-main-backend-scripts", plugins_url( "/admin/js/shortcodeMetaBox.js", __FILE__ ), [], rand(1, 9999) );
+	
+    wp_enqueue_style( "rm-main-backend-styles" );
+    wp_enqueue_script( "rm-main-backend-scripts" );
+} // RM REGISTER BACKEND STYLES AND SCRIPTS
+add_action( "admin_enqueue_scripts", "rm_register_backend_styles_and_scripts" );
+
+// ========================================
 
 /**
  * Constants.

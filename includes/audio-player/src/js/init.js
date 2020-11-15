@@ -8,8 +8,10 @@ import RMRadioStation from "./RMRadioStation.js";
 
 document.addEventListener( "DOMContentLoaded", () =>
 {
-    let data = getData();
-    
+    let data = rm_data;//getData();
+	
+	console.log(data);
+	
     let radioStation = new RMRadioStation(
         data[ "name" ],
         data[ "logo" ],
@@ -20,12 +22,16 @@ document.addEventListener( "DOMContentLoaded", () =>
         data[ "posts" ],
         data[ "warnings" ]
     );
-    
+	
+    console.log("jedeme metody");
+	
     radioStation.setRadioName( data[ "name" ] );
     radioStation.setMusicianImage( data[ "logo" ] );
-    radioStation.addEventListeners();
-    radioStation.createPlaylistLoop();
-    radioStation.play();
+    //radioStation.addEventListeners();
+    //radioStation.createPlaylistLoop();
+    //radioStation.play();
+	
+	console.log("konec");
 })
 
 // ========================================
@@ -403,4 +409,4 @@ function getData()
             },
         ],
     };
-} // GET DATA
+} // GET DATA*/
