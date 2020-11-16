@@ -4,14 +4,18 @@ import RMPlaylistItem from "./RMPlaylistItem.js";
 import RMGenre from "./RMGenre.js";
 import RMMusician from "./RMMusician.js";
 import RMPost from "./RMPost.js";
-import * as constants from "./constants.js";
 import Plyr from "plyr";
+
+const ICON_PLAY = "http://www.testcatv.site/wp-content/uploads/2020/11/play.svg";
+const ICON_PAUSE = "http://www.testcatv.site/wp-content/uploads/2020/11/pause.svg";
+const ICON_UP = "http://www.testcatv.site/wp-content/uploads/2020/11/up.svg";
+const ICON_DOWN = "http://www.testcatv.site/wp-content/uploads/2020/11/down.svg";
 
 // ========================================
 
 export default class RMRadioStation
 {
-    constructor(name, logo, imgDuration, player, genres, playlistItems, posts, warnings)
+    constructor(name, logo, imgDuration, genres, playlistItems, posts, warnings)
     {
         this._name = name;
         this._logo = logo;
@@ -21,7 +25,12 @@ export default class RMRadioStation
         
         // Set the player
         this._player = new Plyr(
-            document.getElementById( player )
+            document.getElementById( "rm-radio-player" ),
+			{
+				controls: [
+					"progress",
+				],
+			},
         );
         this._player.on( "ended", () => {
             this.play();
@@ -31,13 +40,13 @@ export default class RMRadioStation
         
         // Set all the genres (including musicians)
         this._genres = {};
-        genres.forEach( ( genre ) =>
-        {
+		for (const [genre, musicians] of Object.entries(genres))
+		{
             // Add musicians of the particular genre
-            let musicians = [];
-            genre[ "musicians" ].forEach( ( musician ) =>
+            let instances = [];
+            musicians.forEach( ( musician ) =>
             {
-                musicians.push( new RMMusician(
+                instances.push( new RMMusician(
                     musician[ "name" ],
                     musician[ "description" ],
                     musician[ "images" ],
@@ -47,8 +56,8 @@ export default class RMRadioStation
             } );
             
             // Create an instance of the genre based on its musicians
-            this._genres[ genre[ "slug" ] ] = new RMGenre( musicians );
-        } );
+            this._genres[ genre ] = new RMGenre( instances );
+		} // for
         
         // ========================================
         
@@ -57,7 +66,7 @@ export default class RMRadioStation
         playlistItems.forEach( ( playlistItem ) =>
         {
             this._playlistItems.push( new RMPlaylistItem(
-                this._genres[ playlistItem[ "genre" ] ],
+                this._genres[ playlistItem[ "genre" ][ "slug" ] ],
                 playlistItem[ "numOfMusicians" ],
                 playlistItem[ "numOfSongsPerMusician" ],
                 playlistItem[ "showPosts" ]
@@ -102,6 +111,13 @@ export default class RMRadioStation
     {
         return this._postsLoop.next().value;
     } // GET RANDOM POST
+
+    // ========================================
+
+    get playlist()
+    {
+        return this._playlist;
+    } // GET PLAYLIST
     
     // ========================================
     
@@ -120,23 +136,23 @@ export default class RMRadioStation
         // Create a callback for the play/pause button and the musician image
         let playbackCallback = () =>
         {
-            if ( leftIcon.getAttribute( "data-src" ) == constants.ICON_PLAY )
+            if ( leftIcon.getAttribute( "data-src" ) == ICON_PLAY )
             {
                 this._player.play();
                 
-                leftIcon.src = constants.ICON_PAUSE;
-                leftIcon.setAttribute( "data-src", constants.ICON_PAUSE );
+                leftIcon.src = ICON_PAUSE;
+                leftIcon.setAttribute( "data-src", ICON_PAUSE );
                 
-                leftField.style.backgroundColor = "";
+                leftField.style.backgroundColor = "#C01302";
             } // if
             else
             {
                 this._player.pause();
                 
-                leftIcon.src = constants.ICON_PLAY;
-                leftIcon.setAttribute( "data-src", constants.ICON_PLAY );
+                leftIcon.src = ICON_PLAY;
+                leftIcon.setAttribute( "data-src", ICON_PLAY );
                 
-                leftField.style.backgroundColor = "#C01302";
+                leftField.style.backgroundColor = "";
             } // else
         };
         
@@ -146,8 +162,8 @@ export default class RMRadioStation
         let leftIcon = document.getElementById( "rm-left-icon" );
         let leftField = document.getElementById( "rm-left-field" );
         
-        leftIcon.src = constants.ICON_PAUSE;
-        leftIcon.setAttribute( "data-src", constants.ICON_PAUSE );
+        leftIcon.src = ICON_PLAY;
+        leftIcon.setAttribute( "data-src", ICON_PLAY );
         
         leftIcon.addEventListener( "click", playbackCallback );
         
@@ -167,18 +183,18 @@ export default class RMRadioStation
         let descriptionField = document.getElementById( "rm-musician-description-field" );
         let descriptionGradient = document.getElementById( "rm-musician-description-gradient" );
         
-        rightIcon.src = constants.ICON_DOWN;
-        rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+        rightIcon.src = ICON_DOWN;
+        rightIcon.setAttribute( "data-src", ICON_DOWN );
         
         rightIcon.addEventListener( "click", () =>
         {
-            if ( rightIcon.getAttribute( "data-src" ) == constants.ICON_UP )
+            if ( rightIcon.getAttribute( "data-src" ) == ICON_UP )
             {
                 descriptionField.style.height = "";
                 descriptionGradient.style.display = "block";
 
-                rightIcon.src = constants.ICON_DOWN;
-                rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+                rightIcon.src = ICON_DOWN;
+                rightIcon.setAttribute( "data-src", ICON_DOWN );
                 
                 rightField.style.backgroundColor = "";
             } // if
@@ -187,8 +203,8 @@ export default class RMRadioStation
                 descriptionField.style.height = "auto";
                 descriptionGradient.style.display = "none";
                 
-                rightIcon.src = constants.ICON_UP;
-                rightIcon.setAttribute( "data-src", constants.ICON_UP );
+                rightIcon.src = ICON_UP;
+                rightIcon.setAttribute( "data-src", ICON_UP );
                 
                 rightField.style.backgroundColor = "#C01302";
             } // else
@@ -454,8 +470,8 @@ export default class RMRadioStation
         let rightField = document.getElementById( "rm-right-field" );
         
         // Reset the right icon
-        rightIcon.src = constants.ICON_DOWN;
-        rightIcon.setAttribute( "data-src", constants.ICON_DOWN );
+        rightIcon.src = ICON_DOWN;
+        rightIcon.setAttribute( "data-src", ICON_DOWN );
         rightField.style.backgroundColor = "";
         
         // Check the length of the text

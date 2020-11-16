@@ -253,7 +253,7 @@ class RMRepeaterFieldCreator
                     array(
                         'key' => 'field_5fb1a151ae421',
                         'label' => '',
-                        'name' => 'rm_radio_basic_settings',
+                        'name' => 'rm_radio_settings',
                         'type' => 'group',
                         'instructions' => 'There you can set some basic settings of this radio station.',
                         'required' => 0,
