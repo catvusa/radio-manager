@@ -1,42 +1,29 @@
 {
   "name": "audio-player",
   "version": "1.0.0",
-  "description": "This is the audio player.",
-  "main": "src/js/init.js",
+  "description": "This is the audio player for the Radio Manager plugin.",
   "scripts": {
-    "start": "node src/js/init.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp"
   },
-  "author": "Karel Vrabec",
-  "license": "ISC",
+  "author": "Karel Vrabec <karelvrabeckv@gmail.com>",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "array-unsort": "^1.1.6",
     "bootstrap": "^4.5.3",
-    "jquery": "^3.5.1",
-    "jquery-ui": "^1.12.1",
-    "plyr": "^3.6.2"
+    "plyr": "^3.6.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.13",
     "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-cssnano": "^2.1.3",
-    "gulp-minify": "^3.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-terser": "^1.4.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   }
 }

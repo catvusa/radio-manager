@@ -1,0 +1,14 @@
+@mixin rm-flex
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin rm-text( $color, $font-size, $font-weight, $text-align )
+{
+    color: $color;
+    font-size: $font-size;
+    font-weight: $font-weight;
+	text-align: $text-align;
+}
