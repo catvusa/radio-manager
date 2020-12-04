@@ -406,7 +406,7 @@ export default class RMRadioStation
      */
     setMusicianImage( musicianImage )
     {
-        document.getElementById( "rm-musician-image" ).src = musicianasImage;
+        document.getElementById( "rm-musician-image" ).src = musicianImage;
     } // SET MUSICIAN IMAGE
 
     /**

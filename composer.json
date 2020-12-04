@@ -1,18 +1,20 @@
 {
-    "name": "karel/radio-manager",
-    "description": "A plugin for managing your own custom web radios.",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Karel Vrabec",
-            "email": "karelvrabeckv@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "Inc\\": "./includes"
-        }
+  "name": "radio-manager",
+  "description": "A Wordpress plugin for managing your own custom web radios.",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Karel Vrabec",
+      "email": "karelvrabeckv@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload":
+  {
+    "psr-4":
+    {
+      "Inc\\": "./backend/php"
+    }
+  }
 }

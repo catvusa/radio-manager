@@ -41,7 +41,7 @@ class RMMetaBoxCreator
     {
         ?>
 
-        Copy and paste the following shortcode into a post or page to embed this radio station:
+        Copy and paste the following shortcode into a WordPress post or page to embed this radio station:
         <br /><br />
 		<div class="rm-flex">
 			<pre id="rm-shortcode">[radio-station id="<?= $post->ID ?>"]</pre>

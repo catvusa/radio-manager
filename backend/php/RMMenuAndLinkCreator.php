@@ -39,7 +39,7 @@ class RMMenuAndLinkCreator
             RM_MAIN_PAGE_TITLE, # Menu title
             RM_CAPABILITY, # Capability
             RM_MAIN_PAGE_SLUG, # Menu slug
-            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/admin/dashboard.php' ); }, # Callback
+            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/backend/pages/dashboard.php' ); }, # Callback
             0, # Position
         );
         
@@ -59,7 +59,7 @@ class RMMenuAndLinkCreator
             RM_HELP_PAGE_TITLE, # Menu title
             RM_CAPABILITY, # Capability
             RM_HELP_PAGE_SLUG, # Menu slug
-            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/admin/help.php' ); }, # Callback
+            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/backend/pages/help.php' ); }, # Callback
             null, # Position
         );
     } // CREATE MENU

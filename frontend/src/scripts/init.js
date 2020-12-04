@@ -28,7 +28,6 @@ document.addEventListener( "DOMContentLoaded", () =>
 			//radioStation.createHTML();
 			radioStation.setRadioName( data[ "name" ] );
 			radioStation.setMusicianImage( data[ "logo" ] );
-			radioStation.setMusicianImage( data[ "logo" ] );
 			//radioStation.addEventListeners();
 			//radioStation.createPlaylistLoop();
 			//radioStation.playlist.next();
