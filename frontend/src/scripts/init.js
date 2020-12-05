@@ -25,9 +25,11 @@ document.addEventListener( "DOMContentLoaded", () =>
 				data[ "warnings" ]
 			);
 			
-			//radioStation.createHTML();
-			radioStation.setRadioName( data[ "name" ] );
-			radioStation.setMusicianImage( data[ "logo" ] );
+			let HTML = new RMHTML( "rm-radio-station" );
+			HTML.createHTML();
+
+			//radioStation.setRadioName( data[ "name" ] );
+			//radioStation.setMusicianImage( data[ "logo" ] );
 			//radioStation.addEventListeners();
 			//radioStation.createPlaylistLoop();
 			//radioStation.playlist.next();

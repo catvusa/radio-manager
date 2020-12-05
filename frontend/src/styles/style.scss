@@ -2,92 +2,76 @@
 @import "./partials/mixins";
 @import "./partials/reset";
 
-/* Classes */
-.rm-text-block
+
+#rm-musician-name-field,
+#rm-record-name-field
 {
-	margin: 5px 0;
+  margin: 5px 0;
 }
 
-.rm-title-level2
+#rm-musician-name-label,
+#rm-record-name-label
 {
-    /*@extend .rm-title-level1;*/
-    font-size: 20px;
+  font-weight: normal;
+  font-size: 15px;
 }
 
-.rm-title-level3
+#rm-musician-name,
+#rm-record-name
 {
-    /*@extend .rm-title-level2;*/
-    font-weight: normal;
-    font-size: 15px;
+  font-size: 20px;
 }
 
-.rm-flex
-{
-    display: flex;
-    justify-content: space-between;
+.rm-flex {
+  display: flex;
+  justify-content: space-between;
 }
 
-.rm-icons
+#rm-left-icon, #rm-right-icon
 {
-    display: block;
-    width: 60px;
+  display: block;
+  width: 60px;
 }
-
-
 
 /* RMRadioStationHTML */
-#rm-radio
-{
-	/* RMNameHTML */
-	#rm-radio-name-field
-	{
-		background-color: $rm_blue_color;
-		outline: 1px solid $rm_dark_color;
-		padding: 0.5rem;
-		
-		#rm-radio-name
-		{
-			@include rm-text( #FFF, 25px, bold, center );
-			
-			display: block;
-			cursor: default;
-		}
-	}
-	
-	/* RMMultimediaHTML */
-	
-	
-	
-	
-	/* RMPlayerHTML */
-	
-	
-	
-	
-	
+#rm-radio {
+  /* RMNameHTML */
+  #rm-radio-name-field {
+    background-color: $rm_blue_color;
+    outline: 1px solid $rm_dark_color;
+    padding: 0.5rem;
+
+    #rm-radio-name {
+      @include rm-text( #FFF, 25px, bold, center );
+      display: block;
+      cursor: default;
+    }
+  }
+  /* RMMultimediaHTML */
+  /* RMPlayerHTML */
 } /* RM RADIO STATION */
 
 
 
-
+#rm-radio-player-field
+{
+  display: flex;
+  justify-content: space-between;
+}
 
 
 /* Identificators */
+#rm-musician-multimedia-field {
+  @include rm-flex;
+  position: relative;
+  flex-direction: column;
 
-#rm-musician-image-field
-{
-    @include rm-flex;
-    
-	position: relative;
-    flex-direction: column;
-    
-    img
-    {
-        display: block;
-        max-width: 100%;
-		cursor: pointer;
-		outline: 1px solid $rm_dark_color;
-    }
+  img {
+    display: block;
+    max-width: 100%;
+    cursor: pointer;
+    outline: 1px solid $rm_dark_color;
+  }
 }
 
 #rm-middle-field

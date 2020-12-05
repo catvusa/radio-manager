@@ -1,67 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <link rel="stylesheet" href="node_modules/plyr/dist/plyr.css">
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="dist/rm-styles.min.css">
-        <script src="dist/rm-scripts.min.js"></script>
-    </head>
+	<head>
+		<link rel="stylesheet" href="node_modules/plyr/dist/plyr.css">
+		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="dist/rm-styles.min.css">
+		<script src="dist/rm-scripts.min.js"></script>
+	</head>
 
-    <body>
-		<div id="rm-output" data-rm-output-id="1234567">
-
-			<div id="rm-radio">
-
-				<div id="rm-radio-name-field">
-					<span id="rm-radio-name"></span>
-				</div>
-				
-				<div id="rm-musician-image-field" class="rm-bg-primary">
-					<div id="rm-musician-description-gradient"></div>
-					<div id="rm-musician-description"></div>
-					<img id="rm-musician-image">
-				</div>
-				
-				<div class="rm-bg-primary rm-flex">
-				
-					<div id="rm-left-field">
-						<img id="rm-left-icon" class="rm-icons">
-					</div>
-					
-					<div id="rm-middle-field" class="rm-center">
-						<div id="rm-musician-name-section" class="rm-text-block">
-							<span class="rm-title-level3">Musician:</span>
-							<span id="rm-musician-name" class="rm-title-level2"></span>
-						</div>
-						<div id="rm-record-name-section" class="rm-text-block">
-							<span class="rm-title-level3">Record:</span>
-							<span id="rm-record-name" class="rm-title-level2"></span>
-						</div>
-					</div>
-					
-					<div id="rm-right-field" style="visibility: hidden;">
-						<img id="rm-right-icon" class="rm-icons">
-					</div>
-					
-				</div>
-				
-				<div id="rm-musician-description-field" class="rm-padding">
-					<div id="rm-musician-description-gradient"></div>
-					<div id="rm-musician-description"></div>
-				</div>
-			
-			</div>
-			
-		<div>
-			<audio id="rm-radio-player"></audio>
-		</div>
-		
-		</div>
-    </body>
+	<body>
+		<div id="rm-radio-station" data-rm-output-id="1234567"></div>
+	</body>
 
 	<script>
-
 		rmData1234567 =
 		{
 			"name": "Radio Classic",
@@ -489,7 +440,6 @@
 				],
 			},
 		};
-
 	</script>
 
 </html>
