@@ -12,9 +12,9 @@ export default class RMMultimedia
    */
   constructor( title, description, url )
   {
-      this._title = title;
-      this._description = description;
-      this._url = url;
+    this._title = title;
+    this._description = description;
+    this._url = url;
   } // CONSTRUCTOR
 
   /**
@@ -23,7 +23,7 @@ export default class RMMultimedia
    */
   get title()
   {
-      return this._title;
+    return this._title;
   } // GET TITLE
 
   /**
@@ -32,7 +32,7 @@ export default class RMMultimedia
    */
   get description()
   {
-      return this._description;
+    return this._description;
   } // GET DESCRIPTION
 
   /**
@@ -41,6 +41,6 @@ export default class RMMultimedia
    */
   get url()
   {
-      return this._url;
+    return this._url;
   } // GET URL
 } // RM MULTIMEDIA
