@@ -13,21 +13,25 @@ class RMRepeaterFieldCreator
     public static function install()
     {
         self::createRepeaterFields();
-        add_filter('acf/load_field/name=rm_radio_post_type', [ __CLASS__, 'loadPostTypesIntoSelectBox'] );
-    } // INSTALL TAXONOMIES
+        add_filter('acf/load_field/name=rm_radio_show_to', [ __CLASS__, 'loadUserRolesIntoSelectBox'] );
+    } // INSTALL
     
     /**
      * Load post types into the select boxes.
      */
-    public static function loadPostTypesIntoSelectBox( $field )
+    public static function loadUserRolesIntoSelectBox( $field )
     {
-        foreach ( get_post_types() as $post_type )
-        {
-           $field['choices'][$post_type] = $post_type;
-        } // foreach
-        
+		global $wp_roles;
+		
+		foreach ( $wp_roles->roles as $key => $value )
+		{
+			$field['choices'][$key] = $value["name"];
+		} // foreach
+		
+		$field['choices']['other'] = 'Not Logged in';
+		
         return $field;
-    } // LOAD POST TYPES INTO SELECT BOX
+    } // LOAD USER ROLES INTO SELECT BOX
     
     /**
      * Install all repeater fields.
@@ -121,7 +125,7 @@ class RMRepeaterFieldCreator
                         'label' => '',
                         'name' => 'rm_musician_introductions',
                         'type' => 'repeater',
-                        'instructions' => 'There you can add or remove some introductions of this musician. These introductions are being played before the records.',
+                        'instructions' => 'There you can add or remove some audio/video introductions of this musician. These introductions are being played before the records.',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array(
@@ -188,7 +192,7 @@ class RMRepeaterFieldCreator
                         'label' => '',
                         'name' => 'rm_musician_records',
                         'type' => 'repeater',
-                        'instructions' => 'There you can add or remove some records of this musician.',
+                        'instructions' => 'There you can add or remove some audio/video records of this musician.',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array(
@@ -286,29 +290,33 @@ class RMRepeaterFieldCreator
                                 'max' => 300,
                                 'step' => 1,
                             ),
-                            array(
-                                'key' => 'field_5fb1a2503dc8e',
-                                'label' => 'Post type',
-                                'name' => 'rm_radio_post_type',
-                                'type' => 'select',
-                                'instructions' => 'The post type to be projected when playing. Set it for specific playlist items.',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'choices' => array(
-                                ),
-                                'default_value' => false,
-                                'allow_null' => 0,
-                                'multiple' => 0,
-                                'ui' => 0,
-                                'return_format' => 'value',
-                                'ajax' => 0,
-                                'placeholder' => '',
-                            ),
+							array(
+								'key' => 'field_5fcbc7e98db28',
+								'label' => 'Posts',
+								'name' => 'rm_radio_posts',
+								'type' => 'relationship',
+								'instructions' => 'Select all the posts to be projected when playing. Enable projecting for the specific playlist items in the playlist.',
+								'required' => 0,
+								'conditional_logic' => 0,
+								'wrapper' => array(
+									'width' => '',
+									'class' => '',
+									'id' => '',
+								),
+								'post_type' => '',
+								'taxonomy' => '',
+								'filters' => array(
+									0 => 'search',
+									1 => 'post_type',
+									2 => 'taxonomy',
+								),
+								'elements' => array(
+									0 => 'featured_image',
+								),
+								'min' => '',
+								'max' => '',
+								'return_format' => 'object',
+							),
                         ),
                     ),
                 ),
@@ -424,7 +432,7 @@ class RMRepeaterFieldCreator
                                 'label' => 'Show posts',
                                 'name' => 'rm_radio_show_posts',
                                 'type' => 'true_false',
-                                'instructions' => 'There you can set whether the posts of the specific post type are displayed during playing this playlist item or not. You can change the post type in the settings.',
+                                'instructions' => 'There you can set whether the posts are displayed during playing this playlist item or not. You can manage all the posts in the settings.',
                                 'required' => 0,
                                 'conditional_logic' => 0,
                                 'wrapper' => array(
@@ -505,32 +513,29 @@ class RMRepeaterFieldCreator
                                 'ui_on_text' => 'ON',
                                 'ui_off_text' => 'OFF',
                             ),
-                            array(
-                                'key' => 'field_5fb1954a61303',
-                                'label' => 'Show to',
-                                'name' => 'rm_radio_show_to',
-                                'type' => 'select',
-                                'instructions' => 'The user group that is supposed to see this warning.',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'choices' => array(
-                                    'All' => 'All',
-                                    'Registered' => 'Registered',
-                                    'Unregistered' => 'Unregistered',
-                                ),
-                                'default_value' => 'All',
-                                'allow_null' => 0,
-                                'multiple' => 0,
-                                'ui' => 0,
-                                'return_format' => 'value',
-                                'ajax' => 0,
-                                'placeholder' => '',
-                            ),
+							array(
+								'key' => 'field_5fcbe198d3506',
+								'label' => 'Show to',
+								'name' => 'rm_radio_show_to',
+								'type' => 'checkbox',
+								'instructions' => 'A user group that is supposed to see this warning.',
+								'required' => 0,
+								'conditional_logic' => 0,
+								'wrapper' => array(
+									'width' => '',
+									'class' => '',
+									'id' => '',
+								),
+								'choices' => array(
+								),
+								'allow_custom' => 0,
+								'default_value' => array(
+								),
+								'layout' => 'vertical',
+								'toggle' => 1,
+								'return_format' => 'value',
+								'save_custom' => 0,
+							),
                             array(
                                 'key' => 'field_5fb1945f61301',
                                 'label' => 'First',

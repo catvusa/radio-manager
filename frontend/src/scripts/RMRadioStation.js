@@ -29,7 +29,7 @@ export default class RMRadioStation
         this._name = name;
         this._logo = logo;
         this._imgDuration = imgDuration;
-        /*
+        
         // ========================================
         
         // Set the player
@@ -108,7 +108,7 @@ export default class RMRadioStation
                 warning[ "buttonLink" ],
 			)
 		);
-        this._numOfPlayedMusicians = 0;*/
+        this._numOfPlayedMusicians = 0;
     } // CONSTRUCTOR
     
 	
@@ -155,88 +155,7 @@ export default class RMRadioStation
 
     // ========================================
     
-    /**
-     * Add listeners for all important parts of the radio station (e.g. play/pause button)
-     */
-    addEventListeners()
-    {
-        // Create a callback for the play/pause button and the musician image
-        let playbackCallback = () =>
-        {
-            if ( leftIcon.getAttribute( "data-src" ) == ICON_PLAY )
-            {
-                this._player.play();
-                
-                leftIcon.src = ICON_PAUSE;
-                leftIcon.setAttribute( "data-src", ICON_PAUSE );
-                
-                leftField.style.backgroundColor = "#C01302";
-            } // if
-            else
-            {
-                this._player.pause();
-                
-                leftIcon.src = ICON_PLAY;
-                leftIcon.setAttribute( "data-src", ICON_PLAY );
-                
-                leftField.style.backgroundColor = "";
-            } // else
-        };
-        
-        // ========================================
-        
-        // Set the play/pause button
-        let leftIcon = document.getElementById( "rm-left-icon" );
-        let leftField = document.getElementById( "rm-left-field" );
-        
-        leftIcon.src = ICON_PLAY;
-        leftIcon.setAttribute( "data-src", ICON_PLAY );
-        
-        leftIcon.addEventListener( "click", playbackCallback );
-        
-        // ========================================
-        
-        // Set the musician image
-        let musicianImage = document.getElementById( "rm-musician-image" );
-        
-        musicianImage.addEventListener( "click", playbackCallback );
-        
-        // ========================================
-        
-        // Set the expand/collapse button
-        let rightIcon = document.getElementById( "rm-right-icon" );
-        let rightField = document.getElementById( "rm-right-field" );
-        
-        let descriptionField = document.getElementById( "rm-musician-description-field" );
-        let descriptionGradient = document.getElementById( "rm-musician-description-gradient" );
-        
-        rightIcon.src = ICON_DOWN;
-        rightIcon.setAttribute( "data-src", ICON_DOWN );
-        
-        rightIcon.addEventListener( "click", () =>
-        {
-            if ( rightIcon.getAttribute( "data-src" ) == ICON_UP )
-            {
-                descriptionField.style.height = "";
-                descriptionGradient.style.display = "block";
 
-                rightIcon.src = ICON_DOWN;
-                rightIcon.setAttribute( "data-src", ICON_DOWN );
-                
-                rightField.style.backgroundColor = "";
-            } // if
-            else
-            {
-                descriptionField.style.height = "auto";
-                descriptionGradient.style.display = "none";
-                
-                rightIcon.src = ICON_UP;
-                rightIcon.setAttribute( "data-src", ICON_UP );
-                
-                rightField.style.backgroundColor = "#C01302";
-            } // else
-        } );
-    } // ADD EVENT LISTENERS
     
     // ========================================
     

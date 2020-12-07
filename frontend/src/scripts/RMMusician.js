@@ -4,7 +4,7 @@ import RMIntroduction from "./RMIntroduction.js";
 import RMRecord from "./RMRecord.js";
 
 /**
- * The musician represents a music band,
+ * This class represents a music band,
  * a composer or even a CATV as an announcer
  * or a propagator.
  */
@@ -14,49 +14,9 @@ export default class RMMusician
   {
     this._name = name;
     this._description = description;
-    this._images = listFactory( "shuffle", images );
-    this._introductions = listFactory( "shuffle", introductions );
-    this._records = listFactory( "shuffle", records );
-    
-
-
-
-
-
-  // Set all the images (including a loop)
-  this._images = [];      
-  images.forEach( ( image ) =>
-  {
-    this._images.push( new RMImage(
-        image[ "url" ]
-    ) );
-  } );
-  this._imagesLoop = RMHelper.createLoop( this._images );
-
-  // ========================================
-
-  // Set all the introductions (including a loop)
-  this._introductions = [];
-  introductions.forEach( ( introduction ) =>
-  {
-    this._introductions.push( new RMIntroduction(
-        introduction[ "url" ]
-    ) );
-  } );
-  this._introductionsLoop = RMHelper.createLoop( this._introductions );
-        
-  // ========================================
-        
-  // Set all the records (including a loop)
-  this._records = [];
-  records.forEach( ( record ) =>
-  {
-    this._records.push( new RMRecord(
-        record[ "title" ],
-        record[ "url" ]
-    ) );
-  } );
-  this._recordsLoop = RMHelper.createLoop( this._records );
+    this._images = RMListFactory.createList( "shuffle", images );
+    this._introductions = RMListFactory.createList( "shuffle", introductions );
+    this._records = RMListFactory.createList( "shuffle", records );
   } // CONSTRUCTOR
 
 // ========================================
