@@ -1,9 +1,9 @@
-//import RMHelper from "./RMHelper";
+import RMListFactory from "../list/RMListFactory"
+
 import RMWarning from "./RMWarning";
 import RMPlaylistItem from "./RMPlaylistItem";
 import RMGenre from "./RMGenre";
 import RMMusician from "./RMMusician";
-import RMPost from "./RMPost";
 import Plyr from "plyr";
 
 const ICON_PLAY = "http://www.testcatv.site/wp-content/uploads/2020/11/play.svg";
@@ -11,126 +11,81 @@ const ICON_PAUSE = "http://www.testcatv.site/wp-content/uploads/2020/11/pause.sv
 const ICON_UP = "http://www.testcatv.site/wp-content/uploads/2020/11/up.svg";
 const ICON_DOWN = "http://www.testcatv.site/wp-content/uploads/2020/11/down.svg";
 
-// ========================================
-
-/**
- * @class
- * Comment.
- */
 export default class RMRadioStation
 {
-	/**
-	 * @param {string} name – The name of the radio station.
-	 * @param {string} logo – The URL of the logo.
-	 * Etc.
-	 */
-    constructor(name, logo, imgDuration, genres, playlistItems, posts, warnings)
-    {
-        this._name = name;
-        this._logo = logo;
-        this._imgDuration = imgDuration;
-        
-        // ========================================
-        
-        // Set the player
-        this._player = new Plyr(
-            document.getElementById( "rm-radio-player" ),
-			{
-				controls: [
-					"progress",
-				],
-			},
-        );
-        this._player.on( "ended", () => {
-            this.play();
-        } );
-        
-        // ========================================
-        
-        // Set all the genres (including musicians)
-        this._genres = {};
-		for (const [genre, musicians] of Object.entries(genres))
-		{
-            // Add musicians of the particular genre
-            let instances = [];
-            musicians.forEach( ( musician ) =>
-            {
-                instances.push( new RMMusician(
-                    musician[ "name" ],
-                    musician[ "description" ],
-                    musician[ "images" ],
-                    musician[ "introductions" ],
-                    musician[ "records" ]
-                ) );
-            } );
-            
-            // Create an instance of the genre based on its musicians
-            this._genres[ genre ] = new RMGenre( instances );
-		} // for
-        
-        // ========================================
-        
-        // Set all the playlist items
-        this._playlistItems = [];
-        playlistItems.forEach( ( playlistItem ) =>
-        {
-            this._playlistItems.push( new RMPlaylistItem(
-                this._genres[ playlistItem[ "genre" ][ "slug" ] ],
-                playlistItem[ "numOfMusicians" ],
-                playlistItem[ "numOfSongsPerMusician" ],
-                playlistItem[ "showPosts" ]
-            ) );
-        } );
-        
-        // ========================================
-        
-		// Transform all posts to class objects
-		this._posts = posts.map(
-			post => new RMPost(
-                post[ "image" ],
-                post[ "content" ],
-			)
-		);
-        this._postsLoop = RMHelper.createLoop( this._posts );
-			
-        // ========================================
-        
-		
-		// Transform all warnings to class objects
-		this._warnings = warnings.map(
-			warning => new RMWarning(
-                warning[ "isActive" ],
-                warning[ "first" ],
-                warning[ "step" ],
-                warning[ "title" ],
-                warning[ "message" ],
-                warning[ "buttonText" ],
-                warning[ "buttonLink" ],
-			)
-		);
-        this._numOfPlayedMusicians = 0;
-    } // CONSTRUCTOR
+  constructor(name, logo, imgDuration, playlist, posts, warnings)
+  {
+    this._name = name;
+    this._logo = logo;
+    this._imgDuration = imgDuration;
+
     
-	
-	
-	
-	
-	
-	
-    /**
-     * Create HTML output using React components.
-     */
-	/*createHTML()
-	{
-		ReactDOM.render(<RMRadioStationHTML />, document.getElementById("rm-output"));
-	} // CREATE HTML*/
-	
-	
-	
-	
-	
-	
-	
+
+    this._posts = RMListFactory.createList( "shuffle", "post", posts )
+    this._warnings = RMListFactory.createList( "logic", "warning", warnings )
+
+
+
+
+
+    this._numOfPlayedMusicians = 0;
+        
+    // ========================================
+        
+    // Set the player
+    this._player = new Plyr(
+    document.getElementById( "rm-radio-player" ),
+    {
+    controls: [
+    "progress",
+    ],
+    },
+    );
+    this._player.on( "ended", () => {
+    this.play();
+    } );
+        
+    // ========================================
+        
+    // Set all the genres (including musicians)
+    this._genres = {};
+    for (const [genre, musicians] of Object.entries(genres))
+    {
+    // Add musicians of the particular genre
+    let instances = [];
+    musicians.forEach( ( musician ) =>
+    {
+    instances.push( new RMMusician(
+        musician[ "name" ],
+        musician[ "description" ],
+        musician[ "images" ],
+        musician[ "introductions" ],
+        musician[ "records" ]
+    ) );
+    } );
+            
+    // Create an instance of the genre based on its musicians
+    this._genres[ genre ] = new RMGenre( instances );
+    } // for
+
+
+    
+    this._playlist = RMListFactory.createList( "play", "playlist", playlist )
+        
+    // Set all the playlist items
+    this._playlistItems = [];
+    playlistItems.forEach( ( playlistItem ) =>
+    {
+    this._playlistItems.push( new RMPlaylistItem(
+    this._genres[ playlistItem[ "genre" ][ "slug" ] ],
+    playlistItem[ "numOfMusicians" ],
+    playlistItem[ "numOfSongsPerMusician" ],
+    playlistItem[ "showPosts" ]
+    ) );
+    } );
+
+  } // CONSTRUCTOR
+    
 	
     // ========================================
 
@@ -153,10 +108,6 @@ export default class RMRadioStation
         return this._posts.length;
     } // HAS POSTS
 
-    // ========================================
-    
-
-    
     // ========================================
     
     /**

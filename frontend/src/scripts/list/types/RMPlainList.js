@@ -1,17 +1,32 @@
-/**
- * The class is used as a parent
- * for all types of lists.
- */
-export default class RMList
+
+export default class RMPlainList
 {
-  constructor( data )
+  constructor( elementType, data )
   {
-    this._data = data.map( element =>
-      new );
-
-    data.map
-
+    super( elementType, data )
   } // CONSTRUCTOR
+
+  * loop()
+  {
+    while( true )
+    {
+      // Shuffle the array with Fisher-Yates algorithm
+      this._data = unsort( this._data );
+                
+      // Loop through the array
+      for ( let element of this._data )
+      {
+        yield element;
+      } // for
+    } // while
+  } // LOOP
+
+  nextElement()
+  {
+    return this.loop().next().value;
+  } // NEXT ELEMENT
+
+
 } // RM LIST FACTORY
 
 this._posts = posts.map(

@@ -1,73 +1,37 @@
+import RMPlainList from "./types/RMPlainList"
+import RMShuffleList from "./types/RMShuffleList"
+import RMPlayList from "./types/RMPlayList"
+import RMLogicList from "./types/RMLogicList"
+
 /**
- * The class is used for creating
- * lists according to the type of
- * data.
+ * Represent a factory that produces
+ * a variety of lists for the data.
  */
 export default class RMListFactory
 {
   /**
-   * Create a new list.
+   * Create a particular list.
+   * @param {string} listType
+   * @param {string} elementType
+   * @param {object[]} data
    */
-  static createList( type, data )
+  static createList( listType, elementType, data )
   {
-    if ( type == "plain" )
+    if ( listType === "plain" )
     {
-      return new RMPlainList( data )
+      return new RMPlainList( elementType, data )
     } // if
-    else if (type == "shuffle")
+    else if ( listType === "shuffle" )
     {
-      return new RMShuffleList( data )
+      return new RMShuffleList( elementType, data )
+    } // else if
+    else if ( listType === "play" )
+    {
+      return new RMPlayList( elementType, data )
+    } // else if
+    else if ( listType === "logic" )
+    {
+      return new RMLogicList( elementType, data )
     } // else if
   } // CREATE LIST
 } // RM LIST FACTORY
-
-  
-  
-  class RMList
-{
-  createList( type )
-  {
-    let list
-    
-    if ( type === "basic" )
-    {
-      list = new BasicList();
-    } // if
-    else if ( type === "shuffle" )
-    {
-      list = new ShuffleList();
-    } // else if
-    else if ( type === "logic" )
-    {
-      list = new LogicList();
-    } // else if
-    
-    list.type = type;
-    
-    return list;
-  } // CREATE LIST
-  
-  
-    
-    get title()
-    {
-        return this._title;
-    } // GET TITLE
-    
-    set title( title )
-    {
-        this._title = title;
-    } // SET TITLE
-    
-    // ========================================
-    
-    get url()
-    {
-        return this._url;
-    } // GET URL
-    
-    set url( url )
-    {
-        this._url = url;
-    } // SET URL
-} // RM RECORD

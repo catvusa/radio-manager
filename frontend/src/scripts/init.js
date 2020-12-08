@@ -19,8 +19,7 @@ document.addEventListener( "DOMContentLoaded", () =>
 				data[ "name" ],
 				data[ "logo" ],
 				data[ "imgDuration" ],
-				data[ "genres" ],
-				data[ "playlistItems" ],
+				data[ "playlist" ],
 				data[ "posts" ],
 				data[ "warnings" ]
 			);

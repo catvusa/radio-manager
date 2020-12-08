@@ -1,3 +1,18 @@
+
+export default class RMPlainList
+{
+  constructor( elementType, data )
+  {
+    super( elementType, data )
+  } // CONSTRUCTOR
+
+
+
+
+} // RM LIST FACTORY
+
+
+
 import { unsort } from "array-unsort";
 
 // ========================================
@@ -14,17 +29,17 @@ export default class RMHelper
         // Set the generator for looping through the array
         function* loop( array )
         {
-            while( true )
-            {
-                // Shuffle the array with Fisher-Yates algorithm
-                array = unsort( array );
+          while( true )
+          {
+            // Shuffle the array with Fisher-Yates algorithm
+            array = unsort( array );
                 
-                // Loop through the array
-                for ( let element of array )
-                {
-                    yield element;
-                } // for
-            } // while
+            // Loop through the array
+            for ( let element of array )
+            {
+              yield element;
+            } // for
+          } // while
         } // LOOP
         
         return loop( array );
