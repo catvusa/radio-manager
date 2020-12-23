@@ -26,7 +26,7 @@ class RMMenuAndLinkCreator
         add_menu_page(
             RM_PLUGIN_NAME, # Page title
             RM_PLUGIN_NAME, # Menu title
-            RM_CAPABILITY, # Capability
+            "edit_posts", # Capability
             RM_MAIN_PAGE_SLUG, # Menu slug
             '', # Callback
             'dashicons-format-audio', # Icon URL
@@ -35,19 +35,9 @@ class RMMenuAndLinkCreator
         
         add_submenu_page(
             RM_MAIN_PAGE_SLUG, # Parent slug
-            RM_MAIN_PAGE_TITLE, # Page title
-            RM_MAIN_PAGE_TITLE, # Menu title
-            RM_CAPABILITY, # Capability
-            RM_MAIN_PAGE_SLUG, # Menu slug
-            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/backend/pages/dashboard.php' ); }, # Callback
-            0, # Position
-        );
-        
-        add_submenu_page(
-            RM_MAIN_PAGE_SLUG, # Parent slug
             RM_GENRES_PAGE_TITLE, # Page title
             RM_GENRES_PAGE_TITLE, # Menu title
-            RM_CAPABILITY, # Capability
+            "manage_options", # Capability
             RM_GENRES_PAGE_SLUG, # Menu slug
             '', # Callback
             null, # Position
@@ -57,9 +47,9 @@ class RMMenuAndLinkCreator
             RM_MAIN_PAGE_SLUG, # Parent slug
             RM_HELP_PAGE_TITLE, # Page title
             RM_HELP_PAGE_TITLE, # Menu title
-            RM_CAPABILITY, # Capability
+            "edit_posts", # Capability
             RM_HELP_PAGE_SLUG, # Menu slug
-            function() { return require_once( plugin_dir_path( dirname( __FILE__ ) ) . '/backend/pages/help.php' ); }, # Callback
+            [ __CLASS__, 'createHelpHTML' ], # Callback
             null, # Position
         );
     } // CREATE MENU
@@ -69,12 +59,22 @@ class RMMenuAndLinkCreator
      */
     public static function createLinks( $links )
     {
-        # Before the 'Deactivate' link
-        array_unshift($links, '<a href="admin.php?page=' . RM_MAIN_PAGE_SLUG . '">' . RM_MAIN_PAGE_TITLE . '</a>');
-        
-        # After the 'Deactivate' link
+        # Insert after the 'Deactivate' link
         array_push($links, '<a href="admin.php?page=' . RM_HELP_PAGE_SLUG . '">' . RM_HELP_PAGE_TITLE . '</a>'); 
         
         return $links;
     } // CREATE LINKS
+
+	public static function createHelpHTML()
+  {
+    ?>
+
+    <div class="wrap">
+      <h1>Help</h1>
+      <br />
+      <span>In the future, there will be a user documentation.</span>
+    </div>
+
+    <?php
+  } // CREATE SHORTCODE META BOX HTML
 } // RM MENU AND LINKS CREATOR

@@ -21,6 +21,16 @@ export default class RMPlaylistItem
   } // CONSTRUCTOR
 
   /**
+   * Find whether the genre has
+   * some musicians or is empty.
+   * @return {boolean} The hasMusicians value.
+   */
+  hasMusicians()
+  {
+    return this._genre.musicians.data.length
+  } // HAS MUSICIANS
+
+  /**
    * Get the genre value.
    * @return {object} The genre value.
    */

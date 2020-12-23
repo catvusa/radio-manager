@@ -24,7 +24,7 @@ export default class RMList
   {
     for ( let element of this._data )
     {
-      yield element;
+      yield element
     } // for
   } // LOOP
 
@@ -34,15 +34,15 @@ export default class RMList
    */
   nextElement()
   {
-    return this.loop().next().value;
+    return this.loop().next().value
   } // NEXT ELEMENT
 
   /**
    * The class is used as a parent
    * for all types of lists.
    */
-  size()
+  get data()
   {
-    return this._data.length;
+    return this._data
   } // SIZE
 } // RM LIST

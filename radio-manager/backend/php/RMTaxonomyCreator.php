@@ -64,14 +64,5 @@ class RMTaxonomyCreator
         ];
         
         register_taxonomy( 'genre', [ 'musician' ], $args );
-        
-        /**
-         * Insert default terms.
-         */
-         
-        foreach ( array( 'Announcements', 'Classical', 'Folk', 'Jingles', 'Uncategorized' ) as $term)
-        {
-            wp_insert_term( $term, 'genre' );
-        } // foreach
     } // CREATE TAXONOMIES
 } // RM TAXONOMY CREATOR

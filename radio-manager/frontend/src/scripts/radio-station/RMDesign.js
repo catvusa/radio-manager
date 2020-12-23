@@ -116,6 +116,20 @@ export default class RMHTML
 	// EVENT LISTENERS
 	// ========================================
 
+  import Plyr from "plyr";
+
+      // Set the player
+    this._player = new Plyr(
+    document.getElementById( "rm-radio-player" ),
+    {
+    controls: [
+    "progress",
+    ],
+    },
+    );
+    this._player.on( "ended", () => {
+    this.play();
+    } );
 
   /*
 
@@ -126,7 +140,10 @@ export default class RMHTML
  
  */
 
-
+const ICON_PLAY = "http://www.testcatv.site/wp-content/uploads/2020/11/play.svg";
+const ICON_PAUSE = "http://www.testcatv.site/wp-content/uploads/2020/11/pause.svg";
+const ICON_UP = "http://www.testcatv.site/wp-content/uploads/2020/11/up.svg";
+const ICON_DOWN = "http://www.testcatv.site/wp-content/uploads/2020/11/down.svg";
 
     /**
      * Add listeners for all important parts of the radio station (e.g. play/pause button)
@@ -210,6 +227,177 @@ export default class RMHTML
             } // else
         } );
     } // ADD EVENT LISTENERS
+
+
+
+
+    /**
+     * Set the radio name to HTML.
+     */
+    setRadioName( radioName )
+    {
+        document.getElementById( "rm-radio-name" ).innerHTML = radioName;
+    } // SET RADIO NAME
+
+    /**
+     * Set the slideshow of the musician images.
+     */
+    setSlideshow( musician )
+    {
+        if ( musician.hasImages() > 1 )
+        {
+            // Set the first musician image to slideshow
+            this.setMusicianImage( musician.randomImage.url );
+            
+            // Start the slideshow of the musician images
+            this._slideshow = setInterval(() =>
+            {
+                // Set the musician image
+                this.setMusicianImage( musician.randomImage.url );
+            }, this._imgDuration * 1000);
+            
+            return true;
+        } // if
+        else if ( musician.hasImages() == 1 )
+        {
+            // Set the only one musician image
+            this.setMusicianImage( musician.randomImage.url );
+            
+            return false;
+        } // else if
+        else
+        {
+            // Set the radio station logo
+            this.setMusicianImage( this._logo );
+            
+            return false;
+        } // else
+    } // SET SLIDESHOW
+
+    /**
+     * Set the musician image to HTML.
+     */
+    setMusicianImage( musicianImage )
+    {
+        document.getElementById( "rm-musician-image" ).src = musicianImage;
+    } // SET MUSICIAN IMAGE
+
+    /**
+     * Set the musician name to HTML.
+     */
+    setMusicianName( musicianName )
+    {
+        document.getElementById( "rm-musician-name" ).innerHTML = musicianName;
+    } // SET MUSICIAN NAME
+    
+    /**
+     * Set the musician record to the player.
+     */
+    setMusicianRecord( musician )
+    {
+        // There is at least one record by this musician
+        if ( musician.hasRecords() )
+        {
+            // Choose one record randomly
+            let record = musician.randomRecord;
+            
+            // Set the record to be played
+            this._player.source = {
+                type: "audio",
+                sources: [
+                    {
+                        src: record.url,
+                    },
+                ],
+            };
+            
+            // Set the record name to HTML
+            this.setRecordName( record.title );
+            
+            return true;
+        } // if
+        
+        return false;
+    } // SET MUSICIAN RECORD
+
+    /**
+     * Set the musician introduction to the player.
+     */
+    setMusicianIntroduction( musician )
+    {
+        // There is at least one introduction by this musician
+        if ( musician.hasIntroductions() )
+        {
+            // Set the introduction to be played
+            this._player.source = {
+                type: "audio",
+                sources: [
+                    {
+                        src: musician.randomIntroduction.url,
+                    },
+                ],
+            };
+            
+            // Clear all the data
+            this.setMusicianImage( this._logo );
+            this.setMusicianName( "" );
+            this.setRecordName( "" );
+            this.setMusicianDescription( "" );
+            
+            return true;
+        } // if
+        
+        return false;
+    } // SET MUSICIAN INTRODUCTION
+
+    /**
+     * Set the record name to HTML.
+     */
+    setRecordName( recordName )
+    {
+        document.getElementById( "rm-record-name" ).innerHTML = recordName;
+    } // SET RECORD NAME
+
+    /**
+     * Set the musician description to HTML.
+     */
+    setMusicianDescription( musicianDescription )
+    {
+        let descriptionField = document.getElementById( "rm-musician-description-field" );
+        let descriptionGradient = document.getElementById( "rm-musician-description-gradient" );
+        
+        let rightIcon = document.getElementById( "rm-right-icon" );
+        let rightField = document.getElementById( "rm-right-field" );
+        
+        // Reset the right icon
+        rightIcon.src = ICON_DOWN;
+        rightIcon.setAttribute( "data-src", ICON_DOWN );
+        rightField.style.backgroundColor = "";
+        
+        // Check the length of the text
+        if ( musicianDescription.length == 0 )
+        {
+            descriptionField.style.display = "none";
+            rightField.style.visibility = "hidden";
+        } // if
+        else if ( musicianDescription.length > 200 )
+        {
+            descriptionField.style.display = "block";
+            descriptionField.style.height = "";
+            descriptionGradient.style.display = "block";
+            rightField.style.visibility = "visible";
+        } // else if
+        else
+        {
+            descriptionField.style.display = "block";
+            descriptionField.style.height = "auto";
+            descriptionGradient.style.display = "none";
+            rightField.style.visibility = "hidden";
+        } // else
+        
+        // Insert the text into the musician description
+        document.getElementById( "rm-musician-description" ).innerHTML = musicianDescription;
+    } // SET MUSICIAN DESCRIPTION
 
 
 } // RM HTML

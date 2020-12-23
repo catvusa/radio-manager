@@ -20,10 +20,11 @@ class RMPostTypeCreator
      */
     public static function createPostTypes()
     {
-        /**
-         * Post Type: Radio Stations.
-         */
-         
+      /**
+       * Post Type: Radio Station.
+       */
+		  if ( current_user_can( "manage_options" ) )
+		  {
         $labels = [
             'name' => 'Radio Stations',
             'singular_name' => 'Radio Station',
@@ -37,7 +38,7 @@ class RMPostTypeCreator
         $args = [
             'label' => 'Radio Stations',
             'labels' => $labels,
-            'description' => '',
+            'description' => 'There is a description.',
             'public' => true,
             'publicly_queryable' => true,
             'show_ui' => true,
@@ -58,11 +59,13 @@ class RMPostTypeCreator
         ];
 
         register_post_type( 'radio_station', $args );
+      } // if
 
-        /**
-         * Post Type: Musicians.
-         */
-
+      /**
+       * Post Type: Musician.
+       */
+	    if ( current_user_can( "edit_posts" ) )
+	    {
         $labels = [
             'name' => 'Musicians',
             'singular_name' => 'Musician',
@@ -72,7 +75,7 @@ class RMPostTypeCreator
         $args = [
             'label' => 'Musicians',
             'labels' => $labels,
-            'description' => '',
+            'description' => 'There is a description.',
             'public' => true,
             'publicly_queryable' => true,
             'show_ui' => true,
@@ -94,6 +97,7 @@ class RMPostTypeCreator
         ];
 
         register_post_type( 'musician', $args );
+      } // if
     } // CREATE POST TYPES
     
     /**

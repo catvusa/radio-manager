@@ -1,6 +1,5 @@
 import RMPlainList from "./types/RMPlainList"
 import RMShuffleList from "./types/RMShuffleList"
-import RMPlayList from "./types/RMPlayList"
 import RMLogicList from "./types/RMLogicList"
 
 /**
@@ -11,9 +10,9 @@ export default class RMListFactory
 {
   /**
    * Create a particular list.
-   * @param {string} listType
-   * @param {string} elementType
-   * @param {object[]} data
+   * @param {string} listType – The type of the list.
+   * @param {string} elementType – The type of the list element.
+   * @param {object[]} data – The data to be saved to the list.
    */
   static createList( listType, elementType, data )
   {
@@ -24,10 +23,6 @@ export default class RMListFactory
     else if ( listType === "shuffle" )
     {
       return new RMShuffleList( elementType, data )
-    } // else if
-    else if ( listType === "play" )
-    {
-      return new RMPlayList( elementType, data )
     } // else if
     else if ( listType === "logic" )
     {
