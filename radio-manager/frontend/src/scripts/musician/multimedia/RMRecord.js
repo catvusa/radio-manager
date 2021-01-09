@@ -9,19 +9,28 @@ export default class RMRecord extends RMMultimedia
   /**
    * Create a record.
    * @param {string} title – The main title.
-   * @param {string} url – The URL address.
+   * @param {string} src – The URL address.
+   * @param {string} type – The type of the record (audio/video).
    */
-  constructor( title, url )
+  constructor( title, src, type )
   {
     /*
-      We are working with the title and url only.
-      The description can be added in the future.
+      We are working with the title
+      and the src only.
+      The description can be added
+      in the future.
     */
-    super( title, "", url )
+    super( title, "", src )
 
-    /*
-      There we can add another parameters
-      specific for the record in the future.
-    */
+    this._type = type
   } // CONSTRUCTOR
+
+  /**
+   * Get the type value.
+   * @return {string} The type value.
+   */
+  get type()
+  {
+    return this._type
+  } // GET TYPE
 } // RM RECORD

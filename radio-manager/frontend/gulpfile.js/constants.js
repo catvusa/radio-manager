@@ -7,7 +7,7 @@ const paths =
   html: "./index.html",
   scss: "./src/styles/**/*.scss",
   js: "./src/scripts/**/*.js",
-  jsEntry: "./src/scripts/init.js",
+  jsEntry: "./src/scripts/index.js",
   dest: "./dist",
 }
 exports.paths = paths

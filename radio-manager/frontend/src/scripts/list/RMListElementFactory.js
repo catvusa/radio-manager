@@ -8,43 +8,45 @@ import RMWarning from "../radio-station/RMWarning"
 
 /**
  * Represent a factory that produces
- * a variety of list elements.
+ * various list elements.
  */
 export default class RMListElementFactory
 {
   /**
    * Create a particular list element.
    * @param {string} elementType
-   * @param {object[]} object
+   * @param {object} object
    */
   static createListElement( elementType, object )
   {
-    if ( elementType === "musician" )
+    if ( elementType == "musician" )
     {
       return RMMusicianFactory.getMusician( object )
     } // if
-    else if ( elementType === "image" )
+    else if ( elementType == "image" )
     {
       return new RMImage(
         object.title,
         object.description,
-        object.url
+        object.src
       )
     } // else if
-    else if ( elementType === "introduction" )
+    else if ( elementType == "introduction" )
     {
       return new RMIntroduction(
-        object.url
+        object.src,
+        object.type
       )
     } // else if
-    else if ( elementType === "record" )
+    else if ( elementType == "record" )
     {
       return new RMRecord(
         object.title,
-        object.url
+        object.src,
+        object.type
       )
     } // else if
-    else if ( elementType === "playlist" )
+    else if ( elementType == "playlistItem" )
     {
       return new RMPlaylistItem(
         object.genre,
@@ -53,23 +55,21 @@ export default class RMListElementFactory
         object.showPosts
       )
     } // else if
-    else if ( elementType === "post" )
+    else if ( elementType == "post" )
     {
       return new RMPost(
         object.image,
         object.content
       )
     } // else if
-    else if ( elementType === "warning" )
+    else if ( elementType == "warning" )
     {
       return new RMWarning(
-        object.isActive,
         object.first,
         object.step,
         object.title,
         object.message,
-        object.buttonText,
-        object.buttonLink
+        object.link
       )
     } // else if
   } // CREATE LIST ELEMENT

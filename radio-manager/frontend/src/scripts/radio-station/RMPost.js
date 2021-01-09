@@ -1,14 +1,14 @@
 /**
- * Represent a post that is being
- * projected while playing
+ * Represent a blog post that is
+ * being projected while playing
  * the particular playlist item.
  */
 export default class RMPost
 {
   /**
    * Create a post.
-   * @param {string} image – The URL address of the featured image.
-   * @param {string} content – More descriptive text.
+   * @param {object} image – The featured image attached to the particular post.
+   * @param {string} content – The text of the particular post.
    */
   constructor( image, content )
   {
@@ -18,7 +18,7 @@ export default class RMPost
 
   /**
    * Get the image value.
-   * @return {string} The image value.
+   * @return {object} The image value.
    */
   get image()
   {

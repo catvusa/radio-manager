@@ -15,7 +15,17 @@ export default class RMGenre
   {
     this._musicians = RMListFactory.createList( "shuffle", "musician", musicians )
   } // CONSTRUCTOR
-  
+ 
+  /**
+   * Find out whether the genre has
+   * some musicians or is empty.
+   * @return {boolean} The hasMusicians value.
+   */
+  hasMusicians()
+  {
+    return this._musicians.data.length
+  } // HAS MUSICIANS
+
   /**
    * Get the musicians value.
    * @return {object} The musicians value.

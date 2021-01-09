@@ -1,15 +1,15 @@
-import RMListElementFactory from "./RMListElementFactory"
+import RMListElementFactory from "../RMListElementFactory"
 
 /**
- * The class is used as a parent
- * for all types of lists.
+ * Represent a parent class 
+ * for all list types.
  */
 export default class RMList
 {
   /**
-   * Create a list.
-   * @param {string} elementType
-   * @param {object[]} data
+   * Create a base for all lists.
+   * @param {string} elementType – Type of list elements.
+   * @param {object[]} data – All the data to be saved.
    */
   constructor( elementType, data )
   {
@@ -17,32 +17,21 @@ export default class RMList
   } // CONSTRUCTOR
 
   /**
-   * The class is used as a parent
-   * for all types of lists.
+   * Find out whether the list
+   * has some data or not.
+   * @return {boolean} The hasData value.
    */
-  * loop()
+  hasData()
   {
-    for ( let element of this._data )
-    {
-      yield element
-    } // for
-  } // LOOP
+    return this._data.length
+  } // HAS DATA
 
   /**
-   * The class is used as a parent
-   * for all types of lists.
-   */
-  nextElement()
-  {
-    return this.loop().next().value
-  } // NEXT ELEMENT
-
-  /**
-   * The class is used as a parent
-   * for all types of lists.
+   * Get the data value.
+   * @return {object[]} The data value.
    */
   get data()
   {
     return this._data
-  } // SIZE
+  } // GET DATA
 } // RM LIST

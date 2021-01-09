@@ -10,15 +10,15 @@ export default class RMImage extends RMMultimedia
    * Create an image.
    * @param {string} title – The main title.
    * @param {string} description – More descriptive text.
-   * @param {string} url – The URL address.
+   * @param {string} src – The URL address.
    */
-  constructor( title, description, url )
+  constructor( title, description, src )
   {
     /*
       We are working with each of the parameters.
       Therefore, we need them for initialization.
     */
-    super( title, description, url )
+    super( title, description, src )
 
     /*
       There we can add another parameters

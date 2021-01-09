@@ -1,7 +1,7 @@
 {
-  "name": "audio-player",
+  "name": "radio-manager",
   "version": "1.0.0",
-  "description": "This is the audio player for the Radio Manager plugin.",
+  "description": "This is the audio/video player for the Radio Manager plugin.",
   "scripts": {
     "start": "gulp"
   },
@@ -9,11 +9,18 @@
   "dependencies": {
     "array-unsort": "^1.1.6",
     "bootstrap": "^4.5.3",
-    "plyr": "^3.6.3"
+    "bootstrap-icons": "^1.3.0",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.3",
+    "react-dom": "^17.0.1",
+    "swiper": "^6.4.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.13",
     "browserify": "^17.0.0",
@@ -25,5 +32,15 @@
     "gulp-terser": "^1.4.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-runtime"
+    ]
   }
 }

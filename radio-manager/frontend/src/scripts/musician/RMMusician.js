@@ -26,6 +26,36 @@ export default class RMMusician
   } // CONSTRUCTOR
 
   /**
+   * Find out whether the musician
+   * has some images or not.
+   * @return {boolean} The hasImages value.
+   */
+  hasImages()
+  {
+    return this._images.data.length
+  } // HAS IMAGES
+
+  /**
+   * Find out whether the musician
+   * has some introductions or not.
+   * @return {boolean} The hasIntroductions value.
+   */
+  hasIntroductions()
+  {
+    return this._introductions.data.length
+  } // HAS INTRODUCTIONS
+
+  /**
+   * Find out whether the musician
+   * has some records or not.
+   * @return {boolean} The hasRecords value.
+   */
+  hasRecords()
+  {
+    return this._records.data.length
+  } // HAS RECORDS
+
+  /**
    * Get the name value.
    * @return {string} The name value.
    */

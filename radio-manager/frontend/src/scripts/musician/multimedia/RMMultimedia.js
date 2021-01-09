@@ -5,16 +5,16 @@
 export default class RMMultimedia
 {
   /**
-   * Create a base for all multimedia.
+   * Create a base for all the multimedia.
    * @param {string} title – The main title.
    * @param {string} description – More descriptive text.
-   * @param {string} url – The URL address.
+   * @param {string} src – The URL address.
    */
-  constructor( title, description, url )
+  constructor( title, description, src )
   {
     this._title = title
     this._description = description
-    this._url = url
+    this._src = src
   } // CONSTRUCTOR
 
   /**
@@ -36,11 +36,11 @@ export default class RMMultimedia
   } // GET DESCRIPTION
 
   /**
-   * Get the url value.
-   * @return {string} The url value.
+   * Get the src value.
+   * @return {string} The src value.
    */
-  get url()
+  get src()
   {
-    return this._url
-  } // GET URL
+    return this._src
+  } // GET SRC
 } // RM MULTIMEDIA

@@ -1,123 +1,133 @@
-@import "./partials/variables";
 @import "./partials/mixins";
 @import "./partials/reset";
+@import "./partials/variables";
 
+@import "../../node_modules/swiper/swiper";
+@import "../../node_modules/swiper/components/effect-fade/effect-fade";
+@import "../../node_modules/swiper/components/lazy/lazy";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
-#rm-musician-name-field,
-#rm-record-name-field
+/* Component: RMRadio */
+#rm-radio-field
 {
-  margin: 5px 0;
-}
-
-#rm-musician-name-label,
-#rm-record-name-label
-{
-  font-weight: normal;
-  font-size: 15px;
-}
-
-#rm-musician-name,
-#rm-record-name
-{
-  font-size: 20px;
-}
-
-.rm-flex {
-  display: flex;
-  justify-content: space-between;
-}
-
-#rm-left-icon, #rm-right-icon
-{
-  display: block;
-  width: 60px;
-}
-
-/* RMRadioStationHTML */
-#rm-radio {
-  /* RMNameHTML */
-  #rm-radio-name-field {
+  outline: 1px solid $rm_dark_color;
+  
+  /* Component: RMRadioName */
+  #rm-radio-name-field
+  {
     background-color: $rm_blue_color;
-    outline: 1px solid $rm_dark_color;
     padding: 0.5rem;
 
-    #rm-radio-name {
-      @include rm-text( #FFF, 25px, bold, center );
+    span
+    {
+      @include rm-text( #FFF, 1.5rem, bold, center );
+
       display: block;
       cursor: default;
     }
   }
-  /* RMMultimediaHTML */
-  /* RMPlayerHTML */
-} /* RM RADIO STATION */
-
-
-
-#rm-radio-player-field
-{
-  display: flex;
-  justify-content: space-between;
-}
-
-
-/* Identificators */
-#rm-musician-multimedia-field {
-  @include rm-flex;
-  position: relative;
-  flex-direction: column;
-
-  img {
-    display: block;
-    max-width: 100%;
-    cursor: pointer;
+  
+  /* Component: RMRadioMultimedia */
+  #rm-radio-multimedia-field
+  {
+    @include rm-flex( column, center, center );
+    
+    background-color: $rm_blue_color;
     outline: 1px solid $rm_dark_color;
-  }
-}
-
-#rm-middle-field
-{
-    @include rm-flex;
-    
-    flex-direction: column;
-    margin: 10px;
-}
-
-#rm-left-field,
-#rm-right-field,
-{
-    @include rm-flex;
-    
-    cursor: pointer;
-    
-    &:hover
-    {
-        background: $rm_red_color;
-    }
-}
-
-#rm-musician-description-field
-{
-    position: relative;
-    height: 6em;
-    overflow: hidden;
-	
-	p
-	{
-		display: block;
-	}
-}
-
-#rm-musician-description-gradient
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(0deg, rgba(58,59,60,1) 1%, rgba(255,255,255,0) 100%);
-}
-
-#rm-musician-description
-{
     cursor: default;
+    
+    #rm-preloader
+    {
+      position: absolute;
+      z-index: 0;
+    }
+
+    /* Component: RMCaption */
+    #rm-caption-field
+    {
+      @include rm-text( #FFF, 1rem, normal, center );
+
+      background-color: $rm_caption_color;
+      outline: 1px solid $rm_dark_color;
+      padding: 0.25rem;
+      width: 100%;
+    }
+
+    /* Component: RMPlayer, RMSlider, RMLogo */
+    img, video
+    {
+      position: relative;
+      z-index: 1;
+      outline: 1px solid $rm_dark_color;
+      max-width: 100%;
+    }
+    
+    /* Component: RMSlider */
+    #rm-slider
+    {
+      max-width: 100%;
+
+      .rm-slide
+      {
+        @include rm-flex( column, center, center );
+      }
+    }
+
+    /* Component: RMPost */
+    #rm-post-field
+    {
+      position: relative;
+      z-index: 1;
+      background-color: #FFF;
+      width: 100%;
+      height: 20rem;
+      overflow: auto;
+      padding: 0.5rem;
+
+      #rm-post
+      {
+        padding: 0.5rem 0;
+      }
+    }
+  }
+  
+  /* Component: RMRadioPlayer */
+  #rm-radio-player-field
+  {
+    background-color: $rm_blue_color;
+    border-top: 1px solid $rm_dark_color;
+
+    /* Component: RMIconField */
+    .rm-icon
+    {
+      padding: 10px;
+    }
+
+    .rm-icon-active
+    {
+      background-color: $rm_red_color;
+      outline: 1px solid $rm_dark_color;
+      cursor: pointer;
+    }
+    
+    /* Component: RMInfoField */
+    #rm-info-field
+    {
+      padding: 0.5rem 0;
+
+      /* Component: RMInfo */
+      .rm-info
+      {
+        @include rm-text( #FFF, 1rem, normal, center );
+        
+        cursor: default;
+        padding: 0 0.5rem;
+
+        .rm-info-content
+        {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

@@ -10,7 +10,7 @@ export default class RMPlaylistItem
    * @param {object} genre – Slug with the respective musicians.
    * @param {number} numOfMusicians – Number of musicians to be played.
    * @param {number} numOfSongsPerMusician – Number of songs to be played per musician.
-   * @param {boolean} showPosts – Whether the posts are being projected while playing this playlist item.
+   * @param {boolean} showPosts – Whether the blog posts are being projected while playing this playlist item.
    */
   constructor( genre, numOfMusicians, numOfSongsPerMusician, showPosts )
   {
@@ -19,16 +19,6 @@ export default class RMPlaylistItem
     this._numOfSongsPerMusician = numOfSongsPerMusician
     this._showPosts = showPosts
   } // CONSTRUCTOR
-
-  /**
-   * Find whether the genre has
-   * some musicians or is empty.
-   * @return {boolean} The hasMusicians value.
-   */
-  hasMusicians()
-  {
-    return this._genre.musicians.data.length
-  } // HAS MUSICIANS
 
   /**
    * Get the genre value.

@@ -1,7 +1,7 @@
 /**
  * @const {module} browserSync – Creates a local web server.
  */
-const browserSync = require( "browser-sync" ).create();
+const browserSync = require( "browser-sync" ).create()
 
 /**
  * @const {object} paths – Paths to all important files and folders.
