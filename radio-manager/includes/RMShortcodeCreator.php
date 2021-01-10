@@ -44,43 +44,6 @@ class RMShortcodeCreator
         ob_start();
 				
         ?>
-
-		<div id="rm-radio-station" data-rmradiostationid="<?= $atts['id']; ?>">
-		
-			<div class="rm-bg-primary rm-brd rm-padding rm-center">
-				<span id="rm-radio-name" class="rm-title-level1"></span>
-			</div>
-			
-			<div id="rm-musician-image-field" class="rm-brd">
-				<img id="rm-musician-image">
-			</div>
-			
-			<div class="rm-bg-primary rm-brd rm-flex">
-			
-				<div id="rm-left-field">
-					<img id="rm-left-icon" class="rm-icons">
-				</div>
-				
-				<div id="rm-middle-field" class="rm-center">
-					<div id="rm-musician-name" class="rm-title-level2"></div>
-					<div id="rm-record-name" class="rm-title-level3"></div>
-				</div>
-				
-				<div id="rm-right-field">
-					<img id="rm-right-icon" class="rm-icons">
-				</div>
-				
-			</div>
-			
-			<div id="rm-musician-description-field" class="rm-bg-secondary rm-brd rm-padding">
-				<div id="rm-musician-description-gradient"></div>
-				<div id="rm-musician-description"></div>
-			</div>
-			
-			<div style="">
-				<audio id="rm-radio-player"></audio>
-			</div>
-		</div>
         
         <?php
 		

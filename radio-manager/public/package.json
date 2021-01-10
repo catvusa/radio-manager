@@ -2,10 +2,16 @@
   "name": "radio-manager",
   "version": "1.0.0",
   "description": "This is the audio/video player for the Radio Manager plugin.",
+  "license": "UNLICENSED",
+  "private": true,
+  "author": "Karel Vrabec <karelvrabeckv@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catvusa/radio-manager"
+  },
   "scripts": {
     "start": "gulp"
   },
-  "author": "Karel Vrabec <karelvrabeckv@gmail.com>",
   "dependencies": {
     "array-unsort": "^1.1.6",
     "bootstrap": "^4.5.3",

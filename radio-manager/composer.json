@@ -1,20 +1,21 @@
 {
-  "name": "radio-manager",
-  "description": "A Wordpress plugin for managing your own custom web radios.",
+  "name": "catvusa/radio-manager",
+  "description": "A WordPress plugin for managing your own custom web radios.",
   "type": "project",
+  "license": "UNLICENSED",
   "authors": [
     {
       "name": "Karel Vrabec",
       "email": "karelvrabeckv@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require": {},
   "autoload":
   {
     "psr-4":
     {
-      "Inc\\": "./backend/php"
+      "Inc\\": "./includes"
     }
   }
 }
