@@ -17,7 +17,7 @@ export default class RMCaption extends Component
     {
       return (
         <div className="rm-caption-field">
-          <span>{ this.props.content }</span>
+          <span dangerouslySetInnerHTML={ { __html: this.props.content } } />
         </div>
       )
     } // if

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { unsort } from "array-unsort"
 
 import RMListFactory from "../../../list/RMListFactory"
+import RMPreloader from "./RMPreloader"
 
 /**
  * Represent a player of the radio station.
@@ -22,6 +23,23 @@ export default class RMPlayer extends Component
 
     this._numOfPlayedMusicians = 0
   } // CONSTRUCTOR
+
+  /**
+   * Reset the radio station.
+   */
+  reset()
+  {
+    this.props.setRecordData( "", "", "", "" )
+        
+    this.props.setLogoVisibility( true )
+
+    this.props.setPostContent( "" )
+    this.props.setPostButtons( false )
+    this.props.setPostVisibility( false )
+
+    this.props.setImgData( [] )
+    this.props.setImgVisibility( false )
+  } // RESET
 
   /**
    * Check whether it is the time to show the warning.
@@ -114,17 +132,8 @@ export default class RMPlayer extends Component
       // Loop through the musicians
       for ( let i = 0; i < playlistItem.numOfMusicians; i++ )
       {
-        // Reset the musician
-        this.props.setRecordData( "", "", "", "" )
-        
-        this.props.setLogoVisibility( true )
-
-        this.props.setPostContent( "" )
-        this.props.setPostButtons( false )
-        this.props.setPostVisibility( false )
-
-        this.props.setImgData( [] )
-        this.props.setImgVisibility( false )
+        // Reset the radio
+        this.reset()
 
         // Select the musician
         let musician = playlistItem.genre.musicians.nextElement()
@@ -154,6 +163,13 @@ export default class RMPlayer extends Component
         {
           let introduction = musician.introductions.nextElement()
           
+          if ( introduction.type == "video" )
+          {
+            this.props.setLogoVisibility( false )
+            this.props.setPostVisibility( false )
+            this.props.setImgVisibility( false )
+          } // if
+
           this.props.setRadioSkip( false )
           this.props.setRecordData( "", "", introduction.src, introduction.type )
           this.props.setRadioPlay( true )
@@ -164,6 +180,9 @@ export default class RMPlayer extends Component
         // Loop through the records
         for ( let j = 0; j < playlistItem.numOfRecordsPerMusician; j++ )
         {
+          // Reset the radio
+          this.reset()
+
           // Show a post
           if ( playlistItem.showWebsitePosts )
           {
@@ -243,11 +262,14 @@ export default class RMPlayer extends Component
     {
       // Show the video player
       return (
+        <>
         <video
           src={ this.props.recordData.src }
           onEnded={ () => { this._loop.next() } }
           ref={ this._player }
         />
+        <RMPreloader hasData={ true } />
+        </>
       )
     } // if
 

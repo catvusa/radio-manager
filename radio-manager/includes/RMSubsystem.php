@@ -33,8 +33,8 @@ abstract class RMSubsystem
   public static function getInstance()
   {
     $class = get_called_class();
-
-    if ( !isset( self::$singletons[ $class ] ) )
+    
+    if ( !array_key_exists( $class, self::$singletons ) )
     {
       // Create only from within the class
       self::$singletons[ $class ] = new $class();

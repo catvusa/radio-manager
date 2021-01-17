@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 
 /**
- * Represent a name of the radio station.
+ * Represent a name of the radio
+ * station.
  * @extends Component
  */
 export default class RMRadioName extends Component
@@ -15,7 +16,7 @@ export default class RMRadioName extends Component
     {
       return (
         <div id="rm-radio-name-field">
-          <span>{ this.props.radioName }</span>  
+          <span dangerouslySetInnerHTML={ { __html: this.props.radioName } } />  
         </div>
       )
     } // if

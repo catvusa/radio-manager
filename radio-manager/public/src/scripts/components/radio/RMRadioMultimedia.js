@@ -6,7 +6,8 @@ import RMPost from "./multimedia/RMPost"
 import RMLogo from "./multimedia/RMLogo"
 
 /**
- * Represent a multimedia of the radio station.
+ * Represent a multimedia of
+ * the radio station.
  * @extends Component
  */
 export default class RMRadioMultimedia extends Component
@@ -73,10 +74,6 @@ export default class RMRadioMultimedia extends Component
           logo={ this.props.logo }
           logoVisibility={ this.props.logoVisibility }
         />
-
-        <div className="rm-preloader">
-          <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-        </div>
 
       </div>
     )

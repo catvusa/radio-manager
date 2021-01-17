@@ -35,7 +35,6 @@ class RMMetaBoxCreator extends RMSubsystem
     /**
      * Meta Box: Shortcode.
      */
-
     add_meta_box(
       "rm_shortcode_meta_box", // ID
       "Shortcode", // Title

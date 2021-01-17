@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 
 /**
- * Represent an information in the visual player.
+ * Represent an information in 
+ * the visual player.
  * @extends Component
  */
 export default class RMInfo extends Component
@@ -12,9 +13,11 @@ export default class RMInfo extends Component
     if ( this.props.info )
     {
       return (
-        <div className="rm-info col-md">
-          <span>{ this.props.caption }</span>
-          <span className="rm-info-content">{ this.props.info }</span>
+        <div className="rm-info d-flex justify-content-center align-items-center col-md">
+          <div>
+            <span dangerouslySetInnerHTML={ { __html: this.props.caption } } />
+            <span className="rm-info-content" dangerouslySetInnerHTML={ { __html: this.props.info } } />
+          </div>
         </div>
       )
     } // if

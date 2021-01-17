@@ -4,7 +4,8 @@ import RMInfoField from "./player/RMInfoField"
 import RMIconField from "./player/RMIconField"
 
 /**
- * Represent a visual player of the radio station.
+ * Represent a visual player
+ * of the radio station.
  * @extends Component
  */
 export default class RMRadioPlayer extends Component

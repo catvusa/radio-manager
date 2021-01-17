@@ -1,5 +1,5 @@
 /**
- * Represent a blog post that is
+ * Represent a website post that is
  * being projected while playing
  * the particular playlist item.
  */

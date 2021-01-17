@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Button, Modal } from "react-bootstrap"
 
 /**
- * Represent a warning of the radio station.
+ * Represent a warning of the radio
+ * station.
  * @extends Component
  */
 export default class RMRadioWarning extends Component
@@ -51,7 +52,7 @@ export default class RMRadioWarning extends Component
           keyboard={ false }
         >
           <Modal.Header closeButton>
-            <Modal.Title>{ this.props.warningData.title }</Modal.Title>
+            <Modal.Title dangerouslySetInnerHTML={ { __html: this.props.warningData.title } } />
           </Modal.Header>
           <Modal.Body dangerouslySetInnerHTML={ { __html: this.props.warningData.message } } />
           <Modal.Footer>

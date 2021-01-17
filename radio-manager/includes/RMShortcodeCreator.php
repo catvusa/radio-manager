@@ -35,7 +35,6 @@ class RMShortcodeCreator extends RMSubsystem
     /**
      * Shortcode: Radio Station.
      */
-
     add_shortcode(
       RM_RADIO_STATION_POST_TYPE, // Tag
       [ $this, "createRadioStationShortcodeHTML" ], // Callback
@@ -98,16 +97,20 @@ class RMShortcodeCreator extends RMSubsystem
    */
   public function getRadioLogo( $radioStationID )
   {
+    $radioLogo = [];
     $logoID = get_post_thumbnail_id( $radioStationID );
-            
-    $radioLogo =
-    [
+    
+    if ( $logoID )
+    {
+      $radioLogo =
       [
-        "title"       => get_post( $logoID )->post_title,
-        "description" => get_post( $logoID )->post_content,
-        "src"         => get_post( $logoID )->guid,
-      ],
-    ];
+        [
+          "title"       => get_post( $logoID )->post_title,
+          "description" => get_post( $logoID )->post_content,
+          "src"         => get_post( $logoID )->guid,
+        ],
+      ];
+    } // if
 
     return $radioLogo;
   } // GET RADIO LOGO
@@ -141,19 +144,30 @@ class RMShortcodeCreator extends RMSubsystem
           {
             $thumbnailID = get_post_thumbnail_id( $originalPost->ID );
             
-            $post =
-            [
-              "image"   =>
+            if ( $thumbnailID )
+            {
+              $post =
               [
+                "image"   =>
                 [
-                  "title"       => get_post( $thumbnailID )->post_title,
-                  "description" => get_post( $thumbnailID )->post_content,
-                  "src"         => get_post( $thumbnailID )->guid,
+                  [
+                    "title"       => get_post( $thumbnailID )->post_title,
+                    "description" => get_post( $thumbnailID )->post_content,
+                    "src"         => get_post( $thumbnailID )->guid,
+                  ],
                 ],
-              ],
-              "content" => wpautop( $originalPost->post_content ),
-            ];
-            
+                "content" => wpautop( $originalPost->post_content ),
+              ];
+            } // if
+            else
+            {
+              $post =
+              [
+                "image"   => [],
+                "content" => wpautop( $originalPost->post_content ),
+              ];
+            } // else
+
             array_push( $postData, $post );
           } // foreach
         } // if

@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import SwiperCore, { Autoplay, EffectFade } from "swiper"
 
 import RMCaption from "./RMCaption"
+import RMPreloader from "./RMPreloader"
 
 SwiperCore.use( [ Autoplay, EffectFade ] )
 
@@ -35,6 +36,7 @@ export default class RMSlider extends Component
     if ( this.props.imgVisibility )
     {
       return (
+        <>
         <Swiper
           id="rm-slider"
           effect="fade"
@@ -56,7 +58,9 @@ export default class RMSlider extends Component
             )
           )
         }
-        </Swiper> 
+        </Swiper>
+        <RMPreloader hasData={ this.props.imgData.length } />
+        </>
       )
     } // if
 

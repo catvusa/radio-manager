@@ -155,7 +155,7 @@ export default class RMRadio extends Component
   
   /**
    * Set the post content (means description
-   * of the musician, blog posts etc.)
+   * of the musician, website posts etc.)
    * @param {string} value – The post content.
    */
   setPostContent( value )

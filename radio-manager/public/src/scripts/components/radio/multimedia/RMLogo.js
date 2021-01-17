@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 
 import RMCaption from "./RMCaption"
+import RMPreloader from "./RMPreloader"
 
 /**
  * Represent a logo of the radio station
@@ -30,6 +31,7 @@ export default class RMLogo extends Component
             )
           )
         }
+        <RMPreloader hasData={ this.props.logo.length } />
         </>
       )
     } // if

@@ -14,8 +14,8 @@ export default class RMListElementFactory
 {
   /**
    * Create a particular list element.
-   * @param {string} elementType
-   * @param {object} object
+   * @param {string} elementType – The type of the list element.
+   * @param {object} object – All the data to be saved.
    */
   static createListElement( elementType, object )
   {

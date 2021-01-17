@@ -3,7 +3,8 @@ import React, { Component } from "react"
 import RMInfo from "./RMInfo"
 
 /**
- * Represent a field of information in the visual player.
+ * Represent a field of information
+ * in the visual player.
  * @extends Component
  */
 export default class RMInfoField extends Component

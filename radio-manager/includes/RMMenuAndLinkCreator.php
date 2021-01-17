@@ -7,7 +7,8 @@ namespace Inc;
  * creates the main menu of the plugin,
  * the items of this menu including
  * their content and the links (visible
- * in the „Installed Plugins“).
+ * in the „Installed Plugins“ in
+ * the WordPress).
  */
 class RMMenuAndLinkCreator extends RMSubsystem
 {
@@ -83,7 +84,8 @@ class RMMenuAndLinkCreator extends RMSubsystem
   
   /**
    * Create the links (visible in
-   * the „Installed Plugins“).
+   * the „Installed Plugins“
+   * in the Wordpress).
    * @param string[] $actions – An array of plugin action links.
    * @return string[] $actions – An array of plugin action links.
    */

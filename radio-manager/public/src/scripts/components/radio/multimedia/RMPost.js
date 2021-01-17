@@ -5,7 +5,7 @@ import { unsort } from "array-unsort"
 /**
  * Represent a post to be shown in the radio
  * station (means the musician's description
- * or another blog posts).
+ * or another website posts).
  * @extends Component
  */
 export default class RMPost extends Component
