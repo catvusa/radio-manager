@@ -85,17 +85,31 @@ export default class RMPlayer extends Component
    */
   * loop()
   {
+    let canStartPlaylist = false
+
+    // The playlist must have at least one playlist item
+    if ( this._playlist.hasData() )
+    {
+      // At least one playlist item must have musicians
+      for ( let playlistItem of this._playlist.data )
+      {
+        if ( playlistItem.genre.musicians.hasData() )
+        {
+          canStartPlaylist = true
+        } // if
+      } // for
+    } // if
+
+    if ( !canStartPlaylist )
+    {
+      return
+    } // if
+
     // Loop through the playlist
     while ( true )
     {
       // Get a playlist item
       let playlistItem = this._playlist.nextElement()
-
-      // There must be a playlist item
-      if ( !playlistItem )
-      {
-        return
-      } // if
 
       // Loop through the musicians
       for ( let i = 0; i < playlistItem.numOfMusicians; i++ )
@@ -112,6 +126,15 @@ export default class RMPlayer extends Component
         this.props.setImgData( [] )
         this.props.setImgVisibility( false )
 
+        // Select the musician
+        let musician = playlistItem.genre.musicians.nextElement()
+
+        // There must be a musician
+        if ( !musician )
+        {
+          continue
+        } // if
+
         // Check warnings
         for ( let warning of this._warnings.data )
         {
@@ -126,15 +149,6 @@ export default class RMPlayer extends Component
           } // if
         } // for
 
-        // Select a musician
-        let musician = playlistItem.genre.musicians.nextElement()
-
-        // There must be a musician
-        if ( !musician )
-        {
-          return
-        } // if
-
         // Play an introduction by the musician
         if ( musician.hasIntroductions() )
         {
@@ -147,35 +161,35 @@ export default class RMPlayer extends Component
           yield
         } // if
 
-        // Show a post
-        if ( playlistItem.showPosts )
-        {
-          // Posts from the website must be shown
-          let post = this._posts.nextElement()
-
-          // There must be a post
-          if ( post )
-          {
-            this.setPost( post.content )
-            this.setImages( post.image )
-          } // if
-        } // if
-        else
-        {
-          // Post about the musician must be shown
-          this.setPost( musician.description )
-          this.setImages( musician.images.data )
-        } // else
-
         // Loop through the records
-        for ( let j = 0; j < playlistItem.numOfSongsPerMusician; j++ )
+        for ( let j = 0; j < playlistItem.numOfRecordsPerMusician; j++ )
         {
+          // Show a post
+          if ( playlistItem.showWebsitePosts )
+          {
+            // Posts from the website must be shown
+            let post = this._posts.nextElement()
+
+            // There must be the post
+            if ( post )
+            {
+              this.setPost( post.content )
+              this.setImages( post.image )
+            } // if
+          } // if
+          else
+          {
+            // Post about the musician must be shown
+            this.setPost( musician.description )
+            this.setImages( musician.images.data )
+          } // else
+
           // Play a record by the musician
           if ( musician.hasRecords() )
           {
             let record = musician.records.nextElement()
 
-            if ( record.type.startsWith( "video" ) )
+            if ( record.type == "video" )
             {
               this.props.setLogoVisibility( false )
               this.props.setPostVisibility( false )
@@ -225,7 +239,7 @@ export default class RMPlayer extends Component
    */
   render()
   {
-    if ( this.props.recordData.type.startsWith( "video" ) )
+    if ( this.props.recordData.type == "video" )
     {
       // Show the video player
       return (
@@ -237,7 +251,7 @@ export default class RMPlayer extends Component
       )
     } // if
 
-    if ( this.props.recordData.type.startsWith( "audio" ) )
+    if ( this.props.recordData.type == "audio" )
     {
       // Show the audio player
       return (

@@ -3,51 +3,63 @@
 namespace Inc;
 
 /**
- * This class is used for creating all meta boxes.
+ * Represent a singleton creator that
+ * creates the shortcode meta box.
  */
-class RMMetaBoxCreator
+class RMMetaBoxCreator extends RMSubsystem
 {
-    /**
-     * Bind the creation of meta boxes with the specific hook.
-     */
-    public static function install()
-    {
-        add_action( 'add_meta_boxes', [ __CLASS__, 'createMetaBoxes' ] );
-    } // INSTALL META BOXES
-    
-    /**
-     * Create all meta boxes.
-     */
-    public static function createMetaBoxes()
-    {
-        /**
-         * Meta box: Shortcode.
-         */
+  /**
+   * Bind the installation of the shortcode
+   * meta box with the specific hook.
+   */
+  public function install()
+  {
+    add_action( "add_meta_boxes", [ $this, "createMetaBoxes" ] );
+  } // INSTALL
 
-        add_meta_box(
-            'rm_shortcode_meta_box', # ID
-            'Shortcode', # Title
-            [ __CLASS__, 'createShortcodeMetaBoxHTML' ], # Callback
-            'radio_station', # Screen
-            'side', # Context
-            'high', # Priority
-        );
-    } // CREATE META BOXES
-    
+  /**
+   * Remove the shortcode meta box.
+   * @see remove_meta_box() for removing custom meta boxes.
+   */
+  public function uninstall()
+  {
+    remove_meta_box( "rm_shortcode_meta_box", RM_RADIO_STATION_POST_TYPE, "side" );
+  } // UNINSTALL
+
+  /**
+   * Create the shortcode meta box.
+   * @see add_meta_box() for adding custom meta boxes.
+   */
+  public function createMetaBoxes()
+  {
     /**
-     * Create an HTML of the shortcode meta box.
+     * Meta Box: Shortcode.
      */
-    public static function createShortcodeMetaBoxHTML( $post )
-    {
-        ?>
 
-        Copy and paste the following shortcode into a WordPress post or page to embed this radio station:
-        <br /><br />
-		<div class="rm-flex">
-			<pre id="rm-shortcode">[radio-station id="<?= $post->ID ?>"]</pre>
-			<input type="button" value="Copy" onClick="rmCopy( 'rm-shortcode' );">
-		</div>
+    add_meta_box(
+      "rm_shortcode_meta_box", // ID
+      "Shortcode", // Title
+      [ $this, "createShortcodeMetaBoxHTML" ], // Callback
+      RM_RADIO_STATION_POST_TYPE, // Screen
+      "side", // Context
+      "high", // Priority
+    );
+  } // CREATE META BOXES
 
-        <?php
-    } // CREATE SHORTCODE META BOX HTML
+  /**
+   * Create the content of the shortcode
+   * meta box.
+   * @param WP_Post $post – The current post.
+   */
+  public function createShortcodeMetaBoxHTML( $post )
+  {
+    ?>
+
+    Copy and paste the following shortcode into a WordPress post or page to embed this radio station:
+    <br /><br />
+    <pre id="rm-shortcode">[<?= RM_RADIO_STATION_POST_TYPE; ?> id="<?= $post->ID; ?>"]</pre>
+    <input type="button" value="Copy" onClick="rmCopy( 'rm-shortcode' );">
+
+    <?php
+  } // CREATE SHORTCODE META BOX HTML
 } // RM META BOX CREATOR

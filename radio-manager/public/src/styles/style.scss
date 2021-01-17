@@ -2,16 +2,17 @@
 @import "./partials/reset";
 @import "./partials/variables";
 
-@import "../../node_modules/swiper/swiper";
-@import "../../node_modules/swiper/components/effect-fade/effect-fade";
-@import "../../node_modules/swiper/components/lazy/lazy";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 /* Component: RMRadio */
 #rm-radio-field
 {
+  @import "../../node_modules/swiper/swiper";
+  @import "../../node_modules/swiper/components/effect-fade/effect-fade";
+  @import "../../node_modules/swiper/components/lazy/lazy";
+
   outline: 1px solid $rm_dark_color;
-  
+
   /* Component: RMRadioName */
   #rm-radio-name-field
   {
@@ -20,7 +21,7 @@
 
     span
     {
-      @include rm-text( #FFF, 1.5rem, bold, center );
+      @include rm-text( #FFF, 1.75rem, bold, center );
 
       display: block;
       cursor: default;
@@ -36,14 +37,14 @@
     outline: 1px solid $rm_dark_color;
     cursor: default;
     
-    #rm-preloader
+    .rm-preloader
     {
       position: absolute;
       z-index: 0;
     }
 
     /* Component: RMCaption */
-    #rm-caption-field
+    .rm-caption-field
     {
       @include rm-text( #FFF, 1rem, normal, center );
 
@@ -87,6 +88,11 @@
       #rm-post
       {
         padding: 0.5rem 0;
+
+        p
+        {
+          display: block;
+        }
       }
     }
   }
@@ -100,18 +106,14 @@
     /* Component: RMIconField */
     .rm-icon
     {
-      padding: 10px;
-    }
-
-    .rm-icon-active
-    {
       background-color: $rm_red_color;
       outline: 1px solid $rm_dark_color;
+      padding: 0.5rem;
       cursor: pointer;
     }
-    
+
     /* Component: RMInfoField */
-    #rm-info-field
+    .rm-info-field
     {
       padding: 0.5rem 0;
 

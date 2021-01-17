@@ -3,78 +3,112 @@
 namespace Inc;
 
 /**
- * This class is used for creating all menu and submenu pages including links.
+ * Represent a singleton creator that
+ * creates the main menu of the plugin,
+ * the items of this menu including
+ * their content and the links (visible
+ * in the „Installed Plugins“).
  */
-class RMMenuAndLinkCreator
+class RMMenuAndLinkCreator extends RMSubsystem
 {
+  /**
+   * Bind the installation of the menu
+   * and links with the specific hooks.
+   */
+  public function install()
+  {
+    add_action( "admin_menu", [ $this, "createMenu" ] );
+
+    add_filter( "plugin_action_links_" . plugin_basename( RM_PLUGIN ), [ $this, "createLinks" ] );
+  } // INSTALL
+
+  /**
+   * Remove the main menu of the plugin
+   * including the respective items.
+   * @see remove_menu_page() for removing custom menu pages.
+   * @see remove_submenu_page() for removing custom submenu pages.
+   */
+  public function uninstall()
+  {
+    remove_menu_page( RM_MENU_SLUG );
+
+    remove_submenu_page( RM_MENU_SLUG, RM_GENRES_PAGE_SLUG );
+    remove_submenu_page( RM_MENU_SLUG, RM_HELP_PAGE_SLUG );
+  } // UNINSTALL
+
+  /**
+   * Create the main menu of the plugin
+   * (visible in the left navigation menu).
+   * @see add_menu_page() for adding custom menu pages.
+   * @see add_submenu_page() for adding custom submenu pages.
+   */
+  public function createMenu()
+  {
     /**
-     * Bind the creation of menu and links with hooks.
+     * Menu Page: Radio Manager.
      */
-    public static function install()
-    {
-        $plugin_file = plugin_basename( dirname( __FILE__, 2 ) ) . '/radio-manager.php';
-        
-        add_action( 'admin_menu', [ __CLASS__, 'createMenu' ] );
-        add_filter( "plugin_action_links_{$plugin_file}", [ __CLASS__, 'createLinks' ] );
-    } // INSTALL
-    
+    add_menu_page(
+      RM_PLUGIN_NAME, // Page title
+      RM_PLUGIN_NAME, // Menu title
+      RM_EDITOR_CAPABILITY, // Capability
+      RM_MENU_SLUG, // Menu slug
+      "", // Function
+      "dashicons-format-audio", // Icon URL
+      "100", // Position
+    );
+
     /**
-     * Create the plugin menu (visible in the left panel).
+     * Submenu Page: Genres.
      */
-    public static function createMenu()
-    {
-		add_menu_page(
-			RM_PLUGIN_NAME, # Page title
-			RM_PLUGIN_NAME, # Menu title
-			"edit_posts", # Capability
-			RM_MAIN_PAGE_SLUG, # Menu slug
-			'', # Callback
-			'dashicons-format-audio', # Icon URL
-			'100', # Position
-		);
+    add_submenu_page(
+      RM_MENU_SLUG, // Parent slug
+      RM_GENRES_PAGE_TITLE, // Page title
+      RM_GENRES_PAGE_TITLE, // Menu title
+      RM_ADMIN_CAPABILITY, // Capability
+      RM_GENRES_PAGE_SLUG, // Menu slug
+    );
 
-		add_submenu_page(
-			RM_MAIN_PAGE_SLUG, # Parent slug
-			RM_GENRES_PAGE_TITLE, # Page title
-			RM_GENRES_PAGE_TITLE, # Menu title
-			"manage_options", # Capability
-			RM_GENRES_PAGE_SLUG, # Menu slug
-			'', # Callback
-			null, # Position
-		);
-
-		add_submenu_page(
-			RM_MAIN_PAGE_SLUG, # Parent slug
-			RM_HELP_PAGE_TITLE, # Page title
-			RM_HELP_PAGE_TITLE, # Menu title
-			"edit_posts", # Capability
-			RM_HELP_PAGE_SLUG, # Menu slug
-			[ __CLASS__, 'createHelpHTML' ], # Callback
-			null, # Position
-		);
-    } // CREATE MENU
-    
     /**
-     * Create all links (visible in the "Installed Plugins" nearby this plugin).
+     * Submenu Page: Help.
      */
-    public static function createLinks( $links )
-    {
-        # Insert after the 'Deactivate' link
-        array_push($links, '<a href="admin.php?page=' . RM_HELP_PAGE_SLUG . '">' . RM_HELP_PAGE_TITLE . '</a>'); 
-        
-        return $links;
-    } // CREATE LINKS
-	
-	public static function createHelpHTML()
-    {
-        ?>
+    add_submenu_page(
+      RM_MENU_SLUG, // Parent slug
+      RM_HELP_PAGE_TITLE, // Page title
+      RM_HELP_PAGE_TITLE, // Menu title
+      RM_EDITOR_CAPABILITY, // Capability
+      RM_HELP_PAGE_SLUG, // Menu slug
+      [ $this, "createHelpSubmenuPageHTML" ], // Function
+    );
+  } // CREATE MENU
+  
+  /**
+   * Create the links (visible in
+   * the „Installed Plugins“).
+   * @param string[] $actions – An array of plugin action links.
+   * @return string[] $actions – An array of plugin action links.
+   */
+  public function createLinks( $actions )
+  {
+    // Insert the „Help“ link after the „Deactivate“ link
+    array_push( $actions, '<a href="admin.php?page=' . RM_HELP_PAGE_SLUG . '">' . RM_HELP_PAGE_TITLE . '</a>' );
 
-		<div class="wrap">
-			<h1>Help</h1>
-			<br />
-			<span>In the future, there will be a user documentation.</span>
-		</div>
+    return $actions;
+  } // CREATE LINKS
+  
+  /**
+   * Create the content of the „Help“
+   * submenu page.
+   */
+  public function createHelpSubmenuPageHTML()
+  {
+    ?>
 
-        <?php
-    } // CREATE SHORTCODE META BOX HTML
-} // RM MENU AND LINKS CREATOR
+    <div class="wrap">
+      <h1>Help</h1>
+      <br />
+      <span>In the future, there will be the user guide.</span>
+    </div>
+
+    <?php
+  } // CREATE HELP SUBMENU PAGE HTML
+} // RM MENU AND LINK CREATOR

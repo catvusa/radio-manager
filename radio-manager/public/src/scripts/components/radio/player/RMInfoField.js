@@ -14,7 +14,7 @@ export default class RMInfoField extends Component
     if ( this.props.recordData.musician || this.props.recordData.title )
     {
       return (
-        <div id="rm-info-field" className="col-lg-8">
+        <div className="rm-info-field col-lg-8">
           <div className="d-flex row no-gutters">
 
             <RMInfo

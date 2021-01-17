@@ -9,15 +9,15 @@ export default class RMPlaylistItem
    * Create a playlist item.
    * @param {object} genre – Slug with the respective musicians.
    * @param {number} numOfMusicians – Number of musicians to be played.
-   * @param {number} numOfSongsPerMusician – Number of songs to be played per musician.
-   * @param {boolean} showPosts – Whether the blog posts are being projected while playing this playlist item.
+   * @param {number} numOfRecordsPerMusician – Number of records to be played per musician.
+   * @param {boolean} showWebsitePosts – Whether the website posts are being projected while playing this playlist item.
    */
-  constructor( genre, numOfMusicians, numOfSongsPerMusician, showPosts )
+  constructor( genre, numOfMusicians, numOfRecordsPerMusician, showWebsitePosts )
   {
     this._genre = RMGenreFactory.getGenre( genre )
     this._numOfMusicians = numOfMusicians
-    this._numOfSongsPerMusician = numOfSongsPerMusician
-    this._showPosts = showPosts
+    this._numOfRecordsPerMusician = numOfRecordsPerMusician
+    this._showWebsitePosts = showWebsitePosts
   } // CONSTRUCTOR
 
   /**
@@ -39,20 +39,20 @@ export default class RMPlaylistItem
   } // GET NUM OF MUSICIANS
 
   /**
-   * Get the numOfSongsPerMusician value.
-   * @return {number} The numOfSongsPerMusician value.
+   * Get the numOfRecordsPerMusician value.
+   * @return {number} The numOfRecordsPerMusician value.
    */
-  get numOfSongsPerMusician()
+  get numOfRecordsPerMusician()
   {
-    return this._numOfSongsPerMusician
-  } // GET NUM OF SONGS PER MUSICIAN
+    return this._numOfRecordsPerMusician
+  } // GET NUM OF RECORDS PER MUSICIAN
 
   /**
-   * Get the showPosts value.
-   * @return {boolean} The showPosts value.
+   * Get the showWebsitePosts value.
+   * @return {boolean} The showWebsitePosts value.
    */
-  get showPosts()
+  get showWebsitePosts()
   {
-    return this._showPosts
-  } // GET SHOW POSTS
+    return this._showWebsitePosts
+  } // GET SHOW WEBSITE POSTS
 } // RM PLAYLIST ITEM

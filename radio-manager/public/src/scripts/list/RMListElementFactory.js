@@ -51,8 +51,8 @@ export default class RMListElementFactory
       return new RMPlaylistItem(
         object.genre,
         object.numOfMusicians,
-        object.numOfSongsPerMusician,
-        object.showPosts
+        object.numOfRecordsPerMusician,
+        object.showWebsitePosts
       )
     } // else if
     else if ( elementType == "post" )

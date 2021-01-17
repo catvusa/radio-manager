@@ -74,7 +74,7 @@ export default class RMRadioMultimedia extends Component
           logoVisibility={ this.props.logoVisibility }
         />
 
-        <div id="rm-preloader">
+        <div className="rm-preloader">
           <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
         </div>
 

@@ -16,7 +16,7 @@ export default class RMCaption extends Component
     if ( this.props.content )
     {
       return (
-        <div id="rm-caption-field">
+        <div className="rm-caption-field">
           <span>{ this.props.content }</span>
         </div>
       )

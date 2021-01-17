@@ -43,9 +43,6 @@ export default class RMRadio extends Component
       // Logo (state)
       logoVisibility: true,
 
-      // Icon (state)
-      iconPlay: false,
-
       // Warning (state)
       warningData:
       {
@@ -75,9 +72,6 @@ export default class RMRadio extends Component
 
     // Logo (methods)
     this.setLogoVisibility = this.setLogoVisibility.bind( this )
-
-    // Icon (methods)
-    this.setIconPlay = this.setIconPlay.bind( this )
 
     // Warning (methods)
     this.setWarningData = this.setWarningData.bind( this )
@@ -199,15 +193,6 @@ export default class RMRadio extends Component
   } // SET LOGO VISIBILITY
 
   /**
-   * Set whether the play icon is active or not.
-   * @param {boolean} value – The iconPlay value.
-   */
-  setIconPlay( value )
-  {
-    this.setState( { iconPlay: value } )
-  } // SET ICON PLAY
-
-  /**
    * Set the content of the warning.
    * @param {string} title – The main title.
    * @param {string} message – The main message.
@@ -296,9 +281,6 @@ export default class RMRadio extends Component
 
           radioPlay={ this.state.radioPlay }
           setRadioPlay={ this.setRadioPlay }
-
-          iconPlay={ this.state.iconPlay }
-          setIconPlay={ this.setIconPlay }
 
           musicianCaption={ this.props.musicianCaption }
           recordCaption={ this.props.recordCaption }

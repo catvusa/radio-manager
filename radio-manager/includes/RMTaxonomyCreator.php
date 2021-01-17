@@ -3,66 +3,80 @@
 namespace Inc;
 
 /**
- * This class is used for creating all taxonomies.
+ * Represent a singleton creator that
+ * creates the genre taxonomy.
  */
-class RMTaxonomyCreator
+class RMTaxonomyCreator extends RMSubsystem
 {
-    /**
-     * Bind the creation of taxonomies with the specific hook.
-     */
-    public static function install()
-    {
-        add_action( 'init', [ __CLASS__, 'createTaxonomies' ] );
-        add_action( 'parent_file', [ __CLASS__, 'highlightMenu' ] );
-    } // INSTALL TAXONOMIES
-    
-    /**
-     * Highlight the menu when a user is on the taxonomy default page.
-     */
-    public static function highlightMenu( $parent_file )
-    {
-        global $current_screen;
-        
-        if ( $current_screen->taxonomy == 'genre' )
-        {
-            $parent_file = 'rm_menu_dashboard';
-        } // if
-        
-        return $parent_file;
-    } // HIGHLIGHT MENU
-    
-    /**
-     * Create all taxonomies.
-     */
-    public static function createTaxonomies()
-    {
-        /**
-         * Taxonomy: Genres.
-         */
+  /**
+   * Bind the installation of the genre
+   * taxonomy with the specific hooks.
+   */
+  public function install()
+  {
+    add_action( "init", [ $this, "createTaxonomies" ] );
+    add_action( "parent_file", [ $this, "highlightMenu" ] );
+  } // INSTALL
 
-        $labels = [
-            'name' => 'Genres',
-            'singular_name' => 'Genre',
-        ];
+  /**
+   * Remove the genre taxonomy.
+   * @see unregister_taxonomy() for unregistering custom taxonomies.
+   */
+  public function uninstall()
+  {
+    unregister_taxonomy( RM_GENRE_TAXONOMY );
+  } // UNINSTALL
 
-        $args = [
-            'label' => 'Genres',
-            'labels' => $labels,
-            'public' => true,
-            'publicly_queryable' => true,
-            'hierarchical' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'show_in_nav_menus' => true,
-            'query_var' => true,
-            'rewrite' => [ 'slug' => 'genre', 'with_front' => true, ],
-            'show_admin_column' => false,
-            'show_in_rest' => true,
-            'rest_base' => 'genre',
-            'rest_controller_class' => 'WP_REST_Terms_Controller',
-            'show_in_quick_edit' => false,
-        ];
+  /**
+   * Create the genre taxonomy for the musician post type.
+   * @see register_taxonomy() for registering custom taxonomies.
+   */
+  public function createTaxonomies()
+  {
+    /**
+     * Taxonomy: Genre.
+     */
+
+    $labels = [
+      "name"              => "Genres",
+      "singular_name"     => "Genre",
+      "search_items"      => "Search Genres",
+      "all_items"         => "All Genres",
+      "parent_item"       => "Parent Genre",
+      "parent_item_colon" => "Parent Genre:",
+      "edit_item"         => "Edit Genre",
+      "view_item"         => "View Genre",
+      "update_item"       => "Update Genre",
+      "add_new_item"      => "Add New Genre",
+      "new_item_name"     => "New Genre Name",
+      "not_found"         => "No genres found.",
+      "no_terms"          => "No genres",
+    ];
+    
+    $args = [
+      "labels"            => $labels,
+      "hierarchical"      => true,
+      "show_in_rest"      => true,
+    ];
+ 
+    register_taxonomy( RM_GENRE_TAXONOMY, [ RM_MUSICIAN_POST_TYPE ], $args );
+  } // CREATE TAXONOMIES
+
+  /**
+   * Highlight the main menu of the plugin
+   * when the user is on the „Genres“ page.
+   * @param string $parent_file – The parent file.
+   * @return string $parent_file – The parent file.
+   */
+  public function highlightMenu( $parent_file )
+  {
+    $screen = get_current_screen();
         
-        register_taxonomy( 'genre', [ 'musician' ], $args );
-    } // CREATE TAXONOMIES
+    if ( $screen->taxonomy == RM_GENRE_TAXONOMY )
+    {
+      $parent_file = RM_MENU_SLUG;
+    } // if
+        
+    return $parent_file;
+  } // HIGHLIGHT MENU
 } // RM TAXONOMY CREATOR

@@ -24,7 +24,7 @@ export default class RMLogo extends Component
             logo => (
               <div className="rm-logo" key={ logo.src }>
                 <RMCaption content={ logo.title } />
-                <img src={ logo.src } />
+                <img src={ logo.src } alt="" />
                 <RMCaption content={ logo.description } />
               </div>
             )

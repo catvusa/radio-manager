@@ -49,7 +49,7 @@ export default class RMSlider extends Component
               <SwiperSlide key={ img.src }>
                 <div className="rm-slide">
                   <RMCaption content={ img.title } />
-                  <img src={ img.src } onClick={ () => { this.showPost() } } />
+                  <img src={ img.src } alt="" onClick={ () => { this.showPost() } } />
                   <RMCaption content={ img.description } />
                 </div>
               </SwiperSlide>

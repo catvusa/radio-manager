@@ -43,7 +43,7 @@ export default class RMPost extends Component
       return (
         <div id="rm-post-field">
           { this.getBackButton() }
-          <div id="rm-post">{ this.props.postContent }</div>
+          <div id="rm-post" dangerouslySetInnerHTML={ { __html: this.props.postContent } } />
           { this.getBackButton() }
         </div>
       )

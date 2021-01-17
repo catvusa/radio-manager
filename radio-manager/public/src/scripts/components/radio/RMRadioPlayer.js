@@ -42,9 +42,6 @@ export default class RMRadioPlayer extends Component
         <RMIconField
           radioPlay={ this.props.radioPlay }
           setRadioPlay={ this.props.setRadioPlay }
-
-          iconPlay={ this.props.iconPlay }
-          setIconPlay={ this.props.setIconPlay }
         />
 
         { this.showInfo() }

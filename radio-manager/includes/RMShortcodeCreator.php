@@ -3,291 +3,423 @@
 namespace Inc;
 
 /**
- * This class is used for creating all shortcodes.
+ * Represent a singleton creator that
+ * creates the shortcode for importing
+ * the radio stations.
  */
-class RMShortcodeCreator
+class RMShortcodeCreator extends RMSubsystem
 {
-    /**
-     * Create all shortcodes.
-     */
-    public static function install()
-    {
-        /**
-         * Shortcode: Radio Station.
-         */
+  /**
+   * Install all the shortcodes.
+   */
+  public function install()
+  {
+    $this->createShortcodes();
+  } // INSTALL
 
-        add_shortcode(
-            'radio-station', # Tag
-            [ __CLASS__, 'createShortcodeRadioStationHTML' ], # Callback
+  /**
+   * Remove all the shortcodes.
+   * @see remove_shortcode() for removing custom shortcodes.
+   */
+  public function uninstall()
+  {
+    remove_shortcode( RM_RADIO_STATION_POST_TYPE );
+  } // UNINSTALL
+
+  /**
+   * Add all the shortcodes.
+   * @see add_shortcode() for adding custom shortcodes.
+   */
+  public function createShortcodes()
+  {
+    /**
+     * Shortcode: Radio Station.
+     */
+
+    add_shortcode(
+      RM_RADIO_STATION_POST_TYPE, // Tag
+      [ $this, "createRadioStationShortcodeHTML" ], // Callback
+    );
+  } // CREATE SHORTCODES
+
+  /**
+   * Create the content of the radio
+   * station shortcode.
+   * @param array $atts – An array of the shortcode attributes.
+   * @return string $content – The content of the shortcode.
+   * @see wp_localize_script() for localizing custom scripts.
+   */
+  public function createRadioStationShortcodeHTML( $atts )
+  {
+    // Get the ID from the attributes
+    $atts = shortcode_atts( [ "id" => "" ], $atts );
+        
+    // Send all the data to frontend
+    wp_localize_script( "rm-frontend-scripts", "rmData" . $atts[ "id" ], $this->getData( $atts[ "id" ] ) );
+
+    // Create the content for the shortcode
+    $content = "<div data-rm-output-id=" . $atts[ "id" ] . "></div>";
+        
+    return $content;
+  } // CREATE RADIO STATION SHORTCODE HTML
+  
+  /**
+   * Get the radio station data.
+   * @param string $radioStationID – The ID of the radio station page.
+   * @return array $data – An array of the radio station data.
+   */
+  public function getData( $radioStationID )
+  {
+    $radioName = get_the_title( $radioStationID );
+    $radioLogo = $this->getRadioLogo( $radioStationID );
+    $radioSettings = $this->getRadioSettings( $radioStationID );
+    $radioPlaylist = $this->getRadioPlaylist( $radioStationID );
+    $radioWarnings = $this->getRadioWarnings( $radioStationID );
+
+    $data =
+    [
+      "radioName"       => $radioName,
+      "musicianCaption" => $radioSettings[ "musicianCaption" ],
+      "recordCaption"   => $radioSettings[ "recordCaption" ],
+      "imgDuration"     => $radioSettings[ "imgDuration" ],
+      "logo"            => $radioLogo,
+      "warningData"     => $radioWarnings,
+      "postData"        => $radioSettings[ "postData" ],
+      "playlistData"    => $radioPlaylist,
+    ];
+        
+    return $data;
+  } // GET DATA
+
+  /**
+   * Get the radio station logo.
+   * @param string $radioStationID – The ID of the radio station page.
+   * @return array $radioLogo – An array of the radio station logo.
+   */
+  public function getRadioLogo( $radioStationID )
+  {
+    $logoID = get_post_thumbnail_id( $radioStationID );
+            
+    $radioLogo =
+    [
+      [
+        "title"       => get_post( $logoID )->post_title,
+        "description" => get_post( $logoID )->post_content,
+        "src"         => get_post( $logoID )->guid,
+      ],
+    ];
+
+    return $radioLogo;
+  } // GET RADIO LOGO
+
+  /**
+   * Get the radio station settings 
+   * (means image duration, website
+   * posts, musician caption and
+   * record caption).
+   * @param string $radioStationID – The ID of the radio station page.
+   * @return array $radioSettings – An array of the radio station settings.
+   */
+  public function getRadioSettings( $radioStationID )
+  {
+    // Process all the settings
+    if ( have_rows( "rm_radio_settings", $radioStationID ) )
+    {
+      while ( have_rows( "rm_radio_settings", $radioStationID ) )
+      {
+        the_row();
+
+        // An array for website posts
+        $postData = [];
+
+        $originalPosts = get_sub_field( "rm_radio_website_posts" );
+
+        // Process all the website posts
+        if ( $originalPosts )
+        {
+          foreach ( $originalPosts as $originalPost )
+          {
+            $thumbnailID = get_post_thumbnail_id( $originalPost->ID );
+            
+            $post =
+            [
+              "image"   =>
+              [
+                [
+                  "title"       => get_post( $thumbnailID )->post_title,
+                  "description" => get_post( $thumbnailID )->post_content,
+                  "src"         => get_post( $thumbnailID )->guid,
+                ],
+              ],
+              "content" => wpautop( $originalPost->post_content ),
+            ];
+            
+            array_push( $postData, $post );
+          } // foreach
+        } // if
+
+        // An array with all the settings
+        $radioSettings =
+        [
+          "musicianCaption" => get_sub_field( "rm_radio_musician_caption" ),
+          "recordCaption"   => get_sub_field( "rm_radio_record_caption" ),
+          "imgDuration"     => ( int ) get_sub_field( "rm_radio_image_duration" ) * 1000,
+          "postData"        => $postData,
+        ];
+
+        return $radioSettings;
+      } // while
+    } // if
+  } // GET RADIO SETTINGS
+
+  /**
+   * Get the radio station playlist.
+   * @param string $radioStationID – The ID of the radio station page.
+   * @return array $radioPlaylist – An array of the radio station playlist items.
+   */
+  public function getRadioPlaylist( $radioStationID )
+  {
+    $radioPlaylist = [];
+    $genres = [];
+
+    // Process all the playlist items
+    if ( have_rows( "rm_radio_playlist", $radioStationID ) )
+    {
+      while ( have_rows( "rm_radio_playlist", $radioStationID ) )
+      {
+        the_row();
+
+        $genre = get_sub_field( "rm_radio_genre" );
+
+        // Get all the musicians
+        if ( !array_key_exists( $genre->slug, $genres ) )
+        {
+          $genres[ $genre->slug ] = $this->getGenreMusicians( $genre->slug );
+        } // if
+        
+        // An array with the playlist item
+        $radioPlaylistItem =
+        [
+          "genre"                   =>
+          [
+            "slug" => $genre->slug,
+            "musicians" => $genres[ $genre->slug ],
+          ],
+          "numOfMusicians"          => get_sub_field( "rm_radio_num_of_musicians" ),
+          "numOfRecordsPerMusician" => get_sub_field( "rm_radio_num_of_records" ),
+          "showWebsitePosts"        => get_sub_field( "rm_radio_show_website_posts" ),
+        ];
+
+        array_push( $radioPlaylist, $radioPlaylistItem );
+      } // while
+    } // if
+
+    return $radioPlaylist;
+  } // GET RADIO PLAYLIST
+
+  /**
+   * Get the genre musicians.
+   * @param string $term – The specific term of the genre taxonomy (e.g. classical).
+   * @return array $musicians – An array of the respective musicians.
+   */
+  public function getGenreMusicians( $term )
+  {
+    $musicians = [];
+
+    // Get all the musicians of the genre
+    $posts = new \WP_Query(
+      [
+        "post_type" => RM_MUSICIAN_POST_TYPE,
+        "posts_per_page" => "-1",
+        "tax_query" =>
+        [
+          [
+            "taxonomy" => RM_GENRE_TAXONOMY,
+            "field"    => "slug",
+            "terms"    => $term,
+          ],
+        ],
+      ],
+    );
+
+    // Process all the musicians of the genre
+    if ( $posts->have_posts() )
+    {   
+      while ( $posts->have_posts() )
+      {
+        $posts->the_post();
+        
+        // An array with the musician
+        $musician =
+        [
+          "id"            => get_the_ID(),
+          "name"          => get_the_title(),
+          "description"   => wpautop( get_the_content() ),
+          "images"        => $this->getMusicianImages( get_the_ID() ),
+          "introductions" => $this->getMusicianIntroductions( get_the_ID() ),
+          "records"       => $this->getMusicianRecords( get_the_ID() ),
+        ];
+
+        array_push( $musicians, $musician );
+      } // while
+    } // if
+
+    // Reset the global post variable
+    wp_reset_postdata();
+
+    return $musicians;
+  } // GET GENRE MUSICIANS
+
+  /**
+   * Get the musician images.
+   * @param string $id – The ID of the musician page.
+   * @return array $images – An array of the musician images.
+   */
+  public function getMusicianImages( $id )
+  {
+    $images = [];
+
+    // Process all the images
+    if ( have_rows( "rm_musician_images", $id ) )
+    {
+      while ( have_rows( "rm_musician_images", $id ) )
+      {
+        the_row();
+
+        $originalImage = get_sub_field( "rm_musician_image" );
+        
+        // An array with the image
+        $image =
+        [
+          "title"       => $originalImage[ "title" ],
+          "description" => $originalImage[ "description" ],
+          "src"         => $originalImage[ "url" ],
+        ];
+                            
+        array_push( $images, $image );
+      } // while
+    } // if
+
+    return $images;
+  } // GET MUSICIAN IMAGES
+
+  /**
+   * Get the musician introductions.
+   * @param string $id – The ID of the musician page.
+   * @return array $introductions – An array of the musician introductions.
+   */
+  public function getMusicianIntroductions( $id )
+  {
+    $introductions = [];
+
+    // Process all the introductions
+    if ( have_rows( "rm_musician_introductions", $id ) )
+    {
+      while ( have_rows( "rm_musician_introductions", $id ) )
+      {
+        the_row();
+
+        $originalIntroduction = get_sub_field( "rm_musician_introduction" );
+
+        // An array with the introduction
+        $introduction =
+        [
+          "src"  => $originalIntroduction[ "url" ],
+          "type" => $originalIntroduction[ "type" ],
+        ];
+                            
+        array_push( $introductions, $introduction );
+      } // while
+    } // if
+
+    return $introductions;
+  } // GET MUSICIAN INTRODUCTIONS
+
+  /**
+   * Get the musician records.
+   * @param string $id – The ID of the musician page.
+   * @return array $records – An array of the musician records.
+   */
+  public function getMusicianRecords( $id )
+  {
+    $records = [];
+
+    // Process all the records
+    if ( have_rows( "rm_musician_records", $id ) )
+    {
+      while ( have_rows( "rm_musician_records", $id ) )
+      {
+        the_row();
+
+        $originalRecord = get_sub_field( "rm_musician_record" );
+        
+        // An array with the record
+        $record =
+        [
+          "title" => $originalRecord[ "title" ],
+          "src"   => $originalRecord[ "url" ],
+          "type"  => $originalRecord[ "type" ],
+        ];
+                            
+        array_push( $records, $record );
+      } // while
+    } // if
+
+    return $records;
+  } // GET MUSICIAN RECORDS
+
+  /**
+   * Get the radio station warnings.
+   * @param string $radioStationID – The ID of the radio station page.
+   * @return array $radioWarnings – An array of the radio station warnings.
+   */
+  public function getRadioWarnings( $radioStationID )
+  {
+    $radioWarnings = [];
+
+    // The s2Member Framework plugin (with the s2Member Pro add-on) must be installed
+    $isUserRegistered =
+    (
+      current_user_can( "access_s2member_level0" ) ||
+      current_user_can( "access_s2member_level1" ) ||
+      current_user_can( "access_s2member_level2" ) ||
+      current_user_can( "access_s2member_level3" ) ||
+      current_user_can( "access_s2member_level4" )
+    );
+
+    // Process all the warnings
+    if ( have_rows( "rm_radio_warnings", $radioStationID ) )
+    {
+      while ( have_rows( "rm_radio_warnings", $radioStationID ) )
+      {
+        the_row();
+
+        $isWarningActive = get_sub_field( "rm_radio_active" );
+        $targetUserGroup = get_sub_field( "rm_radio_show_to" );
+        $canWarningShow =
+        (
+          ( $isWarningActive && $targetUserGroup == "all" ) ||
+          ( $isWarningActive && $targetUserGroup == "registered" && $isUserRegistered == true ) ||
+          ( $isWarningActive && $targetUserGroup == "not_registered" && $isUserRegistered == false )
         );
-    } // CREATE SHORTCODES
-    
-    /**
-     * Create an HTML of the radio station shortcode.
-     */
-    public static function createShortcodeRadioStationHTML( $atts )
-    {
-        # Merge both arguments and return an array only with keys included in the first array
-        $atts = shortcode_atts( array( 'id' => '' ), $atts );
-        
-		# Prepare all the data for frontend
-		$data = self::prepareData( $atts['id'] );
-		
-		# Send all the data to frontend
-		wp_localize_script("rm-main-frontend-scripts", "rmData" . $atts['id'], $data);
-		
-		# Insert the scripts and styles
-		wp_enqueue_style( "rm-main-frontend-styles" );
-		wp_enqueue_script( "rm-main-frontend-scripts" );
-		
-        # Start writing the output into a buffer
-        ob_start();
-				
-        ?>
-        
-        <?php
-		
-        # Get the content of the buffer
-        $content = ob_get_contents();
-        
-        # Stop writing the output into the buffer and delete saved data
-        ob_end_clean();
-        
-        return $content;
-    } // CREATE SHORTCODE RADIO STATION HTML
-	
-    /**
-     * Prepare the data for the radio station.
-     */
-    public static function prepareData( $radio_station_id )
-    {
-		$name = get_the_title( $radio_station_id );
-		$logo = get_the_post_thumbnail_url( $radio_station_id );
-		
-		// ========================================
-		
-		// Get the settings of the radio station
-		if ( have_rows( "rm_radio_settings", $radio_station_id ) )
-		{
-			while( have_rows( "rm_radio_settings", $radio_station_id ) )
-			{
-				the_row();
 
-				$img_duration = get_sub_field( "rm_radio_photo_duration" );
-				$post_type = get_sub_field( "rm_radio_post_type" );
-			} // while
-		} // if
+        if ( $canWarningShow )
+        {
+          // An array with the warning
+          $radioWarning =
+          [
+            "first"   => get_sub_field( "rm_radio_first" ),
+            "step"    => get_sub_field( "rm_radio_step" ),
+            "title"   => get_sub_field( "rm_radio_title" ),
+            "message" => get_sub_field( "rm_radio_message" ),
+            "link"    => get_sub_field( "rm_radio_link" ),
+          ];
 
-		// ========================================
+          array_push( $radioWarnings, $radioWarning );
+        } // if
+      } // while
+    } // if
 
-		// Get the playlist of the radio station
-		if ( have_rows( "rm_radio_playlist", $radio_station_id ) )
-		{
-			$playlist_items = [];
-			while( have_rows( "rm_radio_playlist", $radio_station_id ) )
-			{
-				the_row();
-
-				$playlist_item = [
-					"genre" => get_sub_field( "rm_radio_genre" ),
-					"numOfMusicians" => get_sub_field( "rm_radio_num_of_musicians" ),
-					"numOfSongsPerMusician" => get_sub_field( "rm_radio_num_of_songs" ),
-					"showPosts" => get_sub_field( "rm_radio_show_posts" ),
-				];
-				array_push($playlist_items, $playlist_item);
-			} // while
-		} // if
-		
-		// ========================================
-		
-		// Get the warnings of the radio station
-		if ( have_rows( "rm_radio_warnings", $radio_station_id ) )
-		{
-			$warnings = [];
-			while( have_rows( "rm_radio_warnings", $radio_station_id ) )
-			{
-				the_row();
-
-				$warning = [
-					"isActive" => get_sub_field( "rm_radio_active" ),
-					"first" => get_sub_field( "rm_radio_first" ),
-					"step" => get_sub_field( "rm_radio_step" ),
-					"title" => get_sub_field( "rm_radio_title" ),
-					"message" => get_sub_field( "rm_radio_message" ),
-					"buttonText" => get_sub_field( "rm_radio_button_text" ),
-					"buttonLink" => get_sub_field( "rm_radio_button_link" ),
-				];
-
-				if ( $warning["isActive"] )
-				{
-					$user_group = get_sub_field( "rm_radio_show_to" );
-					if ($user_group == "Registered")
-					{
-						if ( is_user_logged_in() )
-						{
-							// The warning appers
-						} // if
-						else
-						{
-							// The warning disappears
-							$warning["isActive"] = false;
-						} // else
-					} // if
-					else if ($user_group == "Unregistered")
-					{
-						if ( is_user_logged_in() )
-						{
-							// The warning disappears
-							$warning["isActive"] = false;
-						} // if
-						else
-						{
-							// The warning appers
-						} // else
-					} // else if
-					
-				} // if
-
-				array_push($warnings, $warning);
-			} // while
-		} // if		
-
-		// ========================================
-
-		// Create the genres of the radio station
-		$genres = [];
-		foreach ($playlist_items as $playlist_item)
-		{
-			$genre = $playlist_item[ "genre" ]->slug;
-			
-			// Remove duplicates
-			if ( array_key_exists( $genre, $genres ) )
-			{
-				continue;
-			} // if
-			
-			// Add new music genre
-			$genres[$genre] = [];
-			
-			// Get all the musicians of this genre
-			$musicians = new \WP_Query( array(
-				"post_type" => "musician",
-				"posts_per_page" => "-1",
-				"tax_query" => array(
-					array(
-						"taxonomy" => "genre",
-						"field"    => "slug",
-						"terms"    => $genre,
-					),
-				),
-			) );
-			
-			// Fill the genre with musicians
-			if ( $musicians->have_posts() )
-			{	
-				while ( $musicians->have_posts() )
-				{
-					$musicians->the_post();
-					
-					$musician = [
-						"name" => get_the_title(),
-						"description" => wpautop( get_the_content() ),
-						"images" => [],
-						"introductions" => [],
-						"records" => [],
-					];
-					
-					// Get the images of the radio station
-					if ( have_rows( "rm_musician_images", get_the_ID() ) )
-					{
-						while ( have_rows( "rm_musician_images", get_the_ID() ) )
-						{
-							the_row();
-
-							$image = [
-								"url" => get_sub_field( "rm_musician_image" )[ "url" ],
-							];
-							
-							array_push( $musician["images"], $image );
-						} // while
-					} // if
-					
-					// Get the introductions of the radio station
-					if ( have_rows( "rm_musician_introductions", get_the_ID() ) )
-					{
-						while ( have_rows( "rm_musician_introductions", get_the_ID() ) )
-						{
-							the_row();
-
-							$introduction = [
-								"url" => get_sub_field( "rm_musician_introduction" )[ "url" ],
-							];
-							
-							array_push( $musician["introductions"], $introduction );
-						} // while
-					} // if
-					
-					// Get the records of the radio station
-					if ( have_rows( "rm_musician_records", get_the_ID() ) )
-					{
-						while ( have_rows( "rm_musician_records", get_the_ID() ) )
-						{
-							the_row();
-
-							$record = [
-								"title" => get_sub_field( "rm_musician_record" )[ "title" ],
-								"url" => get_sub_field( "rm_musician_record" )[ "url" ],
-							];
-							
-							array_push( $musician["records"], $record );
-						} // while
-					} // if
-					
-					array_push($genres[$genre], $musician);
-				} # while
-			} # if
-			wp_reset_postdata();
-		} // foreach
-		
-		// ========================================
-		
-		// Get the posts of the radio station post type
-		$posts = [];
-		$query_posts = new \WP_Query( array(
-			"post_type" => $post_type,
-			"posts_per_page" => "-1",
-		) );
-		
-		// Fill the genre with musicians
-		if ( $query_posts->have_posts() )
-		{	
-			while ( $query_posts->have_posts() )
-			{
-				$query_posts->the_post();
-				
-				$post = [
-					"image" => get_the_post_thumbnail_url(),
-					"content" => get_the_content(),
-				];
-				
-				array_push($posts, $post);
-			} // while
-			
-		} // if
-		wp_reset_postdata();
-		
-		// ========================================
-		
-		$data = [
-			"name" => $name,
-			"logo" => $logo,
-			"imgDuration" => $img_duration,
-			"genres" => $genres,
-			"playlistItems" => $playlist_items,
-			"posts" => $posts,
-			"warnings" => $warnings,
-		];
-		
-		return $data;
-	} // PREPARE DATA
+    return $radioWarnings;
+  } // GET RADIO WARNINGS
 } // RM SHORTCODE CREATOR
