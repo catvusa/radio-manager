@@ -202,7 +202,7 @@ class RMShortcodeCreator extends RMSubsystem
         [
           "genre"                   =>
           [
-            "slug" => $genre->slug,
+            "slug"      => $genre->slug,
             "musicians" => $genres[ $genre->slug ],
           ],
           "numOfMusicians"          => get_sub_field( "rm_radio_num_of_musicians" ),
@@ -229,9 +229,9 @@ class RMShortcodeCreator extends RMSubsystem
     // Get all the musicians of the genre
     $posts = new \WP_Query(
       [
-        "post_type" => RM_MUSICIAN_POST_TYPE,
+        "post_type"      => RM_MUSICIAN_POST_TYPE,
         "posts_per_page" => "-1",
-        "tax_query" =>
+        "tax_query"      =>
         [
           [
             "taxonomy" => RM_GENRE_TAXONOMY,
