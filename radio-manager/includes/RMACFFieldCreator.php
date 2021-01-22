@@ -90,7 +90,7 @@ class RMACFFieldCreator extends RMSubsystem
                 "label" => "Website posts",
                 "name" => "rm_radio_website_posts",
                 "type" => "relationship",
-                "instructions" => "Set all the website posts to be projected when playing. Then enable projecting these posts for the specific playlist items in the playlist. Every website post is displayed for the whole time of playing the record.",
+                "instructions" => "Set all the website posts to be projected when playing. Then enable projecting these posts for the specific playlist items in the playlist. Every website post is displayed for the duration of the recording.",
                 "required" => 0,
                 "conditional_logic" => 0,
                 "wrapper" => array(
@@ -133,10 +133,10 @@ class RMACFFieldCreator extends RMSubsystem
               ),
               array(
                 "key" => "field_5fd6209c3c5e8",
-                "label" => "Record caption",
+                "label" => "Recording caption",
                 "name" => "rm_radio_record_caption",
                 "type" => "text",
-                "instructions" => "Set a caption for the record's name displayed in the player.",
+                "instructions" => "Set a caption for the recording's name displayed in the player. ",
                 "required" => 0,
                 "conditional_logic" => 0,
                 "wrapper" => array(
@@ -145,7 +145,7 @@ class RMACFFieldCreator extends RMSubsystem
                   "id" => "",
                 ),
                 "default_value" => "",
-                "placeholder" => "Record:",
+                "placeholder" => "Recording:",
                 "prepend" => "",
                 "append" => "",
                 "maxlength" => "",
@@ -242,10 +242,10 @@ class RMACFFieldCreator extends RMSubsystem
               ),
               array(
                 "key" => "field_5fb18a75c2b0d",
-                "label" => "Number of records",
+                "label" => "Number of recordings",
                 "name" => "rm_radio_num_of_records",
                 "type" => "range",
-                "instructions" => "Set a number of records to be played per musician.",
+                "instructions" => "Set a number of recordings to be played per musician.",
                 "required" => 0,
                 "conditional_logic" => 0,
                 "wrapper" => array(
@@ -258,7 +258,7 @@ class RMACFFieldCreator extends RMSubsystem
                 "max" => "",
                 "step" => 1,
                 "prepend" => "",
-                "append" => "records",
+                "append" => "recordings",
               ),
               array(
                 "key" => "field_5fb18aa6c2b0e",
@@ -313,7 +313,7 @@ class RMACFFieldCreator extends RMSubsystem
             "label" => "",
             "name" => "rm_radio_warnings",
             "type" => "repeater",
-            "instructions" => "There you can add, edit or remove warnings of this radio station. These warnings are being projected while playling.",
+            "instructions" => "There you can add, edit, or remove warnings of this radio station. These warnings are being projected while playing.",
             "required" => 0,
             "conditional_logic" => 0,
             "wrapper" => array(
@@ -502,7 +502,7 @@ class RMACFFieldCreator extends RMSubsystem
             "label" => "",
             "name" => "rm_musician_images",
             "type" => "repeater",
-            "instructions" => "There you can add, edit or remove images of this musician. These images are being projected while playing records of this musician.",
+            "instructions" => "There you can add, edit, or remove images of this musician. These images are being projected while playing recordings from this musician.",
             "required" => 0,
             "conditional_logic" => 0,
             "wrapper" => array(
@@ -574,7 +574,7 @@ class RMACFFieldCreator extends RMSubsystem
             "label" => "",
             "name" => "rm_musician_introductions",
             "type" => "repeater",
-            "instructions" => "There you can add, edit or remove audio/video introductions of this musician. When it is the musician's turn, one of these introductions is randomly chosen and played before the records.",
+            "instructions" => "There you can add, edit, or remove audio/video introductions of this musician. When it is the musician's turn, one of these introductions is randomly chosen and played before the recordings.",
             "required" => 0,
             "conditional_logic" => 0,
             "wrapper" => array(
@@ -630,18 +630,18 @@ class RMACFFieldCreator extends RMSubsystem
       ));
 
       /**
-       * The „Records“ repeater field.
+       * The „Recordings“ repeater field.
        */
       acf_add_local_field_group( array(
         "key" => "group_5fb16ed0c44b2",
-        "title" => "Records",
+        "title" => "Recordings",
         "fields" => array(
           array(
             "key" => "field_5fb16ee982dd8",
             "label" => "",
             "name" => "rm_musician_records",
             "type" => "repeater",
-            "instructions" => "There you can add, edit or remove audio/video records of this musician.",
+            "instructions" => "There you can add, edit, or remove audio/video recordings of this musician.",
             "required" => 1,
             "conditional_logic" => 0,
             "wrapper" => array(
@@ -653,11 +653,11 @@ class RMACFFieldCreator extends RMSubsystem
             "min" => 0,
             "max" => 0,
             "layout" => "table",
-            "button_label" => "Add Record",
+            "button_label" => "Add Recording",
             "sub_fields" => array(
               array(
                 "key" => "field_5fb16f1382dd9",
-                "label" => "Record",
+                "label" => "Recording",
                 "name" => "rm_musician_record",
                 "type" => "file",
                 "instructions" => "An MP3/OGG/WAV/MP4 file.",
