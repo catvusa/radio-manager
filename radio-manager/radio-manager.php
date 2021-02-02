@@ -50,7 +50,6 @@ add_action( "admin_enqueue_scripts", "rmRegisterBackendStylesAndScripts" );
 
 // Constants
 define( "RM_PLUGIN", __FILE__ );
-
 define( "RM_PLUGIN_NAME", "Radio Manager" );
 define( "RM_MENU_SLUG", "rm_menu" );
 
@@ -63,7 +62,8 @@ define( "RM_GENRES_PAGE_TITLE", "Genres" );
 define( "RM_GENRES_PAGE_SLUG", "edit-tags.php?taxonomy=" . RM_GENRE_TAXONOMY );
 
 define( "RM_HELP_PAGE_TITLE", "Help" );
-define( "RM_HELP_PAGE_SLUG", "rm_help" );
+
+define( "RM_USER_GUIDE", "/user-guide.pdf" );
 
 define( "RM_ADMIN_CAPABILITY", "manage_options" );
 define( "RM_EDITOR_CAPABILITY", "edit_posts" );

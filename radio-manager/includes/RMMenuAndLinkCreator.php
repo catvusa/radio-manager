@@ -72,14 +72,9 @@ class RMMenuAndLinkCreator extends RMSubsystem
     /**
      * Submenu Page: Help.
      */
-    add_submenu_page(
-      RM_MENU_SLUG, // Parent slug
-      RM_HELP_PAGE_TITLE, // Page title
-      RM_HELP_PAGE_TITLE, // Menu title
-      RM_EDITOR_CAPABILITY, // Capability
-      RM_HELP_PAGE_SLUG, // Menu slug
-      [ $this, "createHelpSubmenuPageHTML" ], // Function
-    );
+    global $submenu;
+    $link = plugins_url( RM_USER_GUIDE, RM_PLUGIN );
+    $submenu[ RM_MENU_SLUG ][] = array( RM_HELP_PAGE_TITLE, RM_EDITOR_CAPABILITY, $link );
   } // CREATE MENU
   
   /**
@@ -92,25 +87,8 @@ class RMMenuAndLinkCreator extends RMSubsystem
   public function createLinks( $actions )
   {
     // Insert the „Help“ link after the „Deactivate“ link
-    array_push( $actions, '<a href="admin.php?page=' . RM_HELP_PAGE_SLUG . '">' . RM_HELP_PAGE_TITLE . '</a>' );
+    array_push( $actions, '<a href="' . plugins_url( RM_USER_GUIDE, RM_PLUGIN ) . '">' . RM_HELP_PAGE_TITLE . '</a>' );
 
     return $actions;
   } // CREATE LINKS
-  
-  /**
-   * Create the content of the „Help“
-   * submenu page.
-   */
-  public function createHelpSubmenuPageHTML()
-  {
-    ?>
-
-    <div class="wrap">
-      <h1>Help</h1>
-      <br />
-      <span>In the future, there will be the user guide.</span>
-    </div>
-
-    <?php
-  } // CREATE HELP SUBMENU PAGE HTML
 } // RM MENU AND LINK CREATOR
