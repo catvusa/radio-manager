@@ -34,7 +34,6 @@ class RMMenuAndLinkCreator extends RMSubsystem
     remove_menu_page( RM_MENU_SLUG );
 
     remove_submenu_page( RM_MENU_SLUG, RM_GENRES_PAGE_SLUG );
-    remove_submenu_page( RM_MENU_SLUG, RM_HELP_PAGE_SLUG );
   } // UNINSTALL
 
   /**
@@ -72,7 +71,9 @@ class RMMenuAndLinkCreator extends RMSubsystem
     /**
      * Submenu Page: Help.
      */
+	 
     global $submenu;
+	
     $link = plugins_url( RM_USER_GUIDE, RM_PLUGIN );
     $submenu[ RM_MENU_SLUG ][] = array( RM_HELP_PAGE_TITLE, RM_EDITOR_CAPABILITY, $link );
   } // CREATE MENU
