@@ -3,11 +3,11 @@
 
 ### Documentation
 
-*User documentation* is available [here](https://github.com/catvusa/radio-manager/blob/main/radio-manager/user-guide.pdf). It is also accessible in the WordPress administration after you finish the installation.
+*User documentation* is available [here](https://github.com/catvusa/radio-manager/blob/main/radio-manager/user-guide.pdf). It is also accessible in the WordPress administration after you finish the installation of this plugin.
 
 *Technical documentation* is available here. The code is full of all the necessary comments (PHPDoc and JSDoc used).
 
-### How to use it on the WordPress?
+### How to use it in the WordPress?
 
 1. Download this repository.
 2. In your CLI, go to the *radio-manager* folder.
