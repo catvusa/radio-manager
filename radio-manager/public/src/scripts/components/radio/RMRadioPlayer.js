@@ -46,7 +46,7 @@ export default class RMRadioPlayer extends Component
         />
 
         { this.showInfo() }
-		
+        
       </div>
     )
   } // RENDER

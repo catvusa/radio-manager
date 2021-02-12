@@ -134,14 +134,14 @@ class RMShortcodeCreator extends RMSubsystem
    */
   public function getRadioSettings( $radioStationID )
   {
-	$radioSettings =
-	[
-	  "musicianCaption" => "",
-	  "recordCaption"   => "",
-	  "imgDuration"     => 0,
-	  "postData"        => [],
-	];
-	  
+    $radioSettings =
+    [
+      "musicianCaption" => "",
+      "recordCaption"   => "",
+      "imgDuration"     => 0,
+      "postData"        => [],
+    ];
+      
     // Process all the settings
     if ( have_rows( "rm_radio_settings", $radioStationID ) )
     {
@@ -199,7 +199,7 @@ class RMShortcodeCreator extends RMSubsystem
         ];
       } // while
     } // if
-	
+    
     return $radioSettings;
   } // GET RADIO SETTINGS
 
