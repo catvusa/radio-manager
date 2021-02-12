@@ -13,7 +13,7 @@ export default class RMInfo extends Component
     if ( this.props.info )
     {
       return (
-        <div className="rm-info d-flex justify-content-center align-items-center col-md">
+        <div className="rm-info">
           <div>
             <span dangerouslySetInnerHTML={ { __html: this.props.caption } } />
             <span className="rm-info-content" dangerouslySetInnerHTML={ { __html: this.props.info } } />
@@ -23,6 +23,6 @@ export default class RMInfo extends Component
     } // if
     
     // There is no information
-    return <div className="col-md"></div>
+    return <div className="rm-no-info"></div>
   } // RENDER
 } // RM INFO

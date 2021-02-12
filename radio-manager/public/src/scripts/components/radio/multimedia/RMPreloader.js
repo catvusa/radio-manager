@@ -16,8 +16,8 @@ export default class RMPreloader extends Component
     if ( this.props.hasData )
     {
       return (
-        <div className="rm-preloader">
-          <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        <div id="rm-preloader-field">
+          <div id="rm-preloader"></div>
         </div>
       )
     } // if

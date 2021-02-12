@@ -10,6 +10,7 @@
   @import "../../node_modules/swiper/components/lazy/lazy";
   @import "../../node_modules/bootstrap/scss/bootstrap";
 
+  margin: 20px 0;
   outline: 1px solid $rm_dark_color;
 
   /* Component: RMRadioName */
@@ -37,10 +38,16 @@
     cursor: default;
     
     /* Component: RMPreloader */
-    .rm-preloader
+    #rm-preloader-field
     {
       position: absolute;
       z-index: 0;
+      
+      #rm-preloader
+      {
+        @extend .swiper-lazy-preloader;
+        @extend .swiper-lazy-preloader-white;
+      }
     }
 
     /* Component: RMCaption */
@@ -71,6 +78,7 @@
     /* Component: RMSlider */
     #rm-slider
     {
+      width: 100%;
       max-width: 100%;
 
       .rm-slide
@@ -86,7 +94,7 @@
       z-index: 1;
       background-color: #FFF;
       width: 100%;
-      height: 27.5rem;
+      max-height: 27.5rem;
       overflow: auto;
       padding: 0.5rem;
 
@@ -105,36 +113,72 @@
   /* Component: RMRadioPlayer */
   #rm-radio-player-field
   {
+    @extend .d-flex;
+    @extend .row;
+    @extend .align-items-center;
+    @extend .no-gutters;  
+  
     background-color: $rm_blue_color;
     border-top: 1px solid $rm_dark_color;
 
     /* Component: RMIconField */
-    .rm-icon
+    #rm-icon-field
     {
-      background-color: $rm_red_color;
-      outline: 1px solid $rm_dark_color;
-      padding: 0.75rem;
-      cursor: pointer;
+      @extend .col-lg-4;
+      @extend .d-flex;
+      @extend .justify-content-center;
+      
+      .rm-icon
+      {
+        background-color: $rm_red_color;
+        outline: 1px solid $rm_dark_color;
+        padding: 0.9rem;
+        cursor: pointer;
+      }
     }
 
     /* Component: RMInfoField */
-    .rm-info-field
+    #rm-info-wrapper
     {
+      @extend .col-lg-8;
+    
       padding: 0.5rem 0;
 
-      /* Component: RMInfo */
-      .rm-info
+      #rm-info-field
       {
-        @include rm-text( #FFF, 1rem, normal, center );
+        @extend .d-flex;
+        @extend .row;
+        @extend .no-gutters;
         
-        cursor: default;
-        padding: 0 0.5rem;
-
-        .rm-info-content
+        /* Component: RMInfo */
+        .rm-info
         {
-          font-weight: bold;
+          @extend .d-flex;
+          @extend .justify-content-center;
+          @extend .align-items-center;
+          @extend .col-md;
+        
+          @include rm-text( #FFF, 1rem, normal, center );
+        
+          cursor: default;
+          padding: 0 0.5rem;
+
+          .rm-info-content
+          {
+            font-weight: bold;
+          }
+        }
+        
+        .rm-no-info
+        {
+          @extend .col-md;
         }
       }
+    }
+    
+    #rm-no-info-wrapper
+    {
+      @extend .col-lg-8;
     }
   }
 }

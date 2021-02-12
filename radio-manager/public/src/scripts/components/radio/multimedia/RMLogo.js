@@ -20,10 +20,11 @@ export default class RMLogo extends Component
     {
       return (
         <>
+        <div id="rm-slider">
         {
           this.props.logo.map(
             logo => (
-              <div className="rm-logo" key={ logo.src }>
+              <div className="rm-slide" key={ logo.src }>
                 <RMCaption content={ logo.title } />
                 <img src={ logo.src } alt="" />
                 <RMCaption content={ logo.description } />
@@ -31,6 +32,7 @@ export default class RMLogo extends Component
             )
           )
         }
+        </div>
         <RMPreloader hasData={ this.props.logo.length } />
         </>
       )

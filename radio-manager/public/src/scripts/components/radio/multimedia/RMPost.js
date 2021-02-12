@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { Button } from "react-bootstrap"
 import { unsort } from "array-unsort"
+import { Button } from "react-bootstrap"
 
 /**
  * Represent a post to be shown in the radio

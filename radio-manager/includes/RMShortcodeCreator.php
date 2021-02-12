@@ -52,13 +52,22 @@ class RMShortcodeCreator extends RMSubsystem
   {
     // Get the ID from the attributes
     $atts = shortcode_atts( [ "id" => "" ], $atts );
-        
-    // Send all the data to frontend
-    wp_localize_script( "rm-frontend-scripts", "rmData" . $atts[ "id" ], $this->getData( $atts[ "id" ] ) );
+    
+    // There is a post of the radio station
+    if ( get_post( $atts[ "id" ] ) )
+    {
+      // Send all the data to frontend
+      wp_localize_script( "rm-frontend-scripts", "rmData" . $atts[ "id" ], $this->getData( $atts[ "id" ] ) );
 
-    // Create the content for the shortcode
-    $content = "<div data-rm-output-id=" . $atts[ "id" ] . "></div>";
-        
+      // Create the content for the shortcode
+      $content = "<div data-rm-output-id=" . $atts[ "id" ] . "></div>";
+    } // if
+    else
+    {
+      // There is no post of the radio station
+      $content = "<i>There are no data for this radio station.</i>";
+    } // else
+   
     return $content;
   } // CREATE RADIO STATION SHORTCODE HTML
   
@@ -125,6 +134,14 @@ class RMShortcodeCreator extends RMSubsystem
    */
   public function getRadioSettings( $radioStationID )
   {
+	$radioSettings =
+	[
+	  "musicianCaption" => "",
+	  "recordCaption"   => "",
+	  "imgDuration"     => 0,
+	  "postData"        => [],
+	];
+	  
     // Process all the settings
     if ( have_rows( "rm_radio_settings", $radioStationID ) )
     {
@@ -132,7 +149,7 @@ class RMShortcodeCreator extends RMSubsystem
       {
         the_row();
 
-        // An array for website posts
+        // An array for the website posts
         $postData = [];
 
         $originalPosts = get_sub_field( "rm_radio_website_posts" );
@@ -180,10 +197,10 @@ class RMShortcodeCreator extends RMSubsystem
           "imgDuration"     => ( int ) get_sub_field( "rm_radio_image_duration" ) * 1000,
           "postData"        => $postData,
         ];
-
-        return $radioSettings;
       } // while
     } // if
+	
+    return $radioSettings;
   } // GET RADIO SETTINGS
 
   /**
@@ -273,7 +290,13 @@ class RMShortcodeCreator extends RMSubsystem
           "introductions" => $this->getMusicianIntroductions( get_the_ID() ),
           "records"       => $this->getMusicianRecords( get_the_ID() ),
         ];
-
+        
+        // There are no records
+        if ( empty( $musician[ "records" ] ) )
+        {
+          continue;
+        } // if
+        
         array_push( $musicians, $musician );
       } // while
     } // if
@@ -309,7 +332,13 @@ class RMShortcodeCreator extends RMSubsystem
           "description" => $originalImage[ "description" ],
           "src"         => $originalImage[ "url" ],
         ];
-                            
+        
+        // There is an item without image data
+        if ( !$image[ "src" ] )
+        {
+          continue;
+        } // if
+        
         array_push( $images, $image );
       } // while
     } // if
@@ -341,7 +370,13 @@ class RMShortcodeCreator extends RMSubsystem
           "src"  => $originalIntroduction[ "url" ],
           "type" => $originalIntroduction[ "type" ],
         ];
-                            
+        
+        // There is an item without introduction data
+        if ( !$introduction[ "src" ] )
+        {
+          continue;
+        } // if
+        
         array_push( $introductions, $introduction );
       } // while
     } // if
@@ -374,7 +409,13 @@ class RMShortcodeCreator extends RMSubsystem
           "src"   => $originalRecord[ "url" ],
           "type"  => $originalRecord[ "type" ],
         ];
-                            
+        
+        // There is an item without record data
+        if ( !$record[ "src" ] )
+        {
+          continue;
+        } // if
+        
         array_push( $records, $record );
       } // while
     } // if

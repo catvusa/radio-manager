@@ -38,7 +38,7 @@ export default class RMRadioPlayer extends Component
   render()
   {
     return (
-      <div id="rm-radio-player-field" className="d-flex row align-items-center no-gutters">
+      <div id="rm-radio-player-field">
         
         <RMIconField
           radioPlay={ this.props.radioPlay }

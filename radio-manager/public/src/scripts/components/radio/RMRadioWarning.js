@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Modal } from "react-bootstrap"
+import { Modal, Button } from "react-bootstrap"
 
 /**
  * Represent a warning of the radio
@@ -32,7 +32,7 @@ export default class RMRadioWarning extends Component
         </a>
       )
     } // if
-
+    
     return <Button variant="primary" onClick={ () => { this.finishWarning() } }>OK</Button>
   } // GET CONFIRM BUTTON
 
@@ -56,7 +56,7 @@ export default class RMRadioWarning extends Component
           </Modal.Header>
           <Modal.Body dangerouslySetInnerHTML={ { __html: this.props.warningData.message } } />
           <Modal.Footer>
-            <Button variant="secondary" onClick={ () => { this.finishWarning() } }>Cancel</Button>
+            <Button variant="secondary" onClick={ () => { this.finishWarning() } }>Close</Button>
             { this.getConfirmButton() }
           </Modal.Footer>
         </Modal>

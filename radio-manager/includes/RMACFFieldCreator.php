@@ -184,7 +184,7 @@ class RMACFFieldCreator extends RMSubsystem
             "label" => "",
             "name" => "rm_radio_playlist",
             "type" => "repeater",
-            "instructions" => "There you can manage the playlist of this radio station. The playlist is played again and again.",
+            "instructions" => "There you can manage the playlist of this radio station. At least one playlist item is required. The playlist is played again and again.",
             "required" => 1,
             "conditional_logic" => 0,
             "wrapper" => array(
@@ -641,7 +641,7 @@ class RMACFFieldCreator extends RMSubsystem
             "label" => "",
             "name" => "rm_musician_records",
             "type" => "repeater",
-            "instructions" => "There you can add, edit, or remove audio/video recordings of this musician.",
+            "instructions" => "There you can add, edit, or remove audio/video recordings of this musician. At least one recording is required.",
             "required" => 1,
             "conditional_logic" => 0,
             "wrapper" => array(
