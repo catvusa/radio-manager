@@ -3,7 +3,7 @@
 
 ### Documentation
 
-*User documentation* is available [here](https://github.com/catvusa/radio-manager/blob/main/radio-manager/user-guide.pdf). It is also accessible in the WordPress administration after you finish the installation of this plugin.
+*User documentation* is available [here](https://github.com/catvusa/radio-manager/blob/dev/radio-manager/user-guide.pdf). It is also accessible in the WordPress administration after you finish the installation of this plugin.
 
 *Technical documentation* is available here. The code is full of all the necessary comments (PHPDoc and JSDoc used).
 
