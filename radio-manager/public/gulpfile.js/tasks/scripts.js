@@ -57,7 +57,9 @@ function scripts()
         import statements into the require() calls.
         These calls are understable by the Node.js,
         but not by a browser. This happens before
-        analyzing the require() calls.
+        analyzing the require() calls. To add,
+        due to the browser compatibility, we also
+        need to compile „array-unsort“ ES6 package.
         
     3.  Bundle the JS files and their dependencies
         into a single JS file. Returns a readable
@@ -86,14 +88,28 @@ function scripts()
   */
   return browserify(
     {
-      entries: [ paths.jsEntry ],
+      entries:
+      [
+        paths.jsEntry
+      ],
       debug: true,
     },
   )
   .transform(
     babelify,
     {
-      presets: [ "@babel/env" ],
+      global: true,
+      exclude: [ /node_modules\\(?!(array-unsort))/ ],
+      presets:
+      [
+        "@babel/preset-env",
+        "@babel/preset-react",
+      ],
+      plugins:
+      [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-runtime",
+      ],
     },
   )
   .bundle()

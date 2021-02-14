@@ -33,6 +33,7 @@
   {
     @include rm-flex( column, center, center );
     
+    overflow: hidden;
     background-color: $rm_blue_color;
     outline: 1px solid $rm_dark_color;
     cursor: default;
@@ -68,8 +69,9 @@
       z-index: 1;
       outline: 1px solid $rm_dark_color;
       max-width: 100%;
+      flex: none;
     }
-
+    
     video
     {
       width: 100%;
@@ -80,6 +82,7 @@
     {
       width: 100%;
       max-width: 100%;
+      flex: none;
 
       .rm-slide
       {
@@ -96,12 +99,15 @@
       width: 100%;
       max-height: 27.5rem;
       overflow: auto;
-      padding: 0.5rem;
+      padding: 0 0.5rem;
+
+      button
+      {
+        margin: 0.5rem 0;
+      }
 
       #rm-post
       {
-        padding: 0.5rem 0;
-
         p
         {
           display: block;

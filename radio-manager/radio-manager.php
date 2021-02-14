@@ -26,8 +26,8 @@ if ( file_exists( __DIR__ . "/vendor/autoload.php" ) )
 function rmRegisterFrontendStylesAndScripts()
 {
   // Register frontend styles and scripts
-  wp_register_style( "rm-frontend-styles", plugins_url( "/public/dist/rm-styles.min.css", __FILE__ )/*, [], rand(1, 9999)*/ );
-  wp_register_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", __FILE__ )/*, [], rand(1, 9999)*/ );
+  wp_register_style( "rm-frontend-styles", plugins_url( "/public/dist/rm-styles.min.css", __FILE__ )/*, [], rand( 1, 9999 )*/ );
+  wp_register_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", __FILE__ )/*, [], rand( 1, 9999 )*/ );
 
   // Load frontend styles and scripts
   wp_enqueue_style( "rm-frontend-styles" );
