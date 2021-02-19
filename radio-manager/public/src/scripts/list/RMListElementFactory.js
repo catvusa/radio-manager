@@ -2,6 +2,9 @@ import RMMusicianFactory from "../musician/RMMusicianFactory"
 import RMImage from "../musician/multimedia/RMImage"
 import RMIntroduction from "../musician/multimedia/RMIntroduction"
 import RMRecord from "../musician/multimedia/RMRecord"
+
+import RMGenreFactory from "../genre/RMGenreFactory"
+
 import RMPlaylistItem from "../radio-station/RMPlaylistItem"
 import RMPost from "../radio-station/RMPost"
 import RMWarning from "../radio-station/RMWarning"
@@ -46,10 +49,14 @@ export default class RMListElementFactory
         object.type
       )
     } // else if
+    else if ( elementType == "genre" )
+    {
+      return RMGenreFactory.getGenre( object )
+    } // else if
     else if ( elementType == "playlistItem" )
     {
       return new RMPlaylistItem(
-        object.genre,
+        object.genres,
         object.numOfMusicians,
         object.numOfRecordsPerMusician,
         object.showWebsitePosts

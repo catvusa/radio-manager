@@ -200,10 +200,10 @@ class RMACFFieldCreator extends RMSubsystem
             "sub_fields" => array(
               array(
                 "key" => "field_5fb18997c2b0b",
-                "label" => "Genre",
-                "name" => "rm_radio_genre",
+                "label" => "Genres",
+                "name" => "rm_radio_genres",
                 "type" => "taxonomy",
-                "instructions" => "Set a music genre as the group of musicians.",
+                "instructions" => "Set music genres as the groups of musicians.",
                 "required" => 1,
                 "conditional_logic" => 0,
                 "wrapper" => array(
@@ -212,7 +212,7 @@ class RMACFFieldCreator extends RMSubsystem
                   "id" => "",
                 ),
                 "taxonomy" => RM_GENRE_TAXONOMY,
-                "field_type" => "select",
+                "field_type" => "multi_select",
                 "allow_null" => 0,
                 "add_term" => 0,
                 "save_terms" => 0,

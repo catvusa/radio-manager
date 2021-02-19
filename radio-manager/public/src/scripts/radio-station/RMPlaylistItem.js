@@ -1,4 +1,4 @@
-import RMGenreFactory from "../genre/RMGenreFactory"
+import RMListFactory from "../list/RMListFactory"
 
 /**
  * Represent an item of the playlist.
@@ -7,27 +7,37 @@ export default class RMPlaylistItem
 {
   /**
    * Create a playlist item.
-   * @param {object} genre – Slug with the respective musicians.
+   * @param {object[]} genres – All the attached genres.
    * @param {number} numOfMusicians – Number of musicians to be played.
    * @param {number} numOfRecordsPerMusician – Number of records to be played per musician.
    * @param {boolean} showWebsitePosts – Whether the website posts are being projected while playing this playlist item.
    */
-  constructor( genre, numOfMusicians, numOfRecordsPerMusician, showWebsitePosts )
+  constructor( genres, numOfMusicians, numOfRecordsPerMusician, showWebsitePosts )
   {
-    this._genre = RMGenreFactory.getGenre( genre )
+    this._genres = RMListFactory.createList( "shuffle", "genre", genres )
     this._numOfMusicians = numOfMusicians
     this._numOfRecordsPerMusician = numOfRecordsPerMusician
     this._showWebsitePosts = showWebsitePosts
   } // CONSTRUCTOR
 
   /**
-   * Get the genre value.
-   * @return {object} The genre value.
+   * Find out whether the playlist
+   * item has some genres or is empty.
+   * @return {boolean} The hasGenres value.
    */
-  get genre()
+  hasGenres()
   {
-    return this._genre
-  } // GET GENRE
+    return this._genres.data.length
+  } // HAS GENRES
+
+  /**
+   * Get the genres value.
+   * @return {object} The genres value.
+   */
+  get genres()
+  {
+    return this._genres
+  } // GET GENRES
 
   /**
    * Get the numOfMusicians value.

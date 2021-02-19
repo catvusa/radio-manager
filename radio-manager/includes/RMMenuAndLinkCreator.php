@@ -71,11 +71,11 @@ class RMMenuAndLinkCreator extends RMSubsystem
     /**
      * Submenu Page: Help.
      */
-     
+    
     global $submenu;
     
     $link = plugins_url( RM_USER_GUIDE, RM_PLUGIN );
-    $submenu[ RM_MENU_SLUG ][] = array( RM_HELP_PAGE_TITLE, RM_EDITOR_CAPABILITY, $link );
+    $submenu[ RM_MENU_SLUG ][] = [ RM_HELP_PAGE_TITLE, RM_EDITOR_CAPABILITY, $link ];
   } // CREATE MENU
   
   /**

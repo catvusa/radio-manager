@@ -61,7 +61,9 @@ class RMManager
    * Install all the subsystems
    * of the plugin (including
    * the de/activation hooks).
-   */ 
+   * @see register_activation_hook() for registering custom activation hook.
+   * @see register_deactivation_hook() for registering custom deactivation hook.
+   */
   public function install()
   {
     // Register de/activation hooks

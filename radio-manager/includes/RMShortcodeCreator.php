@@ -102,21 +102,24 @@ class RMShortcodeCreator extends RMSubsystem
   /**
    * Get the radio station logo.
    * @param string $radioStationID – The ID of the radio station page.
-   * @return array $radioLogo – An array of the radio station logo.
+   * @return array $radioLogo – An array with the radio station logo.
    */
   public function getRadioLogo( $radioStationID )
   {
     $radioLogo = [];
     $logoID = get_post_thumbnail_id( $radioStationID );
-    
+
+    // There is a logo
     if ( $logoID )
     {
+      $logo = get_post( $logoID );
+
       $radioLogo =
       [
         [
-          "title"       => get_post( $logoID )->post_title,
-          "description" => get_post( $logoID )->post_content,
-          "src"         => get_post( $logoID )->guid,
+          "title"       => $logo->post_title,
+          "description" => $logo->post_content,
+          "src"         => $logo->guid,
         ],
       ];
     } // if
@@ -149,47 +152,46 @@ class RMShortcodeCreator extends RMSubsystem
       {
         the_row();
 
-        // An array for the website posts
+        // An array for all the website posts
         $postData = [];
 
+        // Get all the website posts
         $originalPosts = get_sub_field( "rm_radio_website_posts" );
 
         // Process all the website posts
-        if ( $originalPosts )
+        foreach ( $originalPosts as $originalPost )
         {
-          foreach ( $originalPosts as $originalPost )
-          {
-            $thumbnailID = get_post_thumbnail_id( $originalPost->ID );
+          $thumbnailID = get_post_thumbnail_id( $originalPost->ID );
             
-            if ( $thumbnailID )
-            {
-              $post =
+          if ( $thumbnailID )
+          {
+            $thumbnail = get_post( $thumbnailID );
+            $post =
+            [
+              "image"   =>
               [
-                "image"   =>
                 [
-                  [
-                    "title"       => get_post( $thumbnailID )->post_title,
-                    "description" => get_post( $thumbnailID )->post_content,
-                    "src"         => get_post( $thumbnailID )->guid,
-                  ],
+                  "title"       => $thumbnail->post_title,
+                  "description" => $thumbnail->post_content,
+                  "src"         => $thumbnail->guid,
                 ],
-                "content" => wpautop( $originalPost->post_content ),
-              ];
-            } // if
-            else
-            {
-              $post =
-              [
-                "image"   => [],
-                "content" => wpautop( $originalPost->post_content ),
-              ];
-            } // else
+              ],
+              "content" => wpautop( $originalPost->post_content ),
+            ];
+          } // if
+          else
+          {
+            $post =
+            [
+              "image"   => [],
+              "content" => wpautop( $originalPost->post_content ),
+            ];
+          } // else
 
-            array_push( $postData, $post );
-          } // foreach
-        } // if
+          array_push( $postData, $post );
+        } // foreach
 
-        // An array with all the settings
+        // An array for all the settings
         $radioSettings =
         [
           "musicianCaption" => get_sub_field( "rm_radio_musician_caption" ),
@@ -220,22 +222,36 @@ class RMShortcodeCreator extends RMSubsystem
       {
         the_row();
 
-        $genre = get_sub_field( "rm_radio_genre" );
+        $originalGenres = get_sub_field( "rm_radio_genres" );
+        $newGenres = [];
 
-        // Get all the musicians
-        if ( !array_key_exists( $genre->slug, $genres ) )
+        foreach ( $originalGenres as $originalGenre )
         {
-          $genres[ $genre->slug ] = $this->getGenreMusicians( $genre->slug );
-        } // if
-        
+          // Get all the musicians
+          if ( !array_key_exists( $originalGenre->slug, $genres ) )
+          {
+            $genres[ $originalGenre->slug ] = $this->getGenreMusicians( $originalGenre->slug );
+          } // if
+
+          // There are no musicians
+          if ( empty( $genres[ $originalGenre->slug ] ) )
+          {
+            continue;
+          } // if
+
+          $newGenre =
+          [
+            "slug"      => $originalGenre->slug,
+            "musicians" => $genres[ $originalGenre->slug ],
+          ];
+
+          array_push( $newGenres, $newGenre );
+        } // foreach
+
         // An array with the playlist item
         $radioPlaylistItem =
         [
-          "genre"                   =>
-          [
-            "slug"      => $genre->slug,
-            "musicians" => $genres[ $genre->slug ],
-          ],
+          "genres"                  => $newGenres,
           "numOfMusicians"          => get_sub_field( "rm_radio_num_of_musicians" ),
           "numOfRecordsPerMusician" => get_sub_field( "rm_radio_num_of_records" ),
           "showWebsitePosts"        => get_sub_field( "rm_radio_show_website_posts" ),
@@ -250,7 +266,7 @@ class RMShortcodeCreator extends RMSubsystem
 
   /**
    * Get the genre musicians.
-   * @param string $term – The specific term of the genre taxonomy (e.g. classical).
+   * @param string $term – The specific term of the genre taxonomy (e.g. Classical).
    * @return array $musicians – An array of the respective musicians.
    */
   public function getGenreMusicians( $term )
@@ -333,7 +349,7 @@ class RMShortcodeCreator extends RMSubsystem
           "src"         => $originalImage[ "url" ],
         ];
         
-        // There is an item without image data
+        // There is an image without the source
         if ( !$image[ "src" ] )
         {
           continue;
@@ -371,7 +387,7 @@ class RMShortcodeCreator extends RMSubsystem
           "type" => $originalIntroduction[ "type" ],
         ];
         
-        // There is an item without introduction data
+        // There is an introduction without the source
         if ( !$introduction[ "src" ] )
         {
           continue;
@@ -410,7 +426,7 @@ class RMShortcodeCreator extends RMSubsystem
           "type"  => $originalRecord[ "type" ],
         ];
         
-        // There is an item without record data
+        // There is a record without the source
         if ( !$record[ "src" ] )
         {
           continue;
@@ -432,7 +448,7 @@ class RMShortcodeCreator extends RMSubsystem
   {
     $radioWarnings = [];
 
-    // The s2Member Framework plugin (with the s2Member Pro add-on) must be installed
+    // The s2Member Framework plugin must be installed
     $isUserRegistered =
     (
       current_user_can( "access_s2member_level0" ) ||

@@ -4,7 +4,7 @@
  * Plugin Name:       Radio Manager
  * Plugin URI:        https://github.com/catvusa/radio-manager
  * Description:       A WordPress plugin for managing your own custom web radios.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.5
  * Requires PHP:      7.3
  * Author:            Karel Vrabec

@@ -42,6 +42,23 @@ export default class RMPlayer extends Component
   } // RESET
 
   /**
+   * Check whether it is safe to start the playlist.
+   */
+  checkPlaylist()
+  {
+    // There must be at least one playlist item with data
+    for ( let playlistItem of this._playlist.data )
+    {
+      if ( playlistItem.genres.hasData() )
+      {
+        return true
+      } // if
+    } // for
+
+    return false
+  } // CHECK PLAYLIST
+
+  /**
    * Check whether it is the time to show the warning.
    * @param {object} warning – The current warning.
    */
@@ -103,22 +120,8 @@ export default class RMPlayer extends Component
    */
   * loop()
   {
-    let canStartPlaylist = false
-
-    // The playlist must have at least one playlist item
-    if ( this._playlist.hasData() )
-    {
-      // At least one playlist item must have musicians
-      for ( let playlistItem of this._playlist.data )
-      {
-        if ( playlistItem.genre.musicians.hasData() )
-        {
-          canStartPlaylist = true
-        } // if
-      } // for
-    } // if
-
-    if ( !canStartPlaylist )
+    // Check the playlist before the start
+    if ( !this.checkPlaylist() )
     {
       return
     } // if
@@ -126,23 +129,26 @@ export default class RMPlayer extends Component
     // Loop through the playlist
     while ( true )
     {
-      // Get a playlist item
+      // Select a playlist item
       let playlistItem = this._playlist.nextElement()
 
       // Loop through the musicians
       for ( let i = 0; i < playlistItem.numOfMusicians; i++ )
       {
-        // Reset the radio
-        this.reset()
-
-        // Select the musician
-        let musician = playlistItem.genre.musicians.nextElement()
-
-        // There must be a musician
-        if ( !musician )
+        // Select a random genre
+        let genre = playlistItem.genres.nextElement()
+      
+        // There is no genre
+        if ( !genre )
         {
           continue
         } // if
+
+        // Select a random musician
+        let musician = genre.musicians.nextElement()
+
+        // Reset the radio
+        this.reset()
 
         // Check warnings
         for ( let warning of this._warnings.data )
@@ -161,6 +167,7 @@ export default class RMPlayer extends Component
         // Play an introduction by the musician
         if ( musician.hasIntroductions() )
         {
+          // Select a random introduction
           let introduction = musician.introductions.nextElement()
           
           if ( introduction.type == "video" )
@@ -186,10 +193,10 @@ export default class RMPlayer extends Component
           // Show a post
           if ( playlistItem.showWebsitePosts )
           {
-            // Posts from the website must be shown
+            // Select a random website post
             let post = this._posts.nextElement()
 
-            // There must be the post
+            // There must be the website post
             if ( post )
             {
               this.setPost( post.content )
@@ -198,7 +205,6 @@ export default class RMPlayer extends Component
           } // if
           else
           {
-            // Post about the musician must be shown
             this.setPost( musician.description )
             this.setImages( musician.images.data )
           } // else
@@ -206,6 +212,7 @@ export default class RMPlayer extends Component
           // Play a record by the musician
           if ( musician.hasRecords() )
           {
+            // Select a random record
             let record = musician.records.nextElement()
 
             if ( record.type == "video" )

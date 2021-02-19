@@ -1,6 +1,6 @@
 {
   "name": "radio-manager",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This is the audio/video player for the Radio Manager plugin.",
   "license": "UNLICENSED",
   "private": true,

@@ -1,14 +1,14 @@
 /**
- * Represent the functionality of the copy 
+ * Represent the functionality of the Copy 
  * button in the shortcode meta box.
  * @param {string} id – The ID of the element whose content is to be copied.
  */
 function rmCopy( id )
 {
-  // Create the text element
+  // Create a text element
   var el = document.createElement( "input" );
 
-  // Insert the text data into the element
+  // Insert the text into the element
   el.setAttribute( "value", document.getElementById( id ).innerHTML );
 
   // Add the element to the DOM

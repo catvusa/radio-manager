@@ -65,8 +65,8 @@ class RMTaxonomyCreator extends RMSubsystem
   /**
    * Highlight the main menu of the plugin
    * when the user is on the „Genres“ page.
-   * @param string $parent_file – The parent file.
-   * @return string $parent_file – The parent file.
+   * @param string $parent_file – The parent menu.
+   * @return string $parent_file – The parent menu.
    */
   public function highlightMenu( $parent_file )
   {
