@@ -15,7 +15,8 @@ class RMTaxonomyCreator extends RMSubsystem
   public function install()
   {
     add_action( "init", [ $this, "createTaxonomies" ] );
-    add_action( "parent_file", [ $this, "highlightMenu" ] );
+    
+    add_filter( "parent_file", [ $this, "highlightMenu" ] );
   } // INSTALL
 
   /**
