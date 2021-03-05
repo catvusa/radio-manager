@@ -14,7 +14,7 @@ class RMACFFieldCreator extends RMSubsystem
    */
   public function install()
   {
-    $this->createACFFields();
+    add_action( "init", [ $this, "createACFFields" ] );
   } // INSTALL
 
   /**

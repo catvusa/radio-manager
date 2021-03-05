@@ -46,13 +46,16 @@ export default class RMPlayer extends Component
    */
   checkPlaylist()
   {
-    // There must be at least one playlist item with data
+    // There must be at least one genre with data
     for ( let playlistItem of this._playlist.data )
     {
-      if ( playlistItem.genres.hasData() )
+      for ( let genre of playlistItem.genres.data )
       {
-        return true
-      } // if
+        if ( genre.hasMusicians() )
+        {
+          return true
+        } // if
+      } // for
     } // for
 
     return false
@@ -138,8 +141,8 @@ export default class RMPlayer extends Component
         // Select a random genre
         let genre = playlistItem.genres.nextElement()
       
-        // There is no genre
-        if ( !genre )
+        // There is no genre or no musicians
+        if ( !genre || !genre.hasMusicians() )
         {
           continue
         } // if

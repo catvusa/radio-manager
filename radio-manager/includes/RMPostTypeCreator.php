@@ -85,53 +85,49 @@ class RMPostTypeCreator extends RMSubsystem
       register_post_type( RM_RADIO_STATION_POST_TYPE, $args );
     } // if
 
-    // Only editors can see all the musicians
-    if ( current_user_can( RM_EDITOR_CAPABILITY ) )
-    {
-      /**
-       * Post Type: Musician.
-       */
+    /**
+     * Post Type: Musician.
+     */
 
-      $labels = [
-        "name"                     => "Musicians",
-        "singular_name"            => "Musician",
-        "add_new_item"             => "Add New Musician",
-        "edit_item"                => "Edit Musician",
-        "new_item"                 => "New Musician",
-        "view_item"                => "View Musician",
-        "view_items"               => "View Musicians",
-        "search_items"             => "Search Musicians",
-        "not_found"                => "No musicians found.",
-        "not_found_in_trash"       => "No musicians found in Trash.",
-        "all_items"                => "Musicians",
-        "archives"                 => "Musician Archives",
-        "attributes"               => "Musician Attributes",
-        "insert_into_item"         => "Insert into musician",
-        "uploaded_to_this_item"    => "Uploaded to this musician",
-        "filter_items_list"        => "Filter musicians list",
-        "items_list_navigation"    => "Musicians list navigation",
-        "items_list"               => "Musicians list",
-        "item_published"           => "Musician published.",
-        "item_published_privately" => "Musician published privately.",
-        "item_reverted_to_draft"   => "Musician reverted to draft.",
-        "item_scheduled"           => "Musician scheduled.",
-        "item_updated"             => "Musician updated.",
-      ];
+    $labels = [
+      "name"                     => "Musicians",
+      "singular_name"            => "Musician",
+      "add_new_item"             => "Add New Musician",
+      "edit_item"                => "Edit Musician",
+      "new_item"                 => "New Musician",
+      "view_item"                => "View Musician",
+      "view_items"               => "View Musicians",
+      "search_items"             => "Search Musicians",
+      "not_found"                => "No musicians found.",
+      "not_found_in_trash"       => "No musicians found in Trash.",
+      "all_items"                => "Musicians",
+      "archives"                 => "Musician Archives",
+      "attributes"               => "Musician Attributes",
+      "insert_into_item"         => "Insert into musician",
+      "uploaded_to_this_item"    => "Uploaded to this musician",
+      "filter_items_list"        => "Filter musicians list",
+      "items_list_navigation"    => "Musicians list navigation",
+      "items_list"               => "Musicians list",
+      "item_published"           => "Musician published.",
+      "item_published_privately" => "Musician published privately.",
+      "item_reverted_to_draft"   => "Musician reverted to draft.",
+      "item_scheduled"           => "Musician scheduled.",
+      "item_updated"             => "Musician updated.",
+    ];
 
-      $args = [
-        "labels"                   => $labels,
-        "public"                   => true,
-        "exclude_from_search"      => false,
-        "show_in_rest"             => true,
-        "show_in_menu"             => RM_MENU_SLUG,
-        "delete_with_user"         => false,
-        "supports"                 => [ "title", "editor", "thumbnail" ],
-        "taxonomies"               => [ RM_GENRE_TAXONOMY ],
-        "has_archive"              => true,
-        "rewrite"                  => [ "slug" => "musician" ],
-      ];
+    $args = [
+      "labels"                   => $labels,
+      "public"                   => true,
+      "exclude_from_search"      => false,
+      "show_in_rest"             => true,
+      "show_in_menu"             => RM_MENU_SLUG,
+      "delete_with_user"         => false,
+      "supports"                 => [ "title", "editor", "thumbnail" ],
+      "taxonomies"               => [ RM_GENRE_TAXONOMY ],
+      "has_archive"              => true,
+      "rewrite"                  => [ "slug" => "musician" ],
+    ];
 
-      register_post_type( RM_MUSICIAN_POST_TYPE, $args );
-    } // if
+    register_post_type( RM_MUSICIAN_POST_TYPE, $args );
   } // CREATE POST TYPES
 } // RM POST TYPE CREATOR

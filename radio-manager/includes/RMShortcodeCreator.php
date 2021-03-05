@@ -14,7 +14,7 @@ class RMShortcodeCreator extends RMSubsystem
    */
   public function install()
   {
-    $this->createShortcodes();
+    add_action( "init", [ $this, "createShortcodes" ] );
   } // INSTALL
 
   /**
@@ -231,12 +231,6 @@ class RMShortcodeCreator extends RMSubsystem
           if ( !array_key_exists( $originalGenre->slug, $genres ) )
           {
             $genres[ $originalGenre->slug ] = $this->getGenreMusicians( $originalGenre->slug );
-          } // if
-
-          // There are no musicians
-          if ( empty( $genres[ $originalGenre->slug ] ) )
-          {
-            continue;
           } // if
 
           $newGenre =
