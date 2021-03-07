@@ -227,7 +227,6 @@ export default class RMRadio extends Component
   render()
   {
     return (
-      <>
       <div id="rm-radio-field">
 
         <RMRadioName
@@ -298,11 +297,10 @@ export default class RMRadio extends Component
           setRadioPlay={ this.setRadioPlay }
           setRadioSkip={ this.setRadioSkip }
         />
+        
+        <div id="rm-radio-skip-field" onClick={ () => { this.setRadioSkip( true ) } }></div>
 
       </div>
-      <br />
-      <button type="button" onClick={ () => { this.setRadioSkip( true ) } }>SKIP</button>
-      </>
     )
   } // RENDER
 } // RM RADIO

@@ -15,8 +15,8 @@ export default class RMInfo extends Component
       return (
         <div className="rm-info">
           <div>
-            <span dangerouslySetInnerHTML={ { __html: this.props.caption } } />
-            <span className="rm-info-content" dangerouslySetInnerHTML={ { __html: this.props.info } } />
+            <span>{ this.props.caption }</span>
+            <span className="rm-info-content">{ this.props.info }</span>
           </div>
         </div>
       )

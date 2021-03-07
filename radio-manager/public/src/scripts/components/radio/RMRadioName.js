@@ -16,7 +16,7 @@ export default class RMRadioName extends Component
     {
       return (
         <div id="rm-radio-name-field">
-          <span dangerouslySetInnerHTML={ { __html: this.props.radioName } } />  
+          <span>{ this.props.radioName }</span>
         </div>
       )
     } // if
