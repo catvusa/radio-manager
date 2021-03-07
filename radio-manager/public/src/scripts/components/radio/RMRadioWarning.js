@@ -54,7 +54,7 @@ export default class RMRadioWarning extends Component
           <Modal.Header closeButton>
             <Modal.Title>{ this.props.warningData.title }</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{ this.props.warningData.message }</Modal.Body>
+          <Modal.Body dangerouslySetInnerHTML={ { __html: this.props.warningData.message } } />
           <Modal.Footer>
             <Button variant="secondary" onClick={ () => { this.finishWarning() } }>Close</Button>
             { this.getConfirmButton() }
