@@ -1,3 +1,5 @@
+import RMListFactory from "../list/RMListFactory"
+
 /**
  * Represent a website post that is
  * being projected while playing
@@ -7,13 +9,14 @@ export default class RMPost
 {
   /**
    * Create a post.
-   * @param {object} image – The featured image attached to the particular post.
-   * @param {string} content – The text of the particular post.
+   * @param {object} object - The particular post.
+   * @param {object} object.image - The featured image attached to the particular post.
+   * @param {string} object.content - The text of the particular post.
    */
-  constructor( image, content )
+  constructor( object )
   {
-    this._image = image
-    this._content = content
+    this._image = RMListFactory.createList( "plain", "image", object.image )
+    this._content = object.content
   } // CONSTRUCTOR
 
   /**

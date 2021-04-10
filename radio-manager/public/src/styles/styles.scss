@@ -1,0 +1,20 @@
+#rm-radio-field
+{
+  @import "../../node_modules/swiper/swiper";
+  @import "../../node_modules/swiper/components/effect-fade/effect-fade";
+  @import "../../node_modules/swiper/components/lazy/lazy";
+  @import "../../node_modules/bootstrap/scss/bootstrap";
+
+  @import "./partials/mixins";
+  @import "./partials/reset";
+  @import "./partials/variables";
+
+  @import "./partials/components/RMRadioName";
+  @import "./partials/components/RMRadioMultimedia";
+  @import "./partials/components/RMRadioPlayer";
+  @import "./partials/components/RMRadioSkip";
+
+  position: relative;
+  margin: 20px 0;
+  outline: 1px solid $rm_dark_color;
+}

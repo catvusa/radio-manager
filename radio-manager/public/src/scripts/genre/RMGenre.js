@@ -9,11 +9,12 @@ export default class RMGenre
 {
   /**
    * Create a genre.
-   * @param {object[]} musicians – All the musicians.
+   * @param {object} object - The particular genre.
+   * @param {object[]} object.musicians - All the musicians.
    */
-  constructor( musicians )
+  constructor( object )
   {
-    this._musicians = RMListFactory.createList( "shuffle", "musician", musicians )
+    this._musicians = RMListFactory.createList( "shuffle", "musician", object.musicians )
   } // CONSTRUCTOR
  
   /**
@@ -23,7 +24,7 @@ export default class RMGenre
    */
   hasMusicians()
   {
-    return this._musicians.data.length
+    return this._musicians.hasData()
   } // HAS MUSICIANS
 
   /**

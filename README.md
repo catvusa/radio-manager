@@ -32,7 +32,7 @@
 * CSS
 * Gulp
 * HTML
-* JavaScript (ES6)
+* JavaScript
 * Node.js
 * npm
 * React

@@ -13,12 +13,50 @@ namespace Inc;
 class RMMenuAndLinkCreator extends RMSubsystem
 {
   /**
+   * Hold a singleton instance.
+   * @static
+   */
+  private static $instance = null;
+    
+  /**
+   * Create a singleton (but it is
+   * private in order to prevent
+   * initiation from the outside).
+   */
+  private function __construct()
+  {
+  } // CONSTRUCTOR
+  
+  /**
+   * Restrict cloning.
+   */
+  private function __clone()
+  {
+  } // CLONE
+
+  /**
+   * Get the singleton instance.
+   * @static
+   * @return object - The instance of this class.
+   */
+  public static function getInstance()
+  {
+    if ( self::$instance == null )
+    {
+      // Create only from within the class
+      self::$instance = new self();
+    } // if
+
+    return self::$instance;
+  } // GET INSTANCE
+
+  /**
    * Bind the installation of the menu
    * and links with the specific hooks.
    */
   public function install()
   {
-    add_action( "admin_menu", [ $this, "createMenu" ] );
+    add_action( "admin_menu", [ $this, "createMenus" ] );
 
     add_filter( "plugin_action_links_" . plugin_basename( RM_PLUGIN ), [ $this, "createLinks" ] );
   } // INSTALL
@@ -42,7 +80,7 @@ class RMMenuAndLinkCreator extends RMSubsystem
    * @see add_menu_page() for adding custom menu pages.
    * @see add_submenu_page() for adding custom submenu pages.
    */
-  public function createMenu()
+  public function createMenus()
   {
     /**
      * Menu Page: Radio Manager.
@@ -76,14 +114,14 @@ class RMMenuAndLinkCreator extends RMSubsystem
     
     $link = plugins_url( RM_USER_GUIDE, RM_PLUGIN );
     $submenu[ RM_MENU_SLUG ][] = [ RM_HELP_PAGE_TITLE, RM_EDITOR_CAPABILITY, $link ];
-  } // CREATE MENU
+  } // CREATE MENUS
   
   /**
    * Create the links (visible in
    * the „Installed Plugins“
    * in the Wordpress).
-   * @param string[] $actions – An array of plugin action links.
-   * @return string[] $actions – An array of plugin action links.
+   * @param string[] $actions - An array of plugin action links.
+   * @return string[] $actions - An array of plugin action links.
    */
   public function createLinks( $actions )
   {

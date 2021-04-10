@@ -1,0 +1,11 @@
+#rm-slider
+{
+  width: 100%;
+  max-width: 100%;
+  flex: none;
+
+  .rm-slide
+  {
+    @include rm-flex( column, center, center );
+  }
+}

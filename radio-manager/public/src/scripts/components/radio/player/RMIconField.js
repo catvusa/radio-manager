@@ -14,7 +14,7 @@ export default class RMIconField extends Component
   {
     if ( this.props.radioPlay )
     {
-      // The radio is playing
+      // The radio is playing (show the STOP icon)
       return (
         <div id="rm-icon-field">
           <div className="rm-icon" onClick={ () => { this.props.setRadioPlay( false ) } }>
@@ -27,7 +27,7 @@ export default class RMIconField extends Component
     } // if
     else
     {
-      // The radio is paused
+      // The radio is paused (show the PLAY icon)
       return (
         <div id="rm-icon-field">
           <div className="rm-icon" onClick={ () => { this.props.setRadioPlay( true ) } }>

@@ -1,0 +1,28 @@
+#rm-radio-multimedia-field
+{
+  @import "./multimedia/RMCaption";
+  @import "./multimedia/RMPost";
+  @import "./multimedia/RMPreloader";
+  @import "./multimedia/RMSlider";
+
+  @include rm-flex( column, center, center );
+    
+  overflow: hidden;
+  background-color: $rm_blue_color;
+  outline: 1px solid $rm_dark_color;
+  cursor: default;
+  
+  img, video
+  {
+    position: relative;
+    z-index: 1;
+    outline: 1px solid $rm_dark_color;
+    max-width: 100%;
+    flex: none;
+  }
+    
+  video
+  {
+    width: 100%;
+  }
+}

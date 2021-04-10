@@ -1,0 +1,26 @@
+#rm-post-field
+{
+  position: relative;
+  z-index: 1;
+  background-color: #FFF;
+  width: 100%;
+  max-height: 27.5rem;
+  overflow: auto;
+  padding: 0 0.5rem;
+
+  button
+  {
+    float: none;
+    margin: 0.5rem 0;
+  }
+
+  #rm-post
+  {
+    margin-top: 1rem;
+      
+    p
+    {
+      display: block;
+    }
+  }
+}

@@ -9,9 +9,9 @@ export default class RMListFactory
 {
   /**
    * Create a particular list.
-   * @param {string} listType – The type of the list.
-   * @param {string} elementType – The type of the list element.
-   * @param {object[]} data – The data to be saved to the list.
+   * @param {string} listType - The type of the list.
+   * @param {string} elementType - The type of the list element.
+   * @param {object[]} data - The data to be saved to the list.
    */
   static createList( listType, elementType, data )
   {
@@ -23,5 +23,7 @@ export default class RMListFactory
     {
       return new RMShuffleList( elementType, data )
     } // else if
+    
+    return null
   } // CREATE LIST
 } // RM LIST FACTORY

@@ -1,28 +1,28 @@
 import RMMultimedia from "./RMMultimedia"
 
 /**
- * Represent a record of the musician.
+ * Represent a recording of the musician.
  * @extends RMMultimedia
  */
 export default class RMRecord extends RMMultimedia
 {
   /**
-   * Create a record.
-   * @param {string} title – The main title.
-   * @param {string} src – The URL address.
-   * @param {string} type – The type of the record (audio/video).
+   * Create a recording.
+   * @param {object} object - The particular recording.
+   * @param {string} object.title - The main title.
+   * @param {string} object.src - The URL address.
+   * @param {string} object.type - The type of the recording (audio/video).
    */
-  constructor( title, src, type )
+  constructor( object )
   {
     /*
-      We are working with the title
-      and the src only.
-      The description can be added
-      in the future.
+      We are working with the title,
+      src and type only. The description
+      can be added in the future.
     */
-    super( title, "", src )
+    super( object.title, "", object.src )
 
-    this._type = type
+    this._type = object.type
   } // CONSTRUCTOR
 
   /**

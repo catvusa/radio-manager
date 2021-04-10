@@ -3,7 +3,7 @@
 namespace Inc;
 
 /**
- * Represent a facade manager that manages
+ * Represent a facade that manages
  * all the subsystems of the plugin.
  */
 class RMManager
@@ -15,7 +15,7 @@ class RMManager
   private $subsystems;
 
   /**
-   * Create the facade manager.
+   * Create the facade.
    */
   public function __construct()
   {

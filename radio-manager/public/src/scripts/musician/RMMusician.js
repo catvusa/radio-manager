@@ -10,19 +10,20 @@ export default class RMMusician
 {
   /**
    * Create a musician.
-   * @param {string} name – The first name and surname.
-   * @param {string} description – More descriptive text.
-   * @param {object[]} images – All the images.
-   * @param {object[]} introductions – All the introductions.
-   * @param {object[]} records – All the records.
+   * @param {object} object - The particular musician.
+   * @param {string} object.name - The first name and surname.
+   * @param {string} object.description - More descriptive text.
+   * @param {object[]} object.images - All the images.
+   * @param {object[]} object.introductions - All the introductions.
+   * @param {object[]} object.records - All the recordings.
    */
-  constructor( name, description, images, introductions, records )
+  constructor( object )
   {
-    this._name = name
-    this._description = description
-    this._images = RMListFactory.createList( "shuffle", "image", images )
-    this._introductions = RMListFactory.createList( "shuffle", "introduction", introductions )
-    this._records = RMListFactory.createList( "shuffle", "record", records )
+    this._name = object.name
+    this._description = object.description
+    this._images = RMListFactory.createList( "shuffle", "image", object.images )
+    this._introductions = RMListFactory.createList( "shuffle", "introduction", object.introductions )
+    this._records = RMListFactory.createList( "shuffle", "record", object.records )
   } // CONSTRUCTOR
 
   /**
@@ -32,7 +33,7 @@ export default class RMMusician
    */
   hasImages()
   {
-    return this._images.data.length
+    return this._images.hasData()
   } // HAS IMAGES
 
   /**
@@ -42,17 +43,17 @@ export default class RMMusician
    */
   hasIntroductions()
   {
-    return this._introductions.data.length
+    return this._introductions.hasData()
   } // HAS INTRODUCTIONS
 
   /**
    * Find out whether the musician
-   * has some records or not.
+   * has some recordings or not.
    * @return {boolean} The hasRecords value.
    */
   hasRecords()
   {
-    return this._records.data.length
+    return this._records.hasData()
   } // HAS RECORDS
 
   /**
@@ -92,7 +93,7 @@ export default class RMMusician
   } // GET INTRODUCTIONS
 
   /**
-   * Get the records value.
+   * Get the recordings value.
    * @return {object} The records value.
    */
   get records()

@@ -10,6 +10,44 @@ namespace Inc;
 class RMACFFieldCreator extends RMSubsystem
 {
   /**
+   * Hold a singleton instance.
+   * @static
+   */
+  private static $instance = null;
+    
+  /**
+   * Create a singleton (but it is
+   * private in order to prevent
+   * initiation from the outside).
+   */
+  private function __construct()
+  {
+  } // CONSTRUCTOR
+  
+  /**
+   * Restrict cloning.
+   */
+  private function __clone()
+  {
+  } // CLONE
+
+  /**
+   * Get the singleton instance.
+   * @static
+   * @return object - The instance of this class.
+   */
+  public static function getInstance()
+  {
+    if ( self::$instance == null )
+    {
+      // Create only from within the class
+      self::$instance = new self();
+    } // if
+
+    return self::$instance;
+  } // GET INSTANCE
+
+  /**
    * Install all the fields.
    */
   public function install()
@@ -30,7 +68,7 @@ class RMACFFieldCreator extends RMSubsystem
       acf_remove_local_field_group( "group_5fb1927b0b18b" ); // Warnings
       acf_remove_local_field_group( "group_5fb15e461e259" ); // Images
       acf_remove_local_field_group( "group_5fb1658de4f9f" ); // Introductions
-      acf_remove_local_field_group( "group_5fb16ed0c44b2" ); // Records
+      acf_remove_local_field_group( "group_5fb16ed0c44b2" ); // Recordings
     } // if
   } // UNINSTALL
 
@@ -192,7 +230,7 @@ class RMACFFieldCreator extends RMSubsystem
               "class" => "",
               "id" => "",
             ),
-            "collapsed" => "",
+            "collapsed" => "field_5fb18997c2b0b",
             "min" => 0,
             "max" => 0,
             "layout" => "row",
@@ -225,7 +263,7 @@ class RMACFFieldCreator extends RMSubsystem
                 "label" => "Number of musicians",
                 "name" => "rm_radio_num_of_musicians",
                 "type" => "range",
-                "instructions" => "Set a number of musicians to be played.",
+                "instructions" => "Set a number of musicians to be played per genre.",
                 "required" => 0,
                 "conditional_logic" => 0,
                 "wrapper" => array(
@@ -321,7 +359,7 @@ class RMACFFieldCreator extends RMSubsystem
               "class" => "",
               "id" => "",
             ),
-            "collapsed" => "",
+            "collapsed" => "field_5fb197f561304",
             "min" => 0,
             "max" => 0,
             "layout" => "row",

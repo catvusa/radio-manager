@@ -1,27 +1,47 @@
 /**
- * @const {function} series – Executes tasks in sequential order.
+ * @const {function} series - Executes tasks in sequential order.
+ * @const {function} parallel - Executes tasks simultaneously.
  */
-const { series } = require( "gulp" )
+const { series, parallel } = require( "gulp" )
 
 /**
- * @const {function} scripts – Compiles all JS files.
+ * @const {function} scriptsDev - Compiles all JS files for development.
  */
-const { scripts } = require( "./tasks/scripts" )
+const { scriptsDev } = require( "./tasks/scriptsDev" )
 
 /**
- * @const {function} styles – Compiles all SCSS files.
+ * @const {function} scriptsProd - Compiles all JS files for production.
  */
-const { styles } = require( "./tasks/styles" )
+const { scriptsProd } = require( "./tasks/scriptsProd" )
 
 /**
- * @const {function} track – Tracks the files changes on live.
+ * @const {function} stylesDev - Compiles all SCSS files for development.
+ */
+const { stylesDev } = require( "./tasks/stylesDev" )
+
+/**
+ * @const {function} stylesProd - Compiles all SCSS files for production.
+ */
+const { stylesProd } = require( "./tasks/stylesProd" )
+
+/**
+ * @const {function} track - Tracks the files changes on live.
  */
 const { track } = require( "./tasks/track" )
 
 /**
- * Create all the tasks.
+ * Export all the tasks.
  */
-exports.default = series(scripts, styles, track)
-exports.scripts = scripts
-exports.styles = styles
+ 
+exports.default = series( parallel( scriptsDev, stylesDev ), track )
+
+exports.buildDev = series( parallel( scriptsDev, stylesDev ), track )
+exports.buildProd = parallel( scriptsProd, stylesProd )
+
+exports.scriptsDev = scriptsDev
+exports.scriptsProd = scriptsProd
+
+exports.stylesDev = stylesDev
+exports.stylesProd = stylesProd
+
 exports.track = track

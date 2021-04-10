@@ -2,14 +2,38 @@
 
 /**
  * Plugin Name:       Radio Manager
- * Plugin URI:        https://github.com/catvusa/radio-manager
  * Description:       A WordPress plugin for managing your own custom web radios.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Requires at least: 5.5
  * Requires PHP:      7.3
  * Author:            Karel Vrabec
  * Author URI:        https://github.com/karelvrabeckv
+ * License:           MIT
  */
+
+/*
+
+Copyright (c) 2021 Faculty of Information Technology, Czech Technical University in Prague
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
 
 // Prevent a public user from direct access
 defined( "ABSPATH" ) or die( "Forbidden" );
@@ -21,32 +45,23 @@ if ( file_exists( __DIR__ . "/vendor/autoload.php" ) )
 } // if
 
 /**
- * Register all frontend styles and scripts.
+ * Load all frontend styles and scripts.
  */
-function rmRegisterFrontendStylesAndScripts()
+function rmLoadFrontendStylesAndScripts()
 {
-  // Register frontend styles and scripts
-  wp_register_style( "rm-frontend-styles", plugins_url( "/public/dist/rm-styles.min.css", __FILE__ )/*, [], rand( 1, 9999 )*/ );
-  wp_register_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", __FILE__ )/*, [], rand( 1, 9999 )*/ );
-
-  // Load frontend styles and scripts
-  wp_enqueue_style( "rm-frontend-styles" );
-  wp_enqueue_script( "rm-frontend-scripts", "", [], false, true );
-} // RM REGISTER FRONTEND STYLES AND SCRIPTS
-add_action( "wp_enqueue_scripts", "rmRegisterFrontendStylesAndScripts" );
+  wp_enqueue_style( "rm-frontend-styles", plugins_url( "/public/dist/rm-styles.min.css", __FILE__ ) );
+  wp_enqueue_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", __FILE__ ) );
+} // RM LOAD FRONTEND STYLES AND SCRIPTS
+add_action( "wp_enqueue_scripts", "rmLoadFrontendStylesAndScripts" );
 
 /**
- * Register all backend styles and scripts.
+ * Load all backend styles and scripts.
  */
-function rmRegisterBackendStylesAndScripts()
+function rmLoadBackendStylesAndScripts()
 {
-  // Register backend scripts
-  wp_register_script( "rm-backend-scripts", plugins_url( "/admin/js/rmCopy.js", __FILE__ ) );
-  
-  // Load backend scripts
-  wp_enqueue_script( "rm-backend-scripts" );
-} // RM REGISTER BACKEND STYLES AND SCRIPTS
-add_action( "admin_enqueue_scripts", "rmRegisterBackendStylesAndScripts" );
+  wp_enqueue_script( "rm-backend-scripts", plugins_url( "/admin/js/rmCopy.js", __FILE__ ) );
+} // RM LOAD BACKEND STYLES AND SCRIPTS
+add_action( "admin_enqueue_scripts", "rmLoadBackendStylesAndScripts" );
 
 // Constants
 define( "RM_PLUGIN", __FILE__ );

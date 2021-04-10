@@ -10,6 +10,44 @@ namespace Inc;
 class RMPostTypeCreator extends RMSubsystem
 {
   /**
+   * Hold a singleton instance.
+   * @static
+   */
+  private static $instance = null;
+    
+  /**
+   * Create a singleton (but it is
+   * private in order to prevent
+   * initiation from the outside).
+   */
+  private function __construct()
+  {
+  } // CONSTRUCTOR
+  
+  /**
+   * Restrict cloning.
+   */
+  private function __clone()
+  {
+  } // CLONE
+
+  /**
+   * Get the singleton instance.
+   * @static
+   * @return object - The instance of this class.
+   */
+  public static function getInstance()
+  {
+    if ( self::$instance == null )
+    {
+      // Create only from within the class
+      self::$instance = new self();
+    } // if
+
+    return self::$instance;
+  } // GET INSTANCE
+    
+  /**
    * Bind the installation of the radio
    * station and the musician post types
    * with the specific hook.

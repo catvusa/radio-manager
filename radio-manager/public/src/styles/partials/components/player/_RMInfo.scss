@@ -1,0 +1,22 @@
+.rm-info
+{
+  @extend .d-flex;
+  @extend .justify-content-center;
+  @extend .align-items-center;
+  @extend .col-sm;
+        
+  @include rm-text( #FFF, 1rem, normal, center );
+        
+  cursor: default;
+  padding: 0 0.5rem;
+
+  .rm-info-content
+  {
+    font-weight: bold;
+  }
+}
+        
+.rm-no-info
+{
+  @extend .col-sm;
+}

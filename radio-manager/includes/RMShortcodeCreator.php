@@ -10,6 +10,44 @@ namespace Inc;
 class RMShortcodeCreator extends RMSubsystem
 {
   /**
+   * Hold a singleton instance.
+   * @static
+   */
+  private static $instance = null;
+    
+  /**
+   * Create a singleton (but it is
+   * private in order to prevent
+   * initiation from the outside).
+   */
+  private function __construct()
+  {
+  } // CONSTRUCTOR
+  
+  /**
+   * Restrict cloning.
+   */
+  private function __clone()
+  {
+  } // CLONE    
+
+  /**
+   * Get the singleton instance.
+   * @static
+   * @return object - The instance of this class.
+   */
+  public static function getInstance()
+  {
+    if ( self::$instance == null )
+    {
+      // Create only from within the class
+      self::$instance = new self();
+    } // if
+
+    return self::$instance;
+  } // GET INSTANCE
+
+  /**
    * Install all the shortcodes.
    */
   public function install()
@@ -44,9 +82,9 @@ class RMShortcodeCreator extends RMSubsystem
   /**
    * Create the content of the radio
    * station shortcode.
-   * @param array $atts – An array of the shortcode attributes.
-   * @return string $content – The content of the shortcode.
-   * @see wp_localize_script() for localizing custom scripts.
+   * @param array $atts - An array of the shortcode attributes.
+   * @return string $content - The content of the shortcode.
+   * @see wp_add_inline_script() for adding extra code to a registered script.
    */
   public function createRadioStationShortcodeHTML( $atts )
   {
@@ -54,18 +92,22 @@ class RMShortcodeCreator extends RMSubsystem
     $atts = shortcode_atts( [ "id" => "" ], $atts );
     
     // There is a post of the radio station
-    if ( get_post( $atts[ "id" ] ) )
+    if ( get_post_type( $atts[ "id" ] ) == RM_RADIO_STATION_POST_TYPE )
     {
       // Send all the data to frontend
-      wp_localize_script( "rm-frontend-scripts", "rmData" . $atts[ "id" ], $this->getData( $atts[ "id" ] ) );
-
+      wp_add_inline_script(
+        "rm-frontend-scripts",
+        "var rmData" . $atts[ "id" ] . " = " . json_encode( $this->getData( $atts[ "id" ] ) ),
+        "before"
+      );
+      
       // Create the content for the shortcode
       $content = "<div data-rm-output-id=" . $atts[ "id" ] . "></div>";
     } // if
     else
     {
       // There is no post of the radio station
-      $content = "<i>There are no data for this radio station.</i>";
+      $content = "<b style='color: red;'>There are no data for this radio station.</b>";
     } // else
    
     return $content;
@@ -73,16 +115,16 @@ class RMShortcodeCreator extends RMSubsystem
   
   /**
    * Get the radio station data.
-   * @param string $radioStationID – The ID of the radio station page.
-   * @return array $data – An array of the radio station data.
+   * @param string $radioStationID - The ID of the radio station page.
+   * @return array $data - An array of the radio station data.
    */
   public function getData( $radioStationID )
   {
     $radioName = get_the_title( $radioStationID );
     $radioLogo = $this->getRadioLogo( $radioStationID );
     $radioSettings = $this->getRadioSettings( $radioStationID );
-    $radioPlaylist = $this->getRadioPlaylist( $radioStationID );
     $radioWarnings = $this->getRadioWarnings( $radioStationID );
+    $radioPlaylist = $this->getRadioPlaylist( $radioStationID );
 
     $data =
     [
@@ -101,8 +143,8 @@ class RMShortcodeCreator extends RMSubsystem
 
   /**
    * Get the radio station logo.
-   * @param string $radioStationID – The ID of the radio station page.
-   * @return array $radioLogo – An array with the radio station logo.
+   * @param string $radioStationID - The ID of the radio station page.
+   * @return array $radioLogo - An array with the radio station logo.
    */
   public function getRadioLogo( $radioStationID )
   {
@@ -131,9 +173,9 @@ class RMShortcodeCreator extends RMSubsystem
    * Get the radio station settings 
    * (means image duration, website
    * posts, musician caption and
-   * record caption).
-   * @param string $radioStationID – The ID of the radio station page.
-   * @return array $radioSettings – An array of the radio station settings.
+   * recording caption).
+   * @param string $radioStationID - The ID of the radio station page.
+   * @return array $radioSettings - An array of the radio station settings.
    */
   public function getRadioSettings( $radioStationID )
   {
@@ -205,10 +247,66 @@ class RMShortcodeCreator extends RMSubsystem
     return $radioSettings;
   } // GET RADIO SETTINGS
 
+
+  /**
+   * Get the radio station warnings.
+   * @param string $radioStationID - The ID of the radio station page.
+   * @return array $radioWarnings - An array of the radio station warnings.
+   */
+  public function getRadioWarnings( $radioStationID )
+  {
+    $radioWarnings = [];
+
+    // The s2Member Framework plugin must be installed
+    $isUserRegistered =
+    (
+      current_user_can( "access_s2member_level0" ) ||
+      current_user_can( "access_s2member_level1" ) ||
+      current_user_can( "access_s2member_level2" ) ||
+      current_user_can( "access_s2member_level3" ) ||
+      current_user_can( "access_s2member_level4" )
+    );
+
+    // Process all the warnings
+    if ( have_rows( "rm_radio_warnings", $radioStationID ) )
+    {
+      while ( have_rows( "rm_radio_warnings", $radioStationID ) )
+      {
+        the_row();
+
+        $isWarningActive = get_sub_field( "rm_radio_active" );
+        $targetUserGroup = get_sub_field( "rm_radio_show_to" );
+        $canWarningShow =
+        (
+          ( $isWarningActive && $targetUserGroup == "all" ) ||
+          ( $isWarningActive && $targetUserGroup == "registered" && $isUserRegistered == true ) ||
+          ( $isWarningActive && $targetUserGroup == "not_registered" && $isUserRegistered == false )
+        );
+
+        if ( $canWarningShow )
+        {
+          // An array with the warning
+          $radioWarning =
+          [
+            "first"   => get_sub_field( "rm_radio_first" ),
+            "step"    => get_sub_field( "rm_radio_step" ),
+            "title"   => get_sub_field( "rm_radio_title" ),
+            "message" => get_sub_field( "rm_radio_message" ),
+            "link"    => get_sub_field( "rm_radio_link" ),
+          ];
+
+          array_push( $radioWarnings, $radioWarning );
+        } // if
+      } // while
+    } // if
+
+    return $radioWarnings;
+  } // GET RADIO WARNINGS
+
   /**
    * Get the radio station playlist.
-   * @param string $radioStationID – The ID of the radio station page.
-   * @return array $radioPlaylist – An array of the radio station playlist items.
+   * @param string $radioStationID - The ID of the radio station page.
+   * @return array $radioPlaylist - An array of the radio station playlist items.
    */
   public function getRadioPlaylist( $radioStationID )
   {
@@ -260,8 +358,8 @@ class RMShortcodeCreator extends RMSubsystem
 
   /**
    * Get the genre musicians.
-   * @param string $term – The specific term of the genre taxonomy (e.g. Classical).
-   * @return array $musicians – An array of the respective musicians.
+   * @param string $term - The specific term of the genre taxonomy (e.g. Classical).
+   * @return array $musicians - An array of the respective musicians.
    */
   public function getGenreMusicians( $term )
   {
@@ -301,7 +399,7 @@ class RMShortcodeCreator extends RMSubsystem
           "records"       => $this->getMusicianRecords( get_the_ID() ),
         ];
         
-        // There are no records
+        // There are no recordings
         if ( empty( $musician[ "records" ] ) )
         {
           continue;
@@ -319,8 +417,8 @@ class RMShortcodeCreator extends RMSubsystem
 
   /**
    * Get the musician images.
-   * @param string $id – The ID of the musician page.
-   * @return array $images – An array of the musician images.
+   * @param string $id - The ID of the musician page.
+   * @return array $images - An array of the musician images.
    */
   public function getMusicianImages( $id )
   {
@@ -358,8 +456,8 @@ class RMShortcodeCreator extends RMSubsystem
 
   /**
    * Get the musician introductions.
-   * @param string $id – The ID of the musician page.
-   * @return array $introductions – An array of the musician introductions.
+   * @param string $id - The ID of the musician page.
+   * @return array $introductions - An array of the musician introductions.
    */
   public function getMusicianIntroductions( $id )
   {
@@ -395,15 +493,15 @@ class RMShortcodeCreator extends RMSubsystem
   } // GET MUSICIAN INTRODUCTIONS
 
   /**
-   * Get the musician records.
-   * @param string $id – The ID of the musician page.
-   * @return array $records – An array of the musician records.
+   * Get the musician recordings.
+   * @param string $id - The ID of the musician page.
+   * @return array $records - An array of the musician records.
    */
   public function getMusicianRecords( $id )
   {
     $records = [];
 
-    // Process all the records
+    // Process all the recordings
     if ( have_rows( "rm_musician_records", $id ) )
     {
       while ( have_rows( "rm_musician_records", $id ) )
@@ -412,7 +510,7 @@ class RMShortcodeCreator extends RMSubsystem
 
         $originalRecord = get_sub_field( "rm_musician_record" );
         
-        // An array with the record
+        // An array with the recording
         $record =
         [
           "title" => $originalRecord[ "title" ],
@@ -420,7 +518,7 @@ class RMShortcodeCreator extends RMSubsystem
           "type"  => $originalRecord[ "type" ],
         ];
         
-        // There is a record without the source
+        // There is a recording without the source
         if ( !$record[ "src" ] )
         {
           continue;
@@ -432,59 +530,4 @@ class RMShortcodeCreator extends RMSubsystem
 
     return $records;
   } // GET MUSICIAN RECORDS
-
-  /**
-   * Get the radio station warnings.
-   * @param string $radioStationID – The ID of the radio station page.
-   * @return array $radioWarnings – An array of the radio station warnings.
-   */
-  public function getRadioWarnings( $radioStationID )
-  {
-    $radioWarnings = [];
-
-    // The s2Member Framework plugin must be installed
-    $isUserRegistered =
-    (
-      current_user_can( "access_s2member_level0" ) ||
-      current_user_can( "access_s2member_level1" ) ||
-      current_user_can( "access_s2member_level2" ) ||
-      current_user_can( "access_s2member_level3" ) ||
-      current_user_can( "access_s2member_level4" )
-    );
-
-    // Process all the warnings
-    if ( have_rows( "rm_radio_warnings", $radioStationID ) )
-    {
-      while ( have_rows( "rm_radio_warnings", $radioStationID ) )
-      {
-        the_row();
-
-        $isWarningActive = get_sub_field( "rm_radio_active" );
-        $targetUserGroup = get_sub_field( "rm_radio_show_to" );
-        $canWarningShow =
-        (
-          ( $isWarningActive && $targetUserGroup == "all" ) ||
-          ( $isWarningActive && $targetUserGroup == "registered" && $isUserRegistered == true ) ||
-          ( $isWarningActive && $targetUserGroup == "not_registered" && $isUserRegistered == false )
-        );
-
-        if ( $canWarningShow )
-        {
-          // An array with the warning
-          $radioWarning =
-          [
-            "first"   => get_sub_field( "rm_radio_first" ),
-            "step"    => get_sub_field( "rm_radio_step" ),
-            "title"   => get_sub_field( "rm_radio_title" ),
-            "message" => get_sub_field( "rm_radio_message" ),
-            "link"    => get_sub_field( "rm_radio_link" ),
-          ];
-
-          array_push( $radioWarnings, $radioWarning );
-        } // if
-      } // while
-    } // if
-
-    return $radioWarnings;
-  } // GET RADIO WARNINGS
 } // RM SHORTCODE CREATOR

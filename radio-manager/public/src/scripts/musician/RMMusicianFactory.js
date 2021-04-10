@@ -2,7 +2,7 @@ import RMMusician from "./RMMusician"
 
 /**
  * Represent a flyweight factory
- * that produces a musicians
+ * that produces musicians
  * and prevents from large and
  * heavy duplicates.
  */
@@ -16,21 +16,16 @@ export default class RMMusicianFactory
   /**
    * Get the existing musician
    * or create a new one.
-   * @param {object} musician – The particular musician.
+   * @param {object} object - The particular musician.
+   * @param {number} object.id - The ID.
    */
-  static getMusician( musician )
+  static getMusician( object )
   {
-    if ( !this.musicians[ musician.id ] )
+    if ( !this.musicians[ object.id ] )
     {
-      this.musicians[ musician.id ] = new RMMusician(
-        musician.name,
-        musician.description,
-        musician.images,
-        musician.introductions,
-        musician.records
-      )
+      this.musicians[ object.id ] = new RMMusician( object )
     } // if
 
-    return this.musicians[ musician.id ]
+    return this.musicians[ object.id ]
   } // GET MUSICIAN
 } // RM MUSICIAN FACTORY

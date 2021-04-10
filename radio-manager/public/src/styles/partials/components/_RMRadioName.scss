@@ -1,0 +1,13 @@
+#rm-radio-name-field
+{
+  background-color: $rm_blue_color;
+  padding: 0.5rem;
+
+  span
+  {
+    @include rm-text( #FFF, 1.75rem, bold, center );
+
+    display: block;
+    cursor: default;
+  }
+}

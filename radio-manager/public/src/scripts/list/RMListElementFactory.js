@@ -1,4 +1,5 @@
 import RMMusicianFactory from "../musician/RMMusicianFactory"
+
 import RMImage from "../musician/multimedia/RMImage"
 import RMIntroduction from "../musician/multimedia/RMIntroduction"
 import RMRecord from "../musician/multimedia/RMRecord"
@@ -17,8 +18,8 @@ export default class RMListElementFactory
 {
   /**
    * Create a particular list element.
-   * @param {string} elementType – The type of the list element.
-   * @param {object} object – All the data to be saved.
+   * @param {string} elementType - The type of the list element.
+   * @param {object} object - All the data to be saved.
    */
   static createListElement( elementType, object )
   {
@@ -28,26 +29,15 @@ export default class RMListElementFactory
     } // if
     else if ( elementType == "image" )
     {
-      return new RMImage(
-        object.title,
-        object.description,
-        object.src
-      )
+      return new RMImage( object )
     } // else if
     else if ( elementType == "introduction" )
     {
-      return new RMIntroduction(
-        object.src,
-        object.type
-      )
+      return new RMIntroduction( object )
     } // else if
     else if ( elementType == "record" )
     {
-      return new RMRecord(
-        object.title,
-        object.src,
-        object.type
-      )
+      return new RMRecord( object )
     } // else if
     else if ( elementType == "genre" )
     {
@@ -55,29 +45,17 @@ export default class RMListElementFactory
     } // else if
     else if ( elementType == "playlistItem" )
     {
-      return new RMPlaylistItem(
-        object.genres,
-        object.numOfMusicians,
-        object.numOfRecordsPerMusician,
-        object.showWebsitePosts
-      )
+      return new RMPlaylistItem( object )
     } // else if
     else if ( elementType == "post" )
     {
-      return new RMPost(
-        object.image,
-        object.content
-      )
+      return new RMPost( object )
     } // else if
     else if ( elementType == "warning" )
     {
-      return new RMWarning(
-        object.first,
-        object.step,
-        object.title,
-        object.message,
-        object.link
-      )
+      return new RMWarning( object )
     } // else if
+    
+    return null
   } // CREATE LIST ELEMENT
 } // RM LIST ELEMENT FACTORY

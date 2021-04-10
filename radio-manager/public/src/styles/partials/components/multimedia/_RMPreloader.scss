@@ -1,0 +1,11 @@
+#rm-preloader-field
+{
+  position: absolute;
+  z-index: 0;
+      
+  #rm-preloader
+  {
+    @extend .swiper-lazy-preloader;
+    @extend .swiper-lazy-preloader-white;
+  }
+}

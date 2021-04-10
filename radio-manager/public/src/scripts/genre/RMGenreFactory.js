@@ -2,7 +2,7 @@ import RMGenre from "./RMGenre"
 
 /**
  * Represent a flyweight factory
- * that produces a music genres
+ * that produces music genres
  * and prevents from large and
  * heavy duplicates.
  */
@@ -16,17 +16,16 @@ export default class RMGenreFactory
   /**
    * Get the existing genre or
    * create a new one.
-   * @param {object} genre – The particular genre.
+   * @param {object} object - The particular genre.
+   * @param {string} object.slug - The slug.
    */
-  static getGenre( genre )
+  static getGenre( object )
   {
-    if ( !this.genres[ genre.slug ] )
+    if ( !this.genres[ object.slug ] )
     {
-      this.genres[ genre.slug ] = new RMGenre(
-        genre.musicians
-      )
+      this.genres[ object.slug ] = new RMGenre( object )
     } // if
 
-    return this.genres[ genre.slug ]
+    return this.genres[ object.slug ]
   } // GET GENRE
 } // RM GENRE FACTORY

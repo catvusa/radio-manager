@@ -1,7 +1,7 @@
 /**
  * Represent the functionality of the Copy 
  * button in the shortcode meta box.
- * @param {string} id – The ID of the element whose content is to be copied.
+ * @param {string} id - The ID of the element whose content is to be copied.
  */
 function rmCopy( id )
 {

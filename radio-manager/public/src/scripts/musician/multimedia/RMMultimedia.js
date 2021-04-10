@@ -1,14 +1,14 @@
 /**
  * Represent a parent class for images,
- * records and introductions.
+ * recordings and introductions.
  */
 export default class RMMultimedia
 {
   /**
    * Create a base for all the multimedia.
-   * @param {string} title – The main title.
-   * @param {string} description – More descriptive text.
-   * @param {string} src – The URL address.
+   * @param {string} title - The main title.
+   * @param {string} description - More descriptive text.
+   * @param {string} src - The URL address.
    */
   constructor( title, description, src )
   {

@@ -7,17 +7,18 @@ export default class RMPlaylistItem
 {
   /**
    * Create a playlist item.
-   * @param {object[]} genres – All the attached genres.
-   * @param {number} numOfMusicians – Number of musicians to be played.
-   * @param {number} numOfRecordsPerMusician – Number of records to be played per musician.
-   * @param {boolean} showWebsitePosts – Whether the website posts are being projected while playing this playlist item.
+   * @param {object} object - The particular playlist item.
+   * @param {object[]} object.genres - All the attached genres.
+   * @param {number} object.numOfMusicians - Number of musicians to be played.
+   * @param {number} object.numOfRecordsPerMusician - Number of recordings to be played per musician.
+   * @param {boolean} object.showWebsitePosts - Whether the website posts are being projected while playing this playlist item.
    */
-  constructor( genres, numOfMusicians, numOfRecordsPerMusician, showWebsitePosts )
+  constructor( object )
   {
-    this._genres = RMListFactory.createList( "shuffle", "genre", genres )
-    this._numOfMusicians = numOfMusicians
-    this._numOfRecordsPerMusician = numOfRecordsPerMusician
-    this._showWebsitePosts = showWebsitePosts
+    this._genres = RMListFactory.createList( "shuffle", "genre", object.genres )
+    this._numOfMusicians = object.numOfMusicians
+    this._numOfRecordsPerMusician = object.numOfRecordsPerMusician
+    this._showWebsitePosts = object.showWebsitePosts
   } // CONSTRUCTOR
 
   /**
@@ -27,7 +28,7 @@ export default class RMPlaylistItem
    */
   hasGenres()
   {
-    return this._genres.data.length
+    return this._genres.hasData()
   } // HAS GENRES
 
   /**

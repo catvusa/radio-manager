@@ -15,6 +15,7 @@ document.addEventListener( "DOMContentLoaded", () =>
     // Initiate all radio stations on the page
     for ( const output of outputs )
     {
+      // Get prepared data from the backend
       let data = window[ "rmData" + output.dataset.rmOutputId ]
 
       // Render a radio station if the data are available

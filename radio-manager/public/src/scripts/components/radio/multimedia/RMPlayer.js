@@ -63,7 +63,7 @@ export default class RMPlayer extends Component
 
   /**
    * Check whether it is the time to show the warning.
-   * @param {object} warning – The current warning.
+   * @param {object} warning - The current warning.
    */
   checkWarning( warning )
   {
@@ -82,7 +82,7 @@ export default class RMPlayer extends Component
    * Set a post to the radio station. The post
    * can be either about the musician or from
    * the website.
-   * @param {string} post – The specific post to be shown.
+   * @param {string} post - The specific post to be shown.
    */
   setPost( post )
   {
@@ -101,7 +101,7 @@ export default class RMPlayer extends Component
    * Set images to the radio station. Images
    * can be either about the musician or from
    * the website.
-   * @param {object[]} images – The specific images to be shown.
+   * @param {object[]} images - The specific images to be shown.
    */
   setImages( images )
   {
@@ -187,7 +187,7 @@ export default class RMPlayer extends Component
           yield
         } // if
 
-        // Loop through the records
+        // Loop through the recordings
         for ( let j = 0; j < playlistItem.numOfRecordsPerMusician; j++ )
         {
           // Reset the radio
@@ -203,7 +203,7 @@ export default class RMPlayer extends Component
             if ( post )
             {
               this.setPost( post.content )
-              this.setImages( post.image )
+              this.setImages( post.image.data )
             } // if
           } // if
           else
@@ -212,10 +212,10 @@ export default class RMPlayer extends Component
             this.setImages( musician.images.data )
           } // else
 
-          // Play a record by the musician
+          // Play a recording by the musician
           if ( musician.hasRecords() )
           {
-            // Select a random record
+            // Select a random recording
             let record = musician.records.nextElement()
 
             if ( record.type == "video" )
@@ -244,19 +244,19 @@ export default class RMPlayer extends Component
    */
   componentDidUpdate()
   {
-    // Play the record
+    // Play the recording
     if ( this._player.current && this.props.radioPlay && this.props.radioOn )
     {
       this._player.current.play()
     } // if
 
-    // Pause the record
+    // Pause the recording
     if ( this._player.current && !this.props.radioPlay && this.props.radioOn )
     {
       this._player.current.pause()
     } // if
 
-    // Skip the record
+    // Skip the recording
     if ( this.props.radioSkip )
     {
       this._loop.next()

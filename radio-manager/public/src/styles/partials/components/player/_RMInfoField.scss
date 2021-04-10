@@ -1,0 +1,20 @@
+#rm-info-wrapper
+{
+  @extend .col-lg-8;
+    
+  padding: 0.5rem 0;
+
+  #rm-info-field
+  {
+    @import "./RMInfo";
+
+    @extend .d-flex;
+    @extend .row;
+    @extend .no-gutters;
+  }
+}
+    
+#rm-no-info-wrapper
+{
+  @extend .col-lg-8;
+}

@@ -2,7 +2,7 @@
   "name": "catvusa/radio-manager",
   "description": "A WordPress plugin for managing your own custom web radios.",
   "type": "project",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "authors": [
     {
       "name": "Karel Vrabec",

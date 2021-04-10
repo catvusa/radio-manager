@@ -1,0 +1,13 @@
+#rm-radio-player-field
+{
+  @import "./player/RMIconField";
+  @import "./player/RMInfoField";
+
+  @extend .d-flex;
+  @extend .row;
+  @extend .align-items-center;
+  @extend .no-gutters;  
+  
+  background-color: $rm_blue_color;
+  border-top: 1px solid $rm_dark_color;
+}

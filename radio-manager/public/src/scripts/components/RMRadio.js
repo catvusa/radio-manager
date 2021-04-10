@@ -22,7 +22,7 @@ export default class RMRadio extends Component
       radioPlay: false,
       radioSkip: false,
 
-      // Record (state)
+      // Recording (state)
       recordData:
       {
         musician: "",
@@ -58,7 +58,7 @@ export default class RMRadio extends Component
     this.setRadioPlay = this.setRadioPlay.bind( this )
     this.setRadioSkip = this.setRadioSkip.bind( this )
 
-    // Record (methods)
+    // Recording (methods)
     this.setRecordData = this.setRecordData.bind( this )
 
     // Image (methods)
@@ -80,7 +80,7 @@ export default class RMRadio extends Component
   
   /**
    * Turn on/off the radio station.
-   * @param {boolean} value – The radioOn value.
+   * @param {boolean} value - The radioOn value.
    */
   setRadioOn( value )
   {
@@ -89,7 +89,7 @@ export default class RMRadio extends Component
 
   /**
    * Play/Pause the radio playlist.
-   * @param {boolean} value – The radioPlay value.
+   * @param {boolean} value - The radioPlay value.
    */
   setRadioPlay( value )
   {
@@ -105,8 +105,8 @@ export default class RMRadio extends Component
   } // SET RADIO PLAY
 
   /**
-   * Skip to the next record (or warning).
-   * @param {boolean} value – The radioSkip value.
+   * Skip to the next recording (or warning).
+   * @param {boolean} value - The radioSkip value.
    */
   setRadioSkip( value )
   {
@@ -114,11 +114,11 @@ export default class RMRadio extends Component
   } // SET RADIO SKIP
 
   /**
-   * Set the record and all respective information.
-   * @param {string} musician – The author of the song.
-   * @param {string} title – The title of the song.
-   * @param {string} src – The URL source of the record.
-   * @param {string} type – The type of the record (audio/video).
+   * Set the recording and all respective information.
+   * @param {string} musician - The author of the song.
+   * @param {string} title - The title of the song.
+   * @param {string} src - The URL source of the recording.
+   * @param {string} type - The type of the recording (audio/video).
    */
   setRecordData( musician, title, src, type )
   {
@@ -137,7 +137,7 @@ export default class RMRadio extends Component
   
   /**
    * Set the slides for the slider.
-   * @param {object[]} value – The slides (means images).
+   * @param {object[]} value - The slides (means images).
    */
   setImgData( value )
   {
@@ -146,7 +146,7 @@ export default class RMRadio extends Component
 
   /**
    * Set whether the slider is visible or not.
-   * @param {boolean} value – The imgVisibility value.
+   * @param {boolean} value - The imgVisibility value.
    */
   setImgVisibility( value )
   {
@@ -156,7 +156,7 @@ export default class RMRadio extends Component
   /**
    * Set the post content (means description
    * of the musician, website posts etc.)
-   * @param {string} value – The post content.
+   * @param {string} value - The post content.
    */
   setPostContent( value )
   {
@@ -166,7 +166,7 @@ export default class RMRadio extends Component
   /**
    * Set whether the back buttons of the posts
    * are visible or not.
-   * @param {boolean} value – The postButtons value.
+   * @param {boolean} value - The postButtons value.
    */
   setPostButtons( value )
   {
@@ -175,7 +175,7 @@ export default class RMRadio extends Component
 
   /**
    * Set whether the post is visible or not.
-   * @param {boolean} value – The postVisibility value.
+   * @param {boolean} value - The postVisibility value.
    */
   setPostVisibility( value )
   {
@@ -185,7 +185,7 @@ export default class RMRadio extends Component
   /**
    * Set whether the logo of the radio station
    * is visible or not.
-   * @param {boolean} value – The logoVisibility value.
+   * @param {boolean} value - The logoVisibility value.
    */
   setLogoVisibility( value )
   {
@@ -194,9 +194,9 @@ export default class RMRadio extends Component
 
   /**
    * Set the content of the warning.
-   * @param {string} title – The main title.
-   * @param {string} message – The main message.
-   * @param {string} link – The link of the confirm button.
+   * @param {string} title - The main title.
+   * @param {string} message - The main message.
+   * @param {string} link - The link of the confirm button.
    */
   setWarningData( title, message, link )
   {
@@ -214,7 +214,7 @@ export default class RMRadio extends Component
 
   /**
    * Set whether the warning is visible or not.
-   * @param {boolean} value – The warningVisibility value.
+   * @param {boolean} value - The warningVisibility value.
    */
   setWarningVisibility( value )
   {

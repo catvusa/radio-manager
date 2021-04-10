@@ -8,19 +8,21 @@ export default class RMIntroduction extends RMMultimedia
 {
   /**
    * Create an introduction.
-   * @param {string} src – The URL address.
-   * @param {string} type – The type of the record (audio/video).
+   * @param {object} object - The particular introduction.
+   * @param {string} object.src - The URL address.
+   * @param {string} object.type - The type of the recording (audio/video).
    */
-  constructor( src, type )
+  constructor( object )
   {
     /*
-      We are working with the src only.
-      The title and the description can
-      be added in the future.
+      We are working with the src 
+      and type only. The title and
+      description can be added
+      in the future.
     */
-    super( "", "", src )
+    super( "", "", object.src )
     
-    this._type = type
+    this._type = object.type
   } // CONSTRUCTOR
 
   /**

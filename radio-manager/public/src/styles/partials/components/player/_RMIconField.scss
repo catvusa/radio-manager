@@ -1,0 +1,14 @@
+#rm-icon-field
+{
+  @extend .col-lg-4;
+  @extend .d-flex;
+  @extend .justify-content-center;
+      
+  .rm-icon
+  {
+    background-color: $rm_red_color;
+    outline: 1px solid $rm_dark_color;
+    padding: 0.9rem;
+    cursor: pointer;
+  }
+}

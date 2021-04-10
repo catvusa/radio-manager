@@ -1,0 +1,9 @@
+.rm-caption-field
+{
+  @include rm-text( #FFF, 1rem, normal, center );
+
+  background-color: $rm_caption_color;
+  outline: 1px solid $rm_dark_color;
+  padding: 0.25rem;
+  width: 100%;
+}

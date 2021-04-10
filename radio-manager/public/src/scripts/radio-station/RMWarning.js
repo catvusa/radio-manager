@@ -7,19 +7,20 @@ export default class RMWarning
 {
   /**
    * Create a warning.
-   * @param {number} first – The warning appears for the first time after this number of musicians.
-   * @param {number} step – The warning appears for the next time after this number of musicians.
-   * @param {string} title – The main title.
-   * @param {string} message – More descriptive text.
-   * @param {string} link – The user is redirected to this URL address after clicking the confirm button.
+   * @param {object} object - The particular warning.
+   * @param {number} object.first - The warning appears for the first time after this number of musicians.
+   * @param {number} object.step - The warning appears for the next time after this number of musicians.
+   * @param {string} object.title - The main title.
+   * @param {string} object.message - More descriptive text.
+   * @param {string} object.link - The user is redirected to this URL address after clicking the confirm button.
    */
-  constructor( first, step, title, message, link )
+  constructor( object )
   {
-    this._first = first
-    this._step = step
-    this._title = title
-    this._message = message
-    this._link = link
+    this._first = object.first
+    this._step = object.step
+    this._title = object.title
+    this._message = object.message
+    this._link = object.link
   } // CONSTRUCTOR
 
   /**

@@ -8,13 +8,45 @@ export default class RMList
 {
   /**
    * Create a base for all lists.
-   * @param {string} elementType – Type of list elements.
-   * @param {object[]} data – All the data to be saved.
+   * @param {string} elementType - Type of list elements.
+   * @param {object[]} data - All the data to be saved.
    */
   constructor( elementType, data )
   {
-    this._data = data.map( object => RMListElementFactory.createListElement( elementType, object ) )
+    this._data = data.map( element => RMListElementFactory.createListElement( elementType, element ) )
+    this._loop = this.loop()
   } // CONSTRUCTOR
+
+  /**
+   * Access the data one by one
+   * using a custom generator.
+   */
+  * loop()
+  {
+    while ( true )
+    {
+      // No data
+      if ( !this.hasData() )
+      {
+        return false
+      } // if
+
+      // Loop through the array
+      for ( let element of this._data )
+      {
+        yield element
+      } // for
+    } // while
+  } // LOOP
+
+  /**
+   * Get the next element of the list.
+   * @return {object} The next element of the list.
+   */
+  nextElement()
+  {
+    return this._loop.next().value
+  } // NEXT ELEMENT
 
   /**
    * Find out whether the list
@@ -23,7 +55,7 @@ export default class RMList
    */
   hasData()
   {
-    return this._data.length
+    return (this._data.length ? true : false)
   } // HAS DATA
 
   /**
