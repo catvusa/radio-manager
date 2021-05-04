@@ -15,6 +15,9 @@ export default class RMShuffleList extends RMList
   constructor( elementType, data )
   {
     super( elementType, data )
+    
+    // Initial shuffle
+    this._data = unsort( this._data )
   } // CONSTRUCTOR
 
   /**
@@ -31,8 +34,11 @@ export default class RMShuffleList extends RMList
         return false
       } // if
 
-      // Shuffle the array with Fisher-Yates algorithm
-      this._data = unsort( this._data )
+      // Shuffle the array with modified Fisher-Yates algorithm
+      this._data = unsort( this._data, "unique-idx" )
+      
+      // Prevent repetition
+      this._data.reverse()
       
       // Loop through the array
       for ( let element of this._data )
