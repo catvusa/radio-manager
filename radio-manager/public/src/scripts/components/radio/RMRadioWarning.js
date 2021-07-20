@@ -28,12 +28,12 @@ export default class RMRadioWarning extends Component
     {
       return (
         <a href={ this.props.warningData.link } target="_blank">
-          <Button variant="primary">OK</Button>
+          <Button variant="primary">{ this.props.warningData.confirm }</Button>
         </a>
       )
     } // if
     
-    return <Button variant="primary" onClick={ () => { this.finishWarning() } }>OK</Button>
+    return <Button variant="primary" onClick={ () => { this.finishWarning() } }>{ this.props.warningData.confirm }</Button>
   } // GET CONFIRM BUTTON
 
   /**
@@ -56,7 +56,7 @@ export default class RMRadioWarning extends Component
           </Modal.Header>
           <Modal.Body dangerouslySetInnerHTML={ { __html: this.props.warningData.message } } />
           <Modal.Footer>
-            <Button variant="secondary" onClick={ () => { this.finishWarning() } }>Close</Button>
+            <Button variant="secondary" onClick={ () => { this.finishWarning() } }>{ this.props.warningData.cancel }</Button>
             { this.getConfirmButton() }
           </Modal.Footer>
         </Modal>

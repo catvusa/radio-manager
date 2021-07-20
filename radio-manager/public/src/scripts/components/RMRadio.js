@@ -48,6 +48,8 @@ export default class RMRadio extends Component
       {
         title: "",
         message: "",
+        cancel: "",
+        confirm: "",
         link: "",
       },
       warningVisibility: false,
@@ -196,9 +198,11 @@ export default class RMRadio extends Component
    * Set the content of the warning.
    * @param {string} title - The main title.
    * @param {string} message - The main message.
+   * @param {string} cancel - The label of the cancel button.
+   * @param {string} confirm - The label of the confirm button.
    * @param {string} link - The link of the confirm button.
    */
-  setWarningData( title, message, link )
+  setWarningData( title, message, cancel, confirm, link )
   {
     this.setState(
       {
@@ -206,6 +210,8 @@ export default class RMRadio extends Component
         {
           title: title,
           message: message,
+          cancel: cancel,
+          confirm: confirm,
           link: link,
         }
       }

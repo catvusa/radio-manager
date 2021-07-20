@@ -160,7 +160,7 @@ export default class RMPlayer extends Component
           {
             this.props.setRadioPlay( false )
             this.props.setRadioSkip( false )
-            this.props.setWarningData( warning.title, warning.message, warning.link )
+            this.props.setWarningData( warning.title, warning.message, warning.cancel, warning.confirm, warning.link )
             this.props.setWarningVisibility( true )
         
             yield

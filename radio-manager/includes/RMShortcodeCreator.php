@@ -295,6 +295,8 @@ class RMShortcodeCreator extends RMSubsystem
             "step"    => get_sub_field( "rm_radio_step" ),
             "title"   => get_sub_field( "rm_radio_title" ),
             "message" => get_sub_field( "rm_radio_message" ),
+            "cancel"  => get_sub_field( "rm_radio_cancel" ),
+            "confirm" => get_sub_field( "rm_radio_confirm" ),
             "link"    => get_sub_field( "rm_radio_link" ),
           ];
 
