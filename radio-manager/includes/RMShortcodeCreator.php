@@ -94,6 +94,9 @@ class RMShortcodeCreator extends RMSubsystem
     // There is a post of the radio station
     if ( get_post_type( $atts[ "id" ] ) == RM_RADIO_STATION_POST_TYPE )
     {
+      // Load frontend scripts
+      wp_enqueue_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", RM_PLUGIN ) );
+      
       // Send all the data to frontend
       wp_add_inline_script(
         "rm-frontend-scripts",

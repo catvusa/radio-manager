@@ -50,7 +50,6 @@ if ( file_exists( __DIR__ . "/vendor/autoload.php" ) )
 function rmLoadFrontendStylesAndScripts()
 {
   wp_enqueue_style( "rm-frontend-styles", plugins_url( "/public/dist/rm-styles.min.css", __FILE__ ) );
-  wp_enqueue_script( "rm-frontend-scripts", plugins_url( "/public/dist/rm-scripts.min.js", __FILE__ ) );
 } // RM LOAD FRONTEND STYLES AND SCRIPTS
 add_action( "wp_enqueue_scripts", "rmLoadFrontendStylesAndScripts" );
 
