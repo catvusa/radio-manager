@@ -1,5 +1,9 @@
 # Radio Manager
-(2021) A WordPress plugin for managing your own custom web radios.
+A WordPress plugin for managing your own custom web radios.
+
+Created for [the Czech-American TV](https://catvusa.com/) in Cape Coral, Florida, USA.
+
+Powered by *React*, *JavaScript*, and *PHP*.
 
 ### Documentation
 
